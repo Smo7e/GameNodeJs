@@ -1,0 +1,8 @@
+.Message-Container {
+    display: flex;
+    width: 10vw;
+}
+.message-name {
+    color: green;
+    white-space: nowrap;
+}

@@ -1,0 +1,140 @@
+.Login {
+    background-image: url("./image/fon.jpg");
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+    box-sizing: border-box;
+}
+
+.logoLogin {
+    position: absolute;
+    top: 25px;
+    left: 35px;
+    background-image: url("./image/logo.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 20%;
+    height: 20%;
+    transition: width 0.3s, height 0.3s;
+    background-color: transparent;
+    border: none;
+    z-index: 1;
+}
+
+.containerLogin {
+    position: absolute;
+
+    width: 51%;
+    height: 71%;
+    top: 14%;
+    left: 25%;
+    background-image: linear-gradient(to bottom, #5cb95c, rgb(53, 122, 53));
+
+    border-radius: 10px;
+    font-size: 6vh;
+    line-height: 8vh;
+    text-align: center;
+    box-shadow: 8px -8px rgb(50, 156, 58), 16px -16px rgb(30, 114, 37), -2px 2px 0px black, 18px -18px 1px black;
+}
+
+.loginInput {
+    border: 2px solid #000;
+    border-radius: 15px;
+    height: 5vh;
+    width: 72%;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    padding-left: 1vw;
+}
+
+.loginInput::placeholder {
+    margin-left: 3vw;
+}
+
+.containerLoginHeader {
+    color: #000;
+    text-align: center;
+    margin-top: 8vh;
+    padding: 0 auto;
+    font-size: 5vh;
+    font-family: Dhyana;
+}
+.checkboxLogin-container {
+    display: flex;
+    justify-content: center;
+}
+
+.loginButton {
+    border: 2px solid #000;
+    border-radius: 13px;
+    height: 7vh;
+    width: 25%;
+    margin: 0 auto;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    align-items: center;
+    font-size: 1.5vw;
+    font-weight: solid;
+}
+
+.loginButton:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+.hrLogin {
+    width: 60%;
+    height: 1px;
+    background-color: #000;
+    border: none;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+
+.checkboxLogin::before {
+    align-items: left;
+    align-items: center;
+    border: 2px solid #000;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(255, 255, 255);
+}
+
+.checkboxLogin:checked {
+    background-color: #000;
+    content: "\f00c";
+}
+
+.checkboxLoginText {
+    font-size: 1vw;
+    margin: auto;
+    margin-right: 20vw;
+    margin-left: 1vw;
+    color: white;
+    align-items: center;
+}
+
+.otherButtonLogin {
+    display: block;
+    color: #000;
+    border: 0;
+    background-color: rgba(28, 28, 28, 0);
+    font-size: 1vw;
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 1vh;
+    width: 20vw;
+}
+
+.otherButtonLogin:hover {
+    color: #fff;
+}
+
+.otherButtonsLogin {
+    line-height: 1vh;
+    margin-top: 1v;
+}

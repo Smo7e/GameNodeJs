@@ -1,0 +1,95 @@
+.tasktext-Container{
+    width: 68%;
+    height: 71%;
+    top: 18%;
+    left: 15%;
+    font-size: 6vh;
+    line-height: 8vh;
+    text-align: center;
+    background-image: url("./image/Task.png");
+    z-index: 1;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+}
+.tasktext-timer {
+    position: absolute;
+    font-family: "Anonymous Pro";
+    top: 4%;
+    align-items: center;
+    left: 41%;    
+    padding-top: -2px;
+    padding-bottom: 6px;
+    color: black;
+    background-color: rgb(255, 254, 254);
+    border-radius: 0;    
+    width: 18%;
+    text-align: center;
+    z-index: 4;
+    height: 10%;
+  }
+  
+  .tasktext-question {
+    position: absolute;
+    color: black;
+    background: linear-gradient(to bottom, white, rgb(173, 173, 173));
+    z-index: 4;
+    font-family: "Anonymous Pro";
+    top: 24%;
+    width: 84%;
+    height: 14%;
+    left: 10%;
+    border-radius: 0;
+  }
+  
+  
+  
+  .tasktext-input {
+    position: absolute;
+    color: black;
+    background-color: rgb(186, 186, 186);
+    border-radius: 5em; 
+    z-index: 4;
+    left: 15%;    
+    font-family: " Inter";
+    width: 51%;
+    height: 5%;
+    top: 50%;
+    border-left: 1px solid black;
+  }
+  .tasktext-input::before {
+    content: "";
+    position: absolute;
+    width: 4px;
+    height: 100%;
+    background-color: rgb(0, 0, 0);
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+
+
+  .tasktext-answer {
+    position: absolute;
+    color: black;
+    background: linear-gradient(to bottom, white, rgb(0, 255, 0));
+    left: 71%;
+    height: 5%;
+    top: 50%;
+    width: 11%;    
+    font-family: " Inter";
+    text-align: center;
+    border-radius: 5em;
+    font-size: 3vh;
+    padding-top: 1px;
+    padding-bottom: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+  
+  .tasktext-answer:hover {
+    background: linear-gradient(to bottom,  rgb(0, 255, 0), white);
+  }
+  

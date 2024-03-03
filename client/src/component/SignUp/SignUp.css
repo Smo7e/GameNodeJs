@@ -1,0 +1,118 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+    box-sizing: border-box;
+}
+
+img {
+    width: 200px;
+}
+.text-register {
+    color: #000;
+    padding-top: 30px;
+    font-family: Dhyana;
+    font-size: 3vw;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.form-SignUp {
+    position: absolute;
+
+    width: 30%;
+    top: 71px;
+    left: 57%;
+    background-image: linear-gradient(to bottom, #5cb95c, rgb(53, 122, 53));
+    border: 1px solid #000;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 8px -8px rgb(50, 156, 58), 16px -16px rgb(30, 114, 37);
+    font-family: Playfair Display;
+    padding-bottom: 5vh;
+}
+
+.container-SignUp {
+    background-image: url(./image/udsu.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+}
+
+.input-SignUp {
+    border: 1px solid #000;
+    border-radius: 1.2vh;
+    height: 3.5vh;
+    padding-left: 20px;
+    width: 70%;
+    align-items: center;
+    margin-top: 3vh;
+    background: #ebe4e4;
+}
+.logo-SignUp {
+    width: 12%;
+    padding-left: 30px;
+    padding-top: 30px;
+}
+
+.text-SignUp {
+    color: #fff;
+    text-shadow: 9px 0px 0px #000;
+    font-family: Playfair Display;
+    position: absolute;
+    top: 40%;
+    left: 13%;
+    width: 20%;
+    font-size: 7vw;
+    font-style: normal;
+    line-height: 100%;
+}
+
+.reg-button {
+    border: 1px solid #000;
+    background: #ebe4e4;
+    border-radius: 13px;
+    margin-top: 30px;
+    height: 5vh;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    font-size: 1.5vw;
+    transition: 0.5s;
+}
+.reg-button:hover {
+    background: #000;
+    color: #ebe4e4;
+}
+
+.reg-button :active {
+    box-shadow: inset 0 0 5px #000;
+    color: white;
+}
+
+.hr-SingUp {
+    margin-left: 50px;
+    margin-right: 50px;
+    color: #000;
+    background-color: #000;
+}
+
+.estakk {
+    color: #000;
+    font-family: Dhyana;
+    font-size: 2vh;
+    padding-top: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    background-color: unset;
+    transition: 0.2s;
+    cursor:default;
+}
+.estakk:hover {
+    color: #ebe4e4;
+    font-size: 2.5vh;
+}

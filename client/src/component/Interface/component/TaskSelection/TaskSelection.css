@@ -1,0 +1,158 @@
+.taskselection-Container {
+    width: 40%;
+    height: 40%;
+    top: 60%;
+    right: 5%;
+    font-size: 2vh;
+    text-align: center;
+    background-image: url("./image/Task.png");
+    z-index: 1;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+}
+.taskselection-timer {
+    position: absolute;
+    font-family: "Anonymous Pro";
+    top: 2%;
+    align-items: center;
+    left: 41%;
+    padding-top: -2px;
+    color: black;
+    background-color: rgb(255, 254, 254);
+    border-radius: 0;
+    width: 18%;
+    text-align: center;
+    z-index: 4;
+    height: 10%;
+}
+.taskselection-question {
+    position: relative;
+    font-family: "Anonymous Pro";
+    font-size: 3vh;
+    color: black;
+    background: linear-gradient(to bottom, white, rgb(173, 173, 173));
+    z-index: 4;
+    top: 13%;
+    width: 84%;
+    height: 25%;
+    left: 10%;
+    border-radius: 0;
+}
+
+.taskselection-answer {
+    position: absolute;
+    color: white;
+    font-size: 2vh;
+    left: 45%;
+    font-family: "Anonymous Pro";
+    top: 50%;
+}
+
+.taskselection-answer::after {
+    content: "";
+    position: absolute;
+    width: 350%;
+    height: 2px;
+    background-color: white;
+    top: 55%;
+    left: -380%;
+}
+.taskselection-answer::before {
+    content: "";
+    position: absolute;
+    width: 350%;
+    height: 2px;
+    background-color: white;
+    top: 55%;
+    left: 120%;
+}
+.taskselection-choice1,
+.taskselection-choice2,
+.taskselection-choice3,
+.taskselection-choice4 {
+    font-size: 1.7vh;
+    width: 20%;
+    justify-content: center;
+    height: 26%;
+}
+.taskselection-choice1 {
+    position: absolute;
+    font-family: "Anonymous Pro";
+    top: 60%;
+    align-items: center;
+    left: 2%;
+    padding-top: -2px;
+    padding-bottom: 5px;
+    color: rgb(255, 255, 255);
+    background: linear-gradient(to bottom, white, rgb(0, 255, 242));
+    border-radius: 0;
+    text-align: center;
+    z-index: 4;
+    border: 1px solid black;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+}
+.taskselection-choice1:hover {
+    background: linear-gradient(to bottom, rgb(0, 255, 242), white);
+}
+.taskselection-choice2 {
+    position: absolute;
+    top: 60%;
+    align-items: center;
+    left: 27%;
+    font-family: "Anonymous Pro";
+    padding-top: -2px;
+    padding-bottom: 5px;
+    color: rgb(255, 255, 255);
+    background: linear-gradient(to bottom, white, rgb(255, 251, 0));
+    border-radius: 0;
+    text-align: center;
+    z-index: 4;
+    border: 1px solid black;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+}
+.taskselection-choice2:hover {
+    background: linear-gradient(to bottom, rgb(255, 251, 0), white);
+}
+.taskselection-choice3 {
+    position: absolute;
+    top: 60%;
+    align-items: center;
+    font-family: "Anonymous Pro";
+    left: 54%;
+    padding-top: -2px;
+    padding-bottom: 5px;
+    color: rgb(255, 255, 255);
+    background: linear-gradient(to bottom, white, rgb(247, 0, 255));
+    border-radius: 0;
+    text-align: center;
+    z-index: 4;
+    border: 1px solid black;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+}
+.taskselection-choice3:hover {
+    background: linear-gradient(to bottom, rgb(247, 0, 255), white);
+}
+.taskselection-choice4 {
+    position: absolute;
+    top: 60%;
+    align-items: center;
+    left: 80%;
+    padding-top: -2px;
+    padding-bottom: 5px;
+    color: rgb(255, 255, 255);
+    background: linear-gradient(to bottom, white, rgb(255, 0, 0));
+    border-radius: 0;
+    text-align: center;
+    font-family: "Anonymous Pro";
+    z-index: 4;
+    border: 1px solid black;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+}
+.taskselection-choice4:hover {
+    background: linear-gradient(to bottom, rgb(255, 0, 0), white);
+}

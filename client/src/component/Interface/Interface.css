@@ -1,0 +1,93 @@
+.back-arrow-interface {
+    background-image: url("./image/back.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    left: 0;
+    top: 4px;
+    width: 2vw;
+    height: 2vw;
+}
+.settings-arrow-interface {
+    background-image: url("./image/settings.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    left: 2.4vw;
+    top: 4px;
+    width: 2vw;
+    height: 2vw;
+}
+.player-info {
+    position: absolute;
+    top: 7vh;
+    left: 1vw;
+}
+
+.player-icon-interface {
+    background-image: url("./image/playerIcon.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 4vw;
+    height: 4vw;
+}
+.player-level-interface {
+    background-color: #898888;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 50%;
+    width: 1vw;
+    height: 1vw;
+    font-size: 0.8vw;
+    text-align: center;
+}
+.player-hp-interface {
+    background: linear-gradient(to right, red 50%, #898888 50%);
+    position: absolute;
+    right: -10vw;
+    bottom: 0;
+    color: white;
+    width: 9vw;
+    height: 1vw;
+    font-size: 0.8vw;
+}
+
+.map-info {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.miniMap-interface {
+    border: 3px solid #000;
+    background: #d9d9d9;
+    width: 10vw;
+    height: 10vw;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+}
+.game-info-interface {
+    border: 3px solid #000;
+    background: #d9d9d9;
+    position: absolute;
+    right: 10vw;
+    top: 0;
+    width: 10vw;
+    height: 2.5vw;
+    display: flex;
+}
+.coin-interface,
+.time {
+    font-size: 1.8vw;
+    padding-left: 1vw;
+}
+.coin-icon-interface {
+    background-image: url("./image/coin.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 1.5vw;
+    height: 1.5vw;
+    margin-top: 0.6vw;
+    margin-left: 0.2vw;
+}
