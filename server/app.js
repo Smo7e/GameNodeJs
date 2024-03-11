@@ -1,6 +1,9 @@
 const express = require("express");
 const app = express();
 
+const CONFIG = require('./config');
+const { DATABASE } = CONFIG;
+
 const Answer = require("./application/router/Answer");
 const answer = new Answer();
 
@@ -10,7 +13,7 @@ const Game = require("./application/modules/game/Game");
 const Chat = require("./application/modules/chat/Chat");
 const DB = require("./application/modules/db/DB");
 
-const db = new DB();
+const db = new DB(DATABASE);
 const user = new User(answer, db);
 const lobby = new Lobby(answer, db);
 const game = new Game(answer, db);

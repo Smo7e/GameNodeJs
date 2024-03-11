@@ -1,38 +1,45 @@
+const { Client } = require('pg');
+
 class DB {
-    constructor() {
-        const sqlite3 = require("sqlite3").verbose();
-        this.db = new sqlite3.Database("./application/modules/db/studfront.db");
-    }
-
-    queryInDB(query) {
-        return new Promise((resolve, reject) => {
-            this.db.all(query, (err, rows) => {
-                if (err) {
-                    console.log(err.message, query);
-                    reject(err);
-                } else {
-                    resolve(rows);
-                }
-            });
+    constructor({ NAME, HOST, PORT, USER, PASS, }) {
+        this.db = new Client({
+            host: HOST,
+            port: PORT,
+            database: NAME,
+            user: USER,
+            password: PASS,
         });
-    }
-    async getUserById(id) {
-        const row = await this.queryInDB(`SELECT * FROM users WHERE id='${id}'`);
-        return row[0];
+
+        (async () => {
+            await this.db.connect();
+            this.orm = new ORM(this.db);
+        })();
     }
 
-    async getUserByLogin(login) {
-        const row = await this.queryInDB(`SELECT * FROM users WHERE login='${login}'`);
-        return row[0];
-    }
-    async getUserByToken(token) {
-        const row = await this.queryInDB(`SELECT * FROM users WHERE token='${token}'`);
-        return row[0];
+    async all(query, values = []) {
+        const res = await this.db.query(query, values);
+        return res.rows ? res.rows : [];
     }
 
-    async getUserByName(name) {
-        const row = await this.queryInDB(`SELECT * FROM users WHERE name='${name}'`);
-        return row[0];
+    update(query, values = []) {
+        this.db.query(query, values);
+    }
+
+    getUserById(id) { 
+        return this.orm.get('users', { id });
+    }
+
+    getUserByLogin(login) {
+        return this.orm.get('users', { login });
+    }
+
+    getUserByToken(token) {
+        return this.orm.get('users', { token });
+    }
+
+    // убрать
+    getUserByName(name) {
+        return this.orm.get('users', { name });
     }
 
     updateToken(user_id, token) {
