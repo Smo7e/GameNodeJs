@@ -90,7 +90,7 @@ class Game {
     }
     updateScene(updateTimestamp, updateTimeout) {
         if (Math.floor(new Date().getTime() / 1000) - updateTimestamp >= updateTimeout) {
-            $this.db.updateTimestamp(Math.floor(new Date().getTime() / 1000));
+            this.db.updateTimestamp(Math.floor(new Date().getTime() / 1000));
 
             // удалить мёртвых игроков
             // если у игрока статус "умер" - удалить его из БД

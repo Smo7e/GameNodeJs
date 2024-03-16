@@ -72,7 +72,6 @@ const Lobby: React.FC<ILobbyProps> = ({ epages }) => {
             <ShopLobby />
             <FriendLobby1 gamers={gamers} setPanel={setPanel} />
             <FriendLobby2 gamers={gamers} setPanel={setPanel} />
-
             {/* infoFriends && infoFriends[0].name === mediator.user.name */}
             {lobby === ELOBBY.SPORTIK && gamers && mediator.user.name === gamers[0].name ? (
                 <SportikLobby lobby={setLobby} gamerNumber={0} />

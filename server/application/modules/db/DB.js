@@ -1,7 +1,8 @@
-const { Client } = require('pg');
+const { Client } = require("pg");
+const ORM = require("./ORM");
 
 class DB {
-    constructor({ NAME, HOST, PORT, USER, PASS, }) {
+    constructor({ NAME, HOST, PORT, USER, PASS }) {
         this.db = new Client({
             host: HOST,
             port: PORT,
@@ -9,57 +10,44 @@ class DB {
             user: USER,
             password: PASS,
         });
-
         (async () => {
             await this.db.connect();
             this.orm = new ORM(this.db);
+            this.updateHp(6);
         })();
     }
 
-    async all(query, values = []) {
-        const res = await this.db.query(query, values);
-        return res.rows ? res.rows : [];
-    }
-
-    update(query, values = []) {
-        this.db.query(query, values);
-    }
-
-    getUserById(id) { 
-        return this.orm.get('users', { id });
+    getUserById(id) {
+        return this.orm.get("users", { id });
     }
 
     getUserByLogin(login) {
-        return this.orm.get('users', { login });
+        return this.orm.get("users", { login });
     }
 
     getUserByToken(token) {
-        return this.orm.get('users', { token });
+        return this.orm.get("users", { token });
     }
 
     // убрать
     getUserByName(name) {
-        return this.orm.get('users', { name });
+        return this.orm.get("users", { name });
     }
 
-    updateToken(user_id, token) {
-        return this.queryInDB(`UPDATE users SET token='${token}' WHERE id=${user_id}`);
+    updateToken(id, token) {
+        this.orm.update("users", { token }, { id });
     }
 
-    addUser(login, nickname, hash) {
-        return this.queryInDB(
-            `INSERT INTO users (login, name, password) VALUES ('${login}', '${nickname}', '${hash}')`
-        );
+    addUser(login, name, password) {
+        return this.orm.insert("users", { login, name, password });
     }
     ///Chat///
-    sendMessage(userId, message) {
-        this.queryInDB(
-            `INSERT INTO messages (user_id, message, created) VALUES (${userId}, '${message}', '${new Date()}')`
-        ); ////////////////////////////////////////
+    sendMessage(user_id, message) {
+        this.orm.insert("messages", { user_id, message, created: new Date() });
     }
 
-    updateChatHash(hash) {
-        this.queryInDB(`UPDATE game SET chat_hash='${hash}' WHERE id=1`);
+    updateChatHash(chat_hash) {
+        this.orm.update("users", { chat_hash }, { id: 1 });
     }
     ///Chat///
 
@@ -70,80 +58,106 @@ class DB {
     }
 
     async getFriends(id) {
-        const row = await this.queryInDB(`SELECT 'friends' FROM 'users' WHERE 'id' = ${id};`);
-        return row;
+        return this.orm.get("users", { id }, friends);
+        // const row = await this.queryInDB(`SELECT 'friends' FROM 'users' WHERE 'id' = ${id};`);
+        // return row;
     }
     async getGamers() {
-        return await this.queryInDB(
+        const result = await this.db.query(
             `SELECT u.name AS name,
-            g.person_id AS person_id,
-            g.status AS status,
-            g.x AS x,
-            g.y AS y,
-            g.direction AS direction,
-            g.hp as hp
-            FROM gamers AS g
-            INNER JOIN users AS u
-            ON u.id=g.user_id`
+             g.person_id AS person_id,
+             g.status AS status,
+             g.x AS x,
+             g.y AS y,
+             g.direction AS direction,
+             g.hp as hp
+             FROM gamers AS g
+             INNER JOIN users AS u
+             ON u.id=g.user_id`
         );
+        return result.rows;
     }
 
-    addGamers(id) {
-        this.queryInDB(`INSERT INTO gamers (user_id) VALUES (${id})`);
+    addGamers(user_id) {
+        this.orm.insert("gamers", { user_id });
+        // this.queryInDB(`INSERT INTO gamers (user_id) VALUES (${id})`);
     }
     deleteGamers() {
-        this.queryInDB("DELETE FROM gamers");
+        this.orm.delete("gamers");
+
+        // this.queryInDB("DELETE FROM gamers");
     }
-    updatePersonId(id, newPersonId) {
-        this.queryInDB(`UPDATE gamers SET person_id=${newPersonId} WHERE user_id=${id}`);
+    updatePersonId(user_id, person_id) {
+        this.orm.update("gamers", { person_id }, { user_id });
+        // this.queryInDB(`UPDATE gamers SET person_id=${newPersonId} WHERE user_id=${id}`);
     }
-    async getGamerById(userId) {
-        return await this.queryInDB(`SELECT * FROM gamers WHERE user_id=${userId}`);
+    getGamerById(user_id) {
+        return this.orm.get("gamers", { user_id });
+        //return await this.queryInDB(`SELECT * FROM gamers WHERE user_id=${userId}`);
     }
-    addInvitation(userId, friendId) {
-        this.queryInDB(`INSERT INTO invitations (id_who,id_to_whom) VALUES (${userId},${friendId})`);
+    addInvitation(id_who, id_to_whom) {
+        this.orm.insert("invitations", { id_who, id_to_whom });
+        //this.queryInDB(`INSERT INTO invitations (id_who,id_to_whom) VALUES (${userId},${friendId})`);
     }
-    async checkInvites(userId) {
-        return await this.queryInDB(`SELECT id_who FROM invitations WHERE id_to_whom=${userId}`);
+    async checkInvites(id_to_whom) {
+        //console.log(await this.orm.get("invitations", { id_to_whom }, "id_who"));
+        return await this.orm.all("invitations", { id_to_whom }, "id_who", true);
+        //return this.queryInDB(`SELECT id_who FROM invitations WHERE id_to_whom=${userId}`);
     }
 
     ///Lobby///
 
     ///Game///
-    move(userId, direction, x, y, status) {
-        this.queryInDB(
-            `UPDATE gamers SET direction='${direction}', x=${x}, y=${y}, status='${status}' WHERE user_id=${userId}`
-        );
+    move(user_id, direction, x, y, status) {
+        this.orm.update("gamers", { direction, x, y, status }, { user_id });
+
+        // this.queryInDB(
+        //     `UPDATE gamers SET direction='${direction}', x=${x}, y=${y}, status='${status}' WHERE user_id=${userId}`
+        // );
     }
     moveMobs(x, y) {
-        this.queryInDB(`UPDATE mobs SET x=${x}, y=${y} WHERE id=1`);
+        this.orm.update("mobs", { x, y }, { id: 1 });
+        //this.queryInDB(`UPDATE mobs SET x=${x}, y=${y} WHERE id=1`);
     }
-    async updateHp(userId) {
-        const hp = await this.queryInDB(`SELECT hp FROM gamers WHERE user_id = ${userId}`);
-        await this.queryInDB(`UPDATE gamers SET hp=${hp[0].hp - 5} WHERE user_id=${userId}`);
+    async updateHp(user_id) {
+        let hp = await this.orm.get("gamers", { user_id }, "hp");
+        //SELECT hp FROM gamers WHERE user_id = ${userId}
+        hp = hp.hp -= 5;
+        this.orm.update("gamers", { hp }, { user_id });
+        //`UPDATE gamers SET hp=${hp[0].hp - 5} WHERE user_id=${userId}
     }
     async updateHpMobs() {
-        const hp = await this.queryInDB(`SELECT hp FROM mobs WHERE id = 1`);
-        await this.queryInDB(`UPDATE mobs SET hp=${hp[0].hp - 5} WHERE id=1`);
+        let hp = await this.orm.get("mobs", { id: 1 }, "hp");
+        //const hp = this.queryInDB(`SELECT hp FROM mobs WHERE id = 1`);
+        hp = hp.hp -= 5;
+        this.orm.update("mobs", { hp }, { id: 1 });
+        //this.queryInDB(`UPDATE mobs SET hp=${hp[0].hp - 5} WHERE id=1`);
     }
-    async getQuestionsProgrammer() {
-        return await this.queryInDB("SELECT * FROM questions_programmer");
+    getQuestionsProgrammer() {
+        return this.orm.all("questions_programmer");
+
+        //return this.queryInDB("SELECT * FROM questions_programmer");
     }
     async getMobs() {
-        return await this.queryInDB("SELECT * FROM mobs");
+        return this.orm.all("mobs");
+        //return await this.queryInDB("SELECT * FROM mobs");
     }
 
-    updateGamersHash(hash) {
-        this.queryInDB(`UPDATE game SET gamers_hash='${hash}' WHERE id=1`);
+    updateGamersHash(gamers_hash) {
+        this.orm.update("game", { gamers_hash }, { id: 1 });
+        //this.queryInDB(`UPDATE game SET gamers_hash='${hash}' WHERE id=1`);
     }
-    updateMobsHash(hash) {
-        this.queryInDB(`UPDATE game SET mobs_hash='${hash}' WHERE id=1`);
+    updateMobsHash(mobs_hash) {
+        this.orm.update("game", { mobs_hash }, { id: 1 });
+        //this.queryInDB(`UPDATE game SET mobs_hash='${hash}' WHERE id=1`);
     }
-    async getHashes() {
-        return await this.queryInDB(`SELECT * FROM game WHERE id=1`);
+    getHashes() {
+        return this.orm.get("game", { id: 1 });
+        // this.queryInDB(`SELECT * FROM game WHERE id=1`);
     }
-    updateTimestamp(updateTimestamp) {
-        this.queryInDB(`UPDATE game SET update_timestamp=${updateTimestamp} WHERE id=1`);
+    updateTimestamp(update_timestamp) {
+        this.orm.update("game", { update_timestamp }, { id: 1 });
+        //this.queryInDB(`UPDATE game SET update_timestamp=${updateTimestamp} WHERE id=1`);
     }
 }
 

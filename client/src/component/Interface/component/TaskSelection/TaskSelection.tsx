@@ -27,7 +27,7 @@ const TaskSelection: React.FC<ITaskSelectionProps> = memo(({ setQuestionFlag }) 
                 setTimer(timer - 1);
                 if (timer == 0) {
                     clearInterval(timerId);
-                    // setQuestionFlag(false);
+                    setQuestionFlag(false);
                 }
             }
         }, 1000);
@@ -50,8 +50,6 @@ const TaskSelection: React.FC<ITaskSelectionProps> = memo(({ setQuestionFlag }) 
     }
     const checkAnswer = (answer: number) => {
         if (question) {
-            console.log(answer, question.correct_answer);
-            console.log(answer === question.correct_answer);
             if (answer === question.correct_answer) {
                 server.updateHpMobs();
             }

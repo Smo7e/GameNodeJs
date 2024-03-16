@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-const CONFIG = require('./config');
+const CONFIG = require("./config");
 const { DATABASE } = CONFIG;
 
 const Answer = require("./application/router/Answer");
