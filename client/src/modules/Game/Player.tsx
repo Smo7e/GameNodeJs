@@ -15,7 +15,7 @@ const Player: React.FC<PlayerProps> = memo((infoFriends) => {
     const server = useContext(ServerContext);
     const mediator = useContext(MediatorContext);
     const personRef = useRef<RapierRigidBody>(null);
-    const [death, moveDown, moveRight, moveUp, moveLeft] = useSprites(mediator.gamer.person_id);
+    const [death, moveDown, moveRight, moveUp, moveLeft] = useSprites(`${mediator.gamer.person_id}`);
     const [limitationОfSending, setLimitationОfSending] = useState(0);
 
     const controls = useControls();
