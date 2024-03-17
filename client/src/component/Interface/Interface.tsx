@@ -1,11 +1,16 @@
 import "./Interface.css";
-import { useRef } from "react";
+import { useRef, useState  } from "react";
 import { useEffect } from "react";
 import Chat from "./component/Chat/Chat";
+import ParametersGame from "./component/ParametersGame/ParametersGame"; 
+
 const Interface: React.FC = () => {
     const timeRef = useRef<HTMLDivElement>(null);
+    const parametersGameRef = useRef<HTMLDivElement>(null); 
     let seconds = 0;
     let minutes = 0;
+
+    const [showParametersGame, setShowParametersGame] = useState(false); 
     function updateTime() {
         seconds++;
         if (seconds === 60) {
@@ -17,17 +22,37 @@ const Interface: React.FC = () => {
         }`;
     }
     useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => { 
+            if ( 
+              parametersGameRef.current && 
+              !parametersGameRef.current.contains(event.target as Node) 
+            ) { 
+              setShowParametersGame(false); 
+            } 
+          }; 
         let interval = setInterval(updateTime, 1000);
+        document.addEventListener("mousedown", handleClickOutside); 
         return () => {
+            document.removeEventListener("mousedown", handleClickOutside); 
             clearInterval(interval);
         };
     });
-
+    const handleSettingsClick = () => { 
+        setShowParametersGame(true); 
+      }; 
+     
+      const handleParametersGameClick = () => { 
+        setShowParametersGame(false); 
+      }; 
     return (
         <div className="Inteface-container">
             <div className="back-arrow-interface"></div>
-            <div className="settings-arrow-interface"></div>
-
+            <div onClick={handleSettingsClick} className="settings-arrow-interface"></div> 
+            {showParametersGame && ( 
+            <div   onClick={handleParametersGameClick}> 
+            <ParametersGame /> 
+            </div> 
+            )} 
             <div className="player-info">
                 <div className="player-icon-interface"></div>
                 <div className="player-level-interface">1</div>
