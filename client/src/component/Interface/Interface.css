@@ -24,13 +24,25 @@
     left: 1vw;
 }
 
-.player-icon-interface {
-    background-image: url("./image/playerIcon.png");
+.player-icon-interfaceSportik,
+.player-icon-interfaceHumanitarian,
+.player-icon-interfaceTheechguy  {
+    position:relative;
+    background-image: url("./image/playerIconSportik.png");
     background-size: contain;
+    margin-top: 99.8%;
     background-repeat: no-repeat;
     width: 4vw;
+    top: -4.3vw;
     height: 4vw;
 }
+.player-icon-interfaceHumanitarian{
+    background-image: url("./image/playerIconHumanitarian.png");
+}
+.player-icon-interfaceTheechguy{
+    background-image: url("./image/playerIconTheechguy.png");
+}
+
 .player-level-interface {
     background-color: #898888;
     position: absolute;
@@ -42,7 +54,7 @@
     font-size: 0.8vw;
     text-align: center;
 }
-.player-hp-interface {
+/* .player-hp-interface {
     background: linear-gradient(to right, red 50%, #898888 50%);
     position: absolute;
     right: -10vw;
@@ -51,7 +63,7 @@
     width: 9vw;
     height: 1vw;
     font-size: 0.8vw;
-}
+} */
 
 .map-info {
     position: absolute;

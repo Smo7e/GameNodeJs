@@ -1,5 +1,5 @@
 import "./Interface.css";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useEffect } from "react";
 import Chat from "./component/Chat/Chat";
 const Interface: React.FC = () => {
@@ -29,9 +29,12 @@ const Interface: React.FC = () => {
             <div className="settings-arrow-interface"></div>
 
             <div className="player-info">
-                <div className="player-icon-interface"></div>
+                <div className="player-icon-interfaceSportik"></div>
+                <div className="player-icon-interfaceHumanitarian"></div>
+                <div className="player-icon-interfaceTheechguy"></div>
+
                 <div className="player-level-interface">1</div>
-                <div className="player-hp-interface">50 / 100</div>
+                {/* <div className="player-hp-interface">50 / 100</div> */}
             </div>
             <div className="map-info">
                 <div className="miniMap-interface">Мини карта</div>

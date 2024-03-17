@@ -82,19 +82,15 @@ const Game: React.FC = () => {
                 </Physics>
             </Canvas>
 
-            <div
-                style={{ position: "absolute", left: 50, top: 200 }}
-                onClick={() => {
-                    setQuestionFlag(true);
-                }}
-            >
-                {infoFriends ? (
-                    infoFriends.map((elem) => (
-                        <div style={{ height: 30, width: 200, marginTop: 1, color: "red" }}>
-                            {elem.name} : {elem.hp}/100HP
-                        </div>
-                    ))
-                ) : (
+            <div 
+            style={{ position: "absolute", left: 75, top: "-1.2vw"}} 
+            onClick={() => { setQuestionFlag(true);}}>
+                {infoFriends ? (infoFriends.map((elem) => (
+                <div style={{ height: 13, width: 170, marginTop: 108.5, 
+                    color: "white", fontSize: "0.7vw", clipPath: "polygon(0 0, 100% 0, 89% 100%, 0 100%)" , 
+                    background: `linear-gradient(to right, red ${elem.hp}%, #898888 ${elem.hp}%)`}}>
+                        {elem.name} : {elem.hp}/100 </div> ))
+                        ) : (
                     <></>
                 )}
             </div>
