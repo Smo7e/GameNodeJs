@@ -103,3 +103,28 @@
     margin-top: 0.6vw;
     margin-left: 0.2vw;
 }
+
+
+.I{
+    position: absolute; 
+    top: -5vw; 
+    font-size: 0.7vw; 
+    left: 107%; 
+    height: 15%; 
+    width: 300%; 
+    /* background: linear-gradient(to right, red var(--elem-hp, 100%), #898888 var(--elem-hp, 100%)); */
+
+}
+.HP{
+    color: white;
+    margin-top: 61%;
+    clip-path: polygon(0 0, 100% 0, 89% 100%, 0 100%); 
+}
+.BossXP{
+    position: absolute; 
+    font-size: 1.7vw; 
+    width: 300%; 
+    top: -1vw; 
+    left: 1217%; 
+    color: red;
+}
