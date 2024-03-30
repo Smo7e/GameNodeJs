@@ -1,15 +1,15 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { Canvas } from "@react-three/fiber";
+// import { Canvas } from "@react-three/fiber";
 import { ServerContext, MediatorContext } from "../../App";
 import { TGamer, TMobs, TScene } from "../Server/types";
-import Player from "./Player";
-import Scene from "./Scene";
-import { Physics } from "@react-three/rapier";
-import Friends from "./Friends";
-import Boss from "./Boss";
-import Bullets from "./Bullets";
-import BossFriends from "./BossFriends";
-import TaskSelection from "../../component/Interface/component/TaskSelection/TaskSelection";
+// import Player from "./Player";
+// import Scene from "./Scene";
+// import { Physics } from "@react-three/rapier";
+// import Friends from "./Friends";
+// import Boss from "./Boss";
+// import Bullets from "./Bullets";
+// import BossFriends from "./BossFriends";
+// import TaskSelection from "../../component/Interface/component/TaskSelection/TaskSelection";
 const Game: React.FC = () => {
     const server = useContext(ServerContext);
     const mediator = useContext(MediatorContext);
@@ -54,64 +54,6 @@ const Game: React.FC = () => {
     }
     return (
         <>
-            <Canvas
-                camera={{
-                    position: [0, 0, 14],
-                    zoom: 65,
-                    near: 0.1,
-                    far: 1000,
-                }}
-                orthographic
-            >
-                <ambientLight intensity={2} position={[0, 0, 5]} />
-                <Physics gravity={[0, 0, -10]}>
-                    <Scene />
-                    <Player infoFriends={infoFriends?.filter((n) => n.name == mediator.user.name)} />
-                    {infoFriends && infoFriends!.length >= 2 ? (
-                        <Friends infoFriends={infoFriends.filter((n) => n.name !== mediator.user.name)} />
-                    ) : (
-                        <></>
-                    )}
-                    {infoFriends && infoFriends[0].name === mediator.user.name ? (
-                        <Boss />
-                    ) : (
-                        <BossFriends infoMobs={infoMobs} />
-                    )}
-
-                    <Bullets infoFriends={infoFriends} infoMobs={infoMobs} />
-                </Physics>
-            </Canvas>
-
-            <div 
-            style={{ position: "absolute", left: 75, top: "-1.2vw"}} 
-            onClick={() => { setQuestionFlag(true);}}>
-                {infoFriends ? (infoFriends.map((elem) => (
-                <div style={{ height: 13, width: 170, marginTop: 108.5, 
-                    color: "white", fontSize: "0.7vw", clipPath: "polygon(0 0, 100% 0, 89% 100%, 0 100%)" , 
-                    background: `linear-gradient(to right, red ${elem.hp}%, #898888 ${elem.hp}%)`}}>
-                        {elem.name} : {elem.hp}/100 </div> ))
-                        ) : (
-                    <></>
-                )}
-            </div>
-            {mediator.triger && questionFlag ? <TaskSelection setQuestionFlag={setQuestionFlag} /> : <></>}
-            {mediator.triger ? (
-                <div
-                    style={{
-                        width: 200,
-                        height: 100,
-                        fontSize: 30,
-                        position: "absolute",
-                        left: "50%",
-                        top: 0,
-                        color: "red",
-                    }}
-                >
-                    {infoMobs ? <div>BossXP: {infoMobs[0].hp}</div> : <></>}
-                </div>
-            ) : (
-                <></>
-            )}
         </>
     );
 };
