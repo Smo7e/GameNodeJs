@@ -21,7 +21,6 @@ const Boss: React.FC = memo(() => {
     let limitationОfSending = 0;
     let hpMobs = 100;
     server.getMobs().then((result: any): any => {
-        console.log(result);
         if (result) {
             hpMobs = result[0].hp;
         }

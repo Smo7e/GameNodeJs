@@ -48,23 +48,14 @@ const Chat: React.FC = () => {
                     <div className="messages-list">
                         {messages.map((message_, index) =>
                             messages.length != 0 ? (
-                                <Message
-                                    key={index}
-                                    message={message_.message}
-                                    name={message_.name}
-                                />
+                                <Message key={index} message={message_.message} name={message_.name} />
                             ) : (
                                 <></>
                             )
                         )}
                     </div>
                     <div className="send-message-container">
-                        <input
-                            ref={messageRef}
-                            type="text"
-                            className="input-Message"
-                            placeholder="Ваше сообщение"
-                        />
+                        <input ref={messageRef} type="text" className="input-Message" placeholder="Ваше сообщение" />
                         <div className="Chat-image-container" onClick={sendMessagesHandler}>
                             <div className="Chat-image"></div>
                         </div>

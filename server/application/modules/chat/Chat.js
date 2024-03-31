@@ -18,5 +18,25 @@ class Chat {
         }
         return this.answer.bad(1001);
     }
+    async getMessage(token, hash) {
+        if (token && hash) {
+            const user = this.db.getUserByToken(token);
+            if (user) {
+                //return this->chat->getMessages($hash);
+                const hashes = await this.db.getHashes();
+                if (hashes.chat_hash === hash) {
+                    return this.answer.good("ok");
+                }
+
+                const messages = await this.db.getMessages();
+                return this.answer.good({
+                    messages: messages,
+                    hash: hashes.chat_hash,
+                });
+            }
+            return this.answer.bad(455);
+        }
+        return this.answer.bad(1001);
+    }
 }
 module.exports = Chat;

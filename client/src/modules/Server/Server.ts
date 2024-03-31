@@ -43,7 +43,7 @@ export default class Server {
     startChatInterval() {
         this.chatInterval = setInterval(async () => {
             const messages = await this.getMessages();
-            if (messages?.length) {
+            if (messages?.length && Array.isArray(messages)) {
                 const { GET_MESSAGES } = this.mediator.getEventTypes();
                 this.mediator.call<Array<TMessage>>(GET_MESSAGES, messages);
             }
