@@ -1,0 +1,815 @@
+{
+  "id": "d60b1651-7c48-4a33-8e27-35e2f9e6bbd5",
+  "version": "2.0",
+  "name": "Auto_test_Login",
+  "url": "http://localhost:3001/",
+  "tests": [{
+    "id": "b4b10c33-af36-414d-a3b5-3d050b5f354a",
+    "name": "Test-text",
+    "commands": [{
+      "id": "2ba44522-45ad-4a3d-a4ac-6cffc99d2351",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f58a5f9d-1455-444c-b61d-a8469193cd5a",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-header",
+      "targets": [
+        ["id=test-header", "id"],
+        ["css=#test-header", "css:finder"],
+        ["xpath=//div[@id='test-header']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div", "xpath:position"]
+      ],
+      "value": "Войти"
+    }, {
+      "id": "56670465-4f47-4bf8-962e-3185cb8d58de",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-checkbox-container",
+      "targets": [
+        ["css=.checkboxLoginText", "css:finder"],
+        ["xpath=//div[@id='test-checkbox-container']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div[3]/div", "xpath:position"]
+      ],
+      "value": "Не выходить из учетной записи"
+    }, {
+      "id": "63c9c21e-253d-4d7a-9892-ab8634b6bfc0",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-login-button",
+      "targets": [
+        ["id=test-login-button", "id"],
+        ["css=#test-login-button", "css:finder"],
+        ["xpath=//button[@id='test-login-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Продолжить')]", "xpath:innerText"]
+      ],
+      "value": "Продолжить"
+    }, {
+      "id": "f13fb8ce-a60e-465d-aad5-113038008364",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-forgot-password-button",
+      "targets": [
+        ["id=test-forgot-password-button", "id"],
+        ["css=#test-forgot-password-button", "css:finder"],
+        ["xpath=//button[@id='test-forgot-password-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-other-buttons']/button", "xpath:idRelative"],
+        ["xpath=//div[4]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Не можете войти?')]", "xpath:innerText"]
+      ],
+      "value": "Не можете войти?"
+    }, {
+      "id": "3b2161a0-21d5-4efb-9794-3152cd5fc9bc",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-create-account-button",
+      "targets": [
+        ["id=test-create-account-button", "id"],
+        ["css=#test-create-account-button", "css:finder"],
+        ["xpath=//button[@id='test-create-account-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-other-buttons']/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Создать учетную запись')]", "xpath:innerText"]
+      ],
+      "value": "Создать учетную запись"
+    }]
+  }, {
+    "id": "97df7ccc-2b05-4ed9-805f-8362e3e8492e",
+    "name": "Test-elements",
+    "commands": [{
+      "id": "8c7733d1-f6be-427e-b4ff-df893c4c4d47",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "49159c8d-d66b-46c7-9147-74d1c72890e7",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test-logo",
+      "targets": [
+        ["css=.logoLogin", "css:finder"],
+        ["xpath=//div[@id='test-login']/div", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6a36bf15-429d-41aa-bcf8-9c00a2f53eb1",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test-container",
+      "targets": [
+        ["id=test-container", "id"],
+        ["css=#test-container", "css:finder"],
+        ["xpath=//div[@id='test-container']", "xpath:attributes"],
+        ["xpath=//div[@id='test-login']/div[2]", "xpath:idRelative"],
+        ["xpath=//div/div[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "19a91918-5c0b-4b01-a4fe-2d60007c57ca",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test-login-input",
+      "targets": [
+        ["id=test-login-input", "id"],
+        ["css=#test-login-input", "css:finder"],
+        ["xpath=//input[@id='test-login-input']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c2cf7a36-df9b-49da-9edc-5140c3926144",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test-password-input",
+      "targets": [
+        ["id=test-password-input", "id"],
+        ["css=#test-password-input", "css:finder"],
+        ["xpath=//input[@id='test-password-input']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container']/div[2]/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7f2f6504-055b-4ef1-a75e-11ef6b677d90",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test-remember-checkbox",
+      "targets": [
+        ["id=test-remember-checkbox", "id"],
+        ["css=#test-remember-checkbox", "css:finder"],
+        ["xpath=//input[@id='test-remember-checkbox']", "xpath:attributes"],
+        ["xpath=//div[@id='test-checkbox-container']/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8a4ecf92-9aa6-4822-ad39-2f919f0ab5f8",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test-hrLogin",
+      "targets": [
+        ["id=test-hrLogin", "id"],
+        ["css=#test-hrLogin", "css:finder"],
+        ["xpath=//hr[@id='test-hrLogin']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container']/hr", "xpath:idRelative"],
+        ["xpath=//hr", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "afbb98fb-4d9e-4721-b1a2-e962656a54db",
+    "name": "Test-successful-login",
+    "commands": [{
+      "id": "41a87901-221e-4808-b3e3-55e6327094fa",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5d916122-60bd-4f6d-b20b-2d60e6785722",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-login-input",
+      "targets": [
+        ["id=test-login-input", "id"],
+        ["css=#test-login-input", "css:finder"],
+        ["xpath=//input[@id='test-login-input']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "vasya"
+    }, {
+      "id": "bb00e7b8-34ae-4588-88f0-e392b6aeb742",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-password-input",
+      "targets": [
+        ["id=test-password-input", "id"],
+        ["css=#test-password-input", "css:finder"],
+        ["xpath=//input[@id='test-password-input']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container']/div[2]/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "123"
+    }, {
+      "id": "cae7dd00-92f5-4482-b54b-d08b48f7fc00",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-login-button",
+      "targets": [
+        ["id=test-login-button", "id"],
+        ["css=#test-login-button", "css:finder"],
+        ["xpath=//button[@id='test-login-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Продолжить')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "328b42db-56cd-4a81-ba94-779a48d5b9d6",
+    "name": "Test-invalid-password",
+    "commands": [{
+      "id": "38b84fe1-b5de-40fa-a983-8469f95519fa",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "27998c6c-965d-406a-885f-f26fed08b4ec",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-login-input",
+      "targets": [
+        ["id=test-login-input", "id"],
+        ["css=#test-login-input", "css:finder"],
+        ["xpath=//input[@id='test-login-input']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "vasya"
+    }, {
+      "id": "b0924f0f-5cd5-436f-b53d-1f4aec907f81",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-password-input",
+      "targets": [
+        ["id=test-password-input", "id"],
+        ["css=#test-password-input", "css:finder"],
+        ["xpath=//input[@id='test-password-input']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container']/div[2]/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "******"
+    }, {
+      "id": "9b8e479b-20fc-4147-9f6e-4930e78d8d6d",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-login-button",
+      "targets": [
+        ["id=test-login-button", "id"],
+        ["css=#test-login-button", "css:finder"],
+        ["xpath=//button[@id='test-login-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Продолжить')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "056fa118-8566-4d6d-b8eb-ebc8bc873f5c",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-code",
+      "targets": [
+        ["id=test-error-code", "id"],
+        ["css=#test-error-code", "css:finder"],
+        ["xpath=//div[@id='test-error-code']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div[4]/div", "xpath:position"]
+      ],
+      "value": "Error Code: 1012"
+    }, {
+      "id": "d95b91a9-c91c-4a2d-9aab-ffdbe6ca251f",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-text",
+      "targets": [
+        ["id=test-error-code", "id"],
+        ["css=#test-error-code", "css:finder"],
+        ["xpath=//div[@id='test-error-code']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div[4]/div", "xpath:position"]
+      ],
+      "value": "Введите логин и пароль"
+    }]
+  }, {
+    "id": "0d0e65a8-5d8b-49d0-9b68-2b4a9403e68f",
+    "name": "Test-no-password",
+    "commands": [{
+      "id": "d8757933-688f-4332-991c-63375c7ca4fa",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3a81efaa-c62c-4a5f-bd65-754b57d6ca26",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-login-input",
+      "targets": [
+        ["id=test-login-input", "id"],
+        ["css=#test-login-input", "css:finder"],
+        ["xpath=//input[@id='test-login-input']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "vasya"
+    }, {
+      "id": "ba30c17f-00bf-4c8b-8ae5-505dfb085d94",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-password-input",
+      "targets": [
+        ["id=test-password-input", "id"],
+        ["css=#test-password-input", "css:finder"],
+        ["xpath=//input[@id='test-password-input']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container']/div[2]/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8e753d48-019b-4340-bd99-adbc43dc8d58",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-login-button",
+      "targets": [
+        ["id=test-login-button", "id"],
+        ["css=#test-login-button", "css:finder"],
+        ["xpath=//button[@id='test-login-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Продолжить')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7ffa9714-aae6-430f-a512-bd89f833e632",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-code",
+      "targets": [
+        ["id=test-error-code", "id"],
+        ["css=#test-error-code", "css:finder"],
+        ["xpath=//div[@id='test-error-code']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div", "xpath:idRelative"],
+        ["xpath=//div[4]/div", "xpath:position"]
+      ],
+      "value": "Error Code: 1012"
+    }, {
+      "id": "c07110c2-616d-4bde-999c-b1f2a63663c1",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-text",
+      "targets": [
+        ["id=test-error-code", "id"],
+        ["css=#test-error-code", "css:finder"],
+        ["xpath=//div[@id='test-error-code']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div[4]/div", "xpath:position"]
+      ],
+      "value": "Введите логин и пароль"
+    }]
+  }, {
+    "id": "92e9ddba-249e-4ba1-b0fc-1c7b1b9b3565",
+    "name": "Test-no-login",
+    "commands": [{
+      "id": "febd70d8-871a-4932-a16c-ee25a7166cfd",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "bae71119-2d53-453e-877e-1a3cf1caba6e",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-login-input",
+      "targets": [
+        ["id=test-login-input", "id"],
+        ["css=#test-login-input", "css:finder"],
+        ["xpath=//input[@id='test-login-input']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "09ae5d41-b83a-48b1-9dcf-bc1f71b94327",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-password-input",
+      "targets": [
+        ["id=test-password-input", "id"],
+        ["css=#test-password-input", "css:finder"],
+        ["xpath=//input[@id='test-password-input']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container']/div[2]/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "123"
+    }, {
+      "id": "850736d3-db1d-4ed6-8e88-4b0bb0efcd92",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-login-button",
+      "targets": [
+        ["id=test-login-button", "id"],
+        ["css=#test-login-button", "css:finder"],
+        ["xpath=//button[@id='test-login-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Продолжить')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "58d89629-4818-4b99-b4c8-cfb0c843fa45",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-code",
+      "targets": [
+        ["id=test-error-code", "id"],
+        ["css=#test-error-code", "css:finder"],
+        ["xpath=//div[@id='test-error-code']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div", "xpath:idRelative"],
+        ["xpath=//div[4]/div", "xpath:position"]
+      ],
+      "value": "Error Code: 1012"
+    }, {
+      "id": "3e82910c-5299-4291-b624-fa5a5ab3a990",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-text",
+      "targets": [
+        ["id=test-error-code", "id"],
+        ["css=#test-error-code", "css:finder"],
+        ["xpath=//div[@id='test-error-code']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div[4]/div", "xpath:position"]
+      ],
+      "value": "Введите логин и пароль"
+    }]
+  }, {
+    "id": "e05cf459-e4ab-4bb2-950b-90abf5b741dd",
+    "name": "Test-invalid-login",
+    "commands": [{
+      "id": "c0938209-a0d5-43ff-8d00-d98b01311330",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1e814eb2-29c1-4878-b850-03a3d9fde953",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-login-input",
+      "targets": [
+        ["id=test-login-input", "id"],
+        ["css=#test-login-input", "css:finder"],
+        ["xpath=//input[@id='test-login-input']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "vasyaLoshara"
+    }, {
+      "id": "4ff75e86-24de-4eb0-b7ae-9bd3f368b35c",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-password-input",
+      "targets": [
+        ["id=test-password-input", "id"],
+        ["css=#test-password-input", "css:finder"],
+        ["xpath=//input[@id='test-password-input']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container']/div[2]/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "123"
+    }, {
+      "id": "3d59d62a-90fe-4a28-ae3d-f0a4e8ac8d57",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-login-button",
+      "targets": [
+        ["id=test-login-button", "id"],
+        ["css=#test-login-button", "css:finder"],
+        ["xpath=//button[@id='test-login-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Продолжить')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0b076530-18bc-4fcd-95d8-acea9ea2a824",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-code",
+      "targets": [
+        ["id=test-error-code", "id"],
+        ["css=#test-error-code", "css:finder"],
+        ["xpath=//div[@id='test-error-code']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div", "xpath:idRelative"],
+        ["xpath=//div[4]/div", "xpath:position"]
+      ],
+      "value": "Error Code: 1000"
+    }, {
+      "id": "718b9b2b-2247-4241-a4a8-141e90afe645",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-text",
+      "targets": [
+        ["id=test-error-code", "id"],
+        ["css=#test-error-code", "css:finder"],
+        ["xpath=//div[@id='test-error-code']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div[4]/div", "xpath:position"]
+      ],
+      "value": "Пожалуйста, проверьте свой логин и пароль"
+    }]
+  }, {
+    "id": "1a92e471-473d-417c-8905-4eaa5c6db133",
+    "name": "Test-no-parameters",
+    "commands": [{
+      "id": "10e944c0-bbe5-4546-aaf5-bc24625f3cd2",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "04146399-4369-4f4b-a089-9bd527dafe8d",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-login-input",
+      "targets": [
+        ["id=test-login-input", "id"],
+        ["css=#test-login-input", "css:finder"],
+        ["xpath=//input[@id='test-login-input']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "1a48ec70-3272-4706-bedd-decab773ce6d",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-password-input",
+      "targets": [
+        ["id=test-password-input", "id"],
+        ["css=#test-password-input", "css:finder"],
+        ["xpath=//input[@id='test-password-input']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container']/div[2]/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4b0176c6-a3c3-4461-810e-e48238d679c1",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-login-button",
+      "targets": [
+        ["id=test-login-button", "id"],
+        ["css=#test-login-button", "css:finder"],
+        ["xpath=//button[@id='test-login-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Продолжить')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "cdc6a667-f564-47f0-b241-b5c8c4cc1f11",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-code",
+      "targets": [
+        ["id=test-error-code", "id"],
+        ["css=#test-error-code", "css:finder"],
+        ["xpath=//div[@id='test-error-code']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div", "xpath:idRelative"],
+        ["xpath=//div[4]/div", "xpath:position"]
+      ],
+      "value": "Error Code: 1012"
+    }, {
+      "id": "522e56e7-5261-4a8a-a1e6-67f40fcb0560",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-text",
+      "targets": [
+        ["id=test-error-code", "id"],
+        ["css=#test-error-code", "css:finder"],
+        ["xpath=//div[@id='test-error-code']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div[4]/div", "xpath:position"]
+      ],
+      "value": "Введите логин и пароль"
+    }]
+  }, {
+    "id": "7e3fead4-1dc4-44f8-8788-c32921b55272",
+    "name": "Test-button-SignUp",
+    "commands": [{
+      "id": "6263ccf3-dc7e-4278-be64-abf0019438f1",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "fb35531d-b785-4b58-aab0-61c99716ccca",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-create-account-button",
+      "targets": [
+        ["id=test-create-account-button", "id"],
+        ["css=#test-create-account-button", "css:finder"],
+        ["xpath=//button[@id='test-create-account-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-other-buttons']/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Создать учетную запись')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "cfb40de6-bcc8-4847-9b3a-10cb7c919ce8",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test-container-SignUp",
+      "targets": [
+        ["id=test-container-SignUp", "id"],
+        ["css=#test-container-SignUp", "css:finder"],
+        ["xpath=//div[@id='test-container-SignUp']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div", "xpath:idRelative"],
+        ["xpath=//div[5]/div", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "550f1272-397d-44a5-b806-a5628c1cf996",
+    "name": "Test-goTo-Login-inSignUp",
+    "commands": [{
+      "id": "cc14b68a-9648-4766-b958-baf73ea71c64",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "01054ca5-67cc-4eb9-95cb-fec8ba2445be",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-create-account-button",
+      "targets": [
+        ["id=test-create-account-button", "id"],
+        ["css=#test-create-account-button", "css:finder"],
+        ["xpath=//button[@id='test-create-account-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-other-buttons']/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Создать учетную запись')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "942bc3b0-7d10-4da0-901c-af941045753d",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test-container-SignUp",
+      "targets": [
+        ["id=test-container-SignUp", "id"],
+        ["css=#test-container-SignUp", "css:finder"],
+        ["xpath=//div[@id='test-container-SignUp']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div", "xpath:idRelative"],
+        ["xpath=//div[3]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c55afbdf-bcd8-40c5-bb8f-08de79ce66ae",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-estakk",
+      "targets": [
+        ["id=test-estakk", "id"],
+        ["css=#test-estakk", "css:finder"],
+        ["xpath=//div[@id='test-estakk']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f3d58c7f-3294-4de2-bb17-35ccf0ad9636",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test-login",
+      "targets": [
+        ["id=test-login", "id"],
+        ["css=#test-login", "css:finder"],
+        ["xpath=//div[@id='test-login']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div", "xpath:idRelative"],
+        ["xpath=//div[6]/div", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "bd1e3275-84fb-49b0-a01f-2f611ec64227",
+    "name": "Test-goTo-Login-inMenu",
+    "commands": [{
+      "id": "30847a4a-fc7e-448a-98bd-9f37512b63c9",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a4ad5554-de8f-460f-b00f-90dbf8c3730d",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-login-input",
+      "targets": [
+        ["id=test-login-input", "id"],
+        ["css=#test-login-input", "css:finder"],
+        ["xpath=//input[@id='test-login-input']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "vasya"
+    }, {
+      "id": "6b8027af-f86f-4572-8297-8409ea2095fb",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-password-input",
+      "targets": [
+        ["id=test-password-input", "id"],
+        ["css=#test-password-input", "css:finder"],
+        ["xpath=//input[@id='test-password-input']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container']/div[2]/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "123"
+    }, {
+      "id": "05556775-2fa2-4ad8-b6a9-aa0ea7bf0caa",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-login-button",
+      "targets": [
+        ["id=test-login-button", "id"],
+        ["css=#test-login-button", "css:finder"],
+        ["xpath=//button[@id='test-login-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Продолжить')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "babec9cb-be22-4f29-b627-8daaa98743b4",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test-mainMemu",
+      "targets": [
+        ["css=.mainMenu", "css:finder"],
+        ["xpath=//div[@id='root']/div", "xpath:idRelative"],
+        ["xpath=//div[9]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "1a395233-e2f0-42c5-868e-31781a62c9fd",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-change-account",
+      "targets": [
+        ["id=test-change-account", "id"],
+        ["css=#test-change-account", "css:finder"],
+        ["xpath=//button[@id='test-change-account']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Сменить аккаунт')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "eea36ace-a853-4728-8be8-a98907750824",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test-login",
+      "targets": [
+        ["id=test-login", "id"],
+        ["css=#test-login", "css:finder"],
+        ["xpath=//div[@id='test-login']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div", "xpath:idRelative"],
+        ["xpath=//div[12]/div", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "cc7f35a4-65c6-4fb5-b07b-64435236107f",
+    "name": "positive tests suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["b4b10c33-af36-414d-a3b5-3d050b5f354a", "97df7ccc-2b05-4ed9-805f-8362e3e8492e", "afbb98fb-4d9e-4721-b1a2-e962656a54db", "7e3fead4-1dc4-44f8-8788-c32921b55272", "bd1e3275-84fb-49b0-a01f-2f611ec64227", "550f1272-397d-44a5-b806-a5628c1cf996"]
+  }, {
+    "id": "6742ee64-f61f-4f74-9a48-f4600737cf98",
+    "name": "negative tests suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["328b42db-56cd-4a81-ba94-779a48d5b9d6", "0d0e65a8-5d8b-49d0-9b68-2b4a9403e68f", "e05cf459-e4ab-4bb2-950b-90abf5b741dd", "92e9ddba-249e-4ba1-b0fc-1c7b1b9b3565", "1a92e471-473d-417c-8905-4eaa5c6db133"]
+  }],
+  "urls": ["http://localhost:3000/", "http://localhost:3001/"],
+  "plugins": []
+}

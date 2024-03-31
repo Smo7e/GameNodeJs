@@ -1,0 +1,2033 @@
+{
+  "id": "9257c282-16b3-4c14-88fa-bacb61e58745",
+  "version": "2.0",
+  "name": "Auto-test_SignUp",
+  "url": "http://localhost:3001/",
+  "tests": [{
+    "id": "902e6f67-a0dd-48cc-a7f4-e939f999ea93",
+    "name": "Test-gotoSignUp",
+    "commands": [{
+      "id": "5b0c2c63-1e28-4701-a7bd-6340ebc8aa8c",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b61880fd-207a-4397-8fbb-04dee85b35b4",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-create-account-button",
+      "targets": [
+        ["id=test-create-account-button", "id"],
+        ["css=#test-create-account-button", "css:finder"],
+        ["xpath=//button[@id='test-create-account-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-other-buttons']/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Создать учетную запись')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "fec7b9df-9a6b-4598-8225-7eec9e068f95",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-container-SignUp",
+      "targets": [
+        ["id=test-container-SignUp", "id"],
+        ["css=#test-container-SignUp", "css:finder"],
+        ["xpath=//div[@id='test-container-SignUp']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div", "xpath:idRelative"],
+        ["xpath=//div[4]/div", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "35543de7-adea-4640-8b2e-b68eaf77439e",
+    "name": "Test-registration",
+    "commands": [{
+      "id": "c41ea63c-72e5-4432-9407-8685a782f2c4",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "51134feb-3b48-44eb-a945-6f14fb12e26b",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-create-account-button",
+      "targets": [
+        ["id=test-create-account-button", "id"],
+        ["css=#test-create-account-button", "css:finder"],
+        ["xpath=//button[@id='test-create-account-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-other-buttons']/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Создать учетную запись')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c432bb53-78c7-4226-ba9f-34e62669c3da",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return (\"vasya\"+Math.floor(Math.random() * 1000000))",
+      "targets": [],
+      "value": "loginValue"
+    }, {
+      "id": "86d1757f-a2ec-4b9e-a474-e01607394fe8",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-login",
+      "targets": [
+        ["id=test-input-login", "id"],
+        ["css=#test-input-login", "css:finder"],
+        ["xpath=//input[@id='test-input-login']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${loginValue}"
+    }, {
+      "id": "3f14e09e-a32c-4557-b433-792df8eac7b3",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return (\"vasyaDamn\"+Math.floor(Math.random() * 1000000))",
+      "targets": [],
+      "value": "nicknameValue"
+    }, {
+      "id": "b704bb47-c24b-48bc-857a-811af495b35a",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-nick",
+      "targets": [
+        ["id=test-input-nick", "id"],
+        ["css=#test-input-nick", "css:finder"],
+        ["xpath=//input[@id='test-input-nick']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "${nicknameValue}"
+    }, {
+      "id": "d2dc0a46-0444-4f46-979f-2072523ce540",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return (Math.floor(Math.random() * 1000000))",
+      "targets": [],
+      "value": "passwordValue"
+    }, {
+      "id": "e416f009-c37d-4f24-a5e4-e7767fd37a47",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-password",
+      "targets": [
+        ["id=test-input-password", "id"],
+        ["css=#test-input-password", "css:finder"],
+        ["xpath=//input[@id='test-input-password']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[3]", "xpath:idRelative"],
+        ["xpath=//input[3]", "xpath:position"]
+      ],
+      "value": "${passwordValue}"
+    }, {
+      "id": "0873ad8c-bf9e-4fc2-889b-946602e8a4a0",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-verify",
+      "targets": [
+        ["id=test-input-verify", "id"],
+        ["css=#test-input-verify", "css:finder"],
+        ["xpath=//input[@id='test-input-verify']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": "${passwordValue}"
+    }, {
+      "id": "02bc88f3-9627-4163-84a4-d63b90fb08f0",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-reg-button",
+      "targets": [
+        ["id=test-reg-button", "id"],
+        ["css=#test-reg-button", "css:finder"],
+        ["xpath=//button[@id='test-reg-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Регистрация')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "c341c2fc-cfa3-4c36-9739-cb0ec011e524",
+    "name": "Test-text",
+    "commands": [{
+      "id": "d2da9588-24a0-4267-a70a-41c470410ddd",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "32ae18ff-ba40-497a-a9b5-1582b5b072d5",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-create-account-button",
+      "targets": [
+        ["id=test-create-account-button", "id"],
+        ["css=#test-create-account-button", "css:finder"],
+        ["xpath=//button[@id='test-create-account-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-other-buttons']/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Создать учетную запись')]", "xpath:innerText"]
+      ],
+      "value": "Создать учетную запись"
+    }, {
+      "id": "f7ff1c4b-bb28-4e09-97f6-bc5cf5a4b2e0",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-create-account-button",
+      "targets": [
+        ["id=test-create-account-button", "id"],
+        ["css=#test-create-account-button", "css:finder"],
+        ["xpath=//button[@id='test-create-account-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-other-buttons']/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Создать учетную запись')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e52ca3e5-6c9e-4c23-92f7-a8d4eccc6481",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-text-SignUp",
+      "targets": [
+        ["id=test-text-SignUp", "id"],
+        ["css=#test-text-SignUp", "css:finder"],
+        ["xpath=//div[@id='test-text-SignUp']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div", "xpath:position"]
+      ],
+      "value": "СОЗДАТЬ УЧЕТНУЮ ЗАПИСЬ"
+    }, {
+      "id": "34455356-004b-43a5-88d8-79ead3edbf1c",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-text-register",
+      "targets": [
+        ["id=test-text-register", "id"],
+        ["css=#test-text-register", "css:finder"],
+        ["xpath=//div[@id='test-text-register']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div", "xpath:position"]
+      ],
+      "value": "Регистрация"
+    }, {
+      "id": "4c14d746-941b-4614-9318-a0e17a00dbe4",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-reg-button",
+      "targets": [
+        ["id=test-reg-button", "id"],
+        ["css=#test-reg-button", "css:finder"],
+        ["xpath=//button[@id='test-reg-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Регистрация')]", "xpath:innerText"]
+      ],
+      "value": "Регистрация"
+    }, {
+      "id": "f5bf99ab-17e6-427f-a6bb-87d54b00f6f8",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-estakk",
+      "targets": [
+        ["id=test-estakk", "id"],
+        ["css=#test-estakk", "css:finder"],
+        ["xpath=//div[@id='test-estakk']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]", "xpath:position"]
+      ],
+      "value": "Уже есть аккаунт"
+    }]
+  }, {
+    "id": "ebf5a79b-fae3-4b71-bce9-a27bcf83da1f",
+    "name": "Test-elements",
+    "commands": [{
+      "id": "712f4712-7277-4822-8209-7cf49cbe0593",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "34aaf8a1-484f-4478-a35a-76cac605da12",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-create-account-button",
+      "targets": [
+        ["id=test-create-account-button", "id"],
+        ["css=#test-create-account-button", "css:finder"],
+        ["xpath=//button[@id='test-create-account-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-other-buttons']/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Создать учетную запись')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "89dcf857-f48f-4223-a5d0-10f18ef42061",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test-logo-SignUp",
+      "targets": [
+        ["id=test-logo-SignUp", "id"],
+        ["css=#test-logo-SignUp", "css:finder"],
+        ["xpath=//img[@id='test-logo-SignUp']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/img", "xpath:idRelative"],
+        ["xpath=//div[3]/div/img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "222598fe-a997-4d52-8fb1-b94b49880c2c",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test-text-SignUp",
+      "targets": [
+        ["id=test-text-SignUp", "id"],
+        ["css=#test-text-SignUp", "css:finder"],
+        ["xpath=//div[@id='test-text-SignUp']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div", "xpath:idRelative"],
+        ["xpath=//div[8]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "38e56880-6c10-46ff-9178-115c39f19cfc",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test-input-login",
+      "targets": [
+        ["id=test-input-login", "id"],
+        ["css=#test-input-login", "css:finder"],
+        ["xpath=//input[@id='test-input-login']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c649cb01-931c-4608-b1db-1a4db16221de",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test-input-nick",
+      "targets": [
+        ["id=test-input-nick", "id"],
+        ["css=#test-input-nick", "css:finder"],
+        ["xpath=//input[@id='test-input-nick']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "fa6e639e-fe85-41c8-aa84-14981a76b699",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test-input-password",
+      "targets": [
+        ["id=test-input-password", "id"],
+        ["css=#test-input-password", "css:finder"],
+        ["xpath=//input[@id='test-input-password']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[3]", "xpath:idRelative"],
+        ["xpath=//input[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c5109338-de35-4d84-967e-ee16498f8d33",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test-estakk",
+      "targets": [
+        ["id=test-estakk", "id"],
+        ["css=#test-estakk", "css:finder"],
+        ["xpath=//div[@id='test-estakk']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6cd08856-d7fe-48f1-bfd2-451261d3ab68",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test-hr-SingUp",
+      "targets": [
+        ["id=test-hr-SingUp", "id"],
+        ["css=#test-hr-SingUp", "css:finder"],
+        ["xpath=//hr[@id='test-hr-SingUp']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/hr", "xpath:idRelative"],
+        ["xpath=//hr", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "dd1a79a5-f055-4aa9-b60a-2296fef07404",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test-text-register",
+      "targets": [
+        ["id=test-text-register", "id"],
+        ["css=#test-text-register", "css:finder"],
+        ["xpath=//div[@id='test-text-register']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "8c336de2-e9a9-479f-a5df-21ef2180adb0",
+    "name": "Test-goTo-Login",
+    "commands": [{
+      "id": "4af65bd7-c999-4c77-8dd3-4407e5e2178c",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "88415437-de4c-4bc4-b270-0860727f8d37",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-create-account-button",
+      "targets": [
+        ["id=test-create-account-button", "id"],
+        ["css=#test-create-account-button", "css:finder"],
+        ["xpath=//button[@id='test-create-account-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-other-buttons']/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Создать учетную запись')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b83451ba-cf0d-4718-8637-362db44b5e56",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-estakk",
+      "targets": [
+        ["id=test-estakk", "id"],
+        ["css=#test-estakk", "css:finder"],
+        ["xpath=//div[@id='test-estakk']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "924a5a9e-615c-4e09-a2c0-ca2380597a0a",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test-login",
+      "targets": [
+        ["id=test-login", "id"],
+        ["css=#test-login", "css:finder"],
+        ["xpath=//div[@id='test-login']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div", "xpath:idRelative"],
+        ["xpath=//div[3]/div", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "a9d22526-0884-4b19-bbc7-3152964c8c34",
+    "name": "Test-no-parameters",
+    "commands": [{
+      "id": "0de26c2b-33c5-4e45-9ac5-97cd7d6486a9",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "61e86667-140f-4490-97c1-fdd69c222f13",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-create-account-button",
+      "targets": [
+        ["id=test-create-account-button", "id"],
+        ["css=#test-create-account-button", "css:finder"],
+        ["xpath=//button[@id='test-create-account-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-other-buttons']/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Создать учетную запись')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3995dd24-cbaa-47a5-af40-33e0b76b9722",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-reg-button",
+      "targets": [
+        ["id=test-reg-button", "id"],
+        ["css=#test-reg-button", "css:finder"],
+        ["xpath=//button[@id='test-reg-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Регистрация')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "67a25ee0-bd3a-4014-84e5-c403118a889b",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-code",
+      "targets": [
+        ["id=test-error-code", "id"],
+        ["css=#test-error-code", "css:finder"],
+        ["xpath=//div[@id='test-error-code']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div", "xpath:position"]
+      ],
+      "value": "Error Code: 1001"
+    }, {
+      "id": "2999f873-bcf8-49bd-981d-131e9c10f875",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-text",
+      "targets": [
+        ["id=test-error-text", "id"],
+        ["css=#test-error-text", "css:finder"],
+        ["xpath=//div[@id='test-error-text']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div[2]", "xpath:position"]
+      ],
+      "value": "Недостаточно параметров"
+    }]
+  }, {
+    "id": "c05439e2-2196-4814-a56b-5b3782f8d2b1",
+    "name": "Test-only-Login",
+    "commands": [{
+      "id": "d575e9bf-7abe-42dd-b1ee-60baadb8b552",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7393c145-eaf8-4790-af30-774471ccd905",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-create-account-button",
+      "targets": [
+        ["id=test-create-account-button", "id"],
+        ["css=#test-create-account-button", "css:finder"],
+        ["xpath=//button[@id='test-create-account-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-other-buttons']/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Создать учетную запись')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3808344f-3dd6-410d-b045-59fbc7bc5048",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-login",
+      "targets": [
+        ["id=test-input-login", "id"],
+        ["css=#test-input-login", "css:finder"],
+        ["xpath=//input[@id='test-input-login']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "TestLogin"
+    }, {
+      "id": "ff181482-ceea-4a2e-8866-275d6dd33ef1",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-reg-button",
+      "targets": [
+        ["id=test-reg-button", "id"],
+        ["css=#test-reg-button", "css:finder"],
+        ["xpath=//button[@id='test-reg-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Регистрация')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e64b916f-c7b7-4914-a1bf-bbdd08e041e8",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-code",
+      "targets": [
+        ["id=test-error-code", "id"],
+        ["css=#test-error-code", "css:finder"],
+        ["xpath=//div[@id='test-error-code']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div", "xpath:position"]
+      ],
+      "value": "Error Code: 1001"
+    }, {
+      "id": "c99c704d-b507-48e7-852e-c2af0e84d12c",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-text",
+      "targets": [
+        ["id=test-error-text", "id"],
+        ["css=#test-error-text", "css:finder"],
+        ["xpath=//div[@id='test-error-text']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div[2]", "xpath:position"]
+      ],
+      "value": "Недостаточно параметров"
+    }]
+  }, {
+    "id": "35a15ad5-3385-4525-b30a-14a2a17b96ca",
+    "name": "Test-only-Nickname",
+    "commands": [{
+      "id": "1cae20ac-c002-4690-8fc2-12ccd3acaaa1",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4d67136e-8163-475f-9be0-b79f54237cbc",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-create-account-button",
+      "targets": [
+        ["id=test-create-account-button", "id"],
+        ["css=#test-create-account-button", "css:finder"],
+        ["xpath=//button[@id='test-create-account-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-other-buttons']/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Создать учетную запись')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9cad6c28-a25c-4983-9a8d-69e2af481216",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-nick",
+      "targets": [
+        ["id=test-input-nick", "id"],
+        ["css=#test-input-nick", "css:finder"],
+        ["xpath=//input[@id='test-input-nick']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "TestNickname"
+    }, {
+      "id": "c84a0419-c45f-49e1-9dff-c4f1d6394afe",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-reg-button",
+      "targets": [
+        ["id=test-reg-button", "id"],
+        ["css=#test-reg-button", "css:finder"],
+        ["xpath=//button[@id='test-reg-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Регистрация')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9ad86db4-7dd8-4f01-afd8-74e16a1a4159",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-code",
+      "targets": [
+        ["id=test-error-code", "id"],
+        ["css=#test-error-code", "css:finder"],
+        ["xpath=//div[@id='test-error-code']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div", "xpath:position"]
+      ],
+      "value": "Error Code: 1001"
+    }, {
+      "id": "9ea1953b-ecb3-49dc-a97c-4387b33f671c",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-text",
+      "targets": [
+        ["id=test-error-text", "id"],
+        ["css=#test-error-text", "css:finder"],
+        ["xpath=//div[@id='test-error-text']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div[2]", "xpath:position"]
+      ],
+      "value": "Недостаточно параметров"
+    }]
+  }, {
+    "id": "aebc4067-256e-4cad-b4b6-2a0292810f8f",
+    "name": "Test-only-Password",
+    "commands": [{
+      "id": "2e604b2e-7240-4593-9ec2-8d394db041c8",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0e32dcea-6516-41d6-9812-8815638fc518",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-create-account-button",
+      "targets": [
+        ["id=test-create-account-button", "id"],
+        ["css=#test-create-account-button", "css:finder"],
+        ["xpath=//button[@id='test-create-account-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-other-buttons']/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Создать учетную запись')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3cb5ee26-cc4b-4790-98ea-2de29ec47329",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-password",
+      "targets": [
+        ["id=test-input-password", "id"],
+        ["css=#test-input-password", "css:finder"],
+        ["xpath=//input[@id='test-input-password']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[3]", "xpath:idRelative"],
+        ["xpath=//input[3]", "xpath:position"]
+      ],
+      "value": "TestPassword"
+    }, {
+      "id": "6eb8ba34-747d-49f1-a072-2a71ab8ada40",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-reg-button",
+      "targets": [
+        ["id=test-reg-button", "id"],
+        ["css=#test-reg-button", "css:finder"],
+        ["xpath=//button[@id='test-reg-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Регистрация')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ae56bc8b-b309-49c7-83b7-be0445e44601",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-code",
+      "targets": [
+        ["id=test-error-code", "id"],
+        ["css=#test-error-code", "css:finder"],
+        ["xpath=//div[@id='test-error-code']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div", "xpath:position"]
+      ],
+      "value": "Error Code: 1001"
+    }, {
+      "id": "28839153-d905-42a2-b974-637e1d961557",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-text",
+      "targets": [
+        ["id=test-error-text", "id"],
+        ["css=#test-error-text", "css:finder"],
+        ["xpath=//div[@id='test-error-text']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div[2]", "xpath:position"]
+      ],
+      "value": "Недостаточно параметров"
+    }]
+  }, {
+    "id": "3fcf0dcb-f984-44b1-91fc-c3d713a3ebfb",
+    "name": "Test-only-VerifyPassword",
+    "commands": [{
+      "id": "ccc995bf-66d1-4699-baf8-407b579276ec",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5392c01b-ca64-45e9-be04-1f29e14e3a96",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-create-account-button",
+      "targets": [
+        ["id=test-create-account-button", "id"],
+        ["css=#test-create-account-button", "css:finder"],
+        ["xpath=//button[@id='test-create-account-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-other-buttons']/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Создать учетную запись')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7805b59a-f8e9-48c0-9685-53ab698f52ca",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-verify",
+      "targets": [
+        ["id=test-input-verify", "id"],
+        ["css=#test-input-verify", "css:finder"],
+        ["xpath=//input[@id='test-input-verify']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": "TestPassword"
+    }, {
+      "id": "35605b2d-f722-4bd9-aaf2-aa43364c6c2a",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-reg-button",
+      "targets": [
+        ["id=test-reg-button", "id"],
+        ["css=#test-reg-button", "css:finder"],
+        ["xpath=//button[@id='test-reg-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Регистрация')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f37ec0fc-a7c8-4745-9e67-b92b07d93168",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-code",
+      "targets": [
+        ["id=test-error-code", "id"],
+        ["css=#test-error-code", "css:finder"],
+        ["xpath=//div[@id='test-error-code']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div", "xpath:position"]
+      ],
+      "value": "Error Code: 1001"
+    }, {
+      "id": "2a3ba42f-c638-40c7-8ca2-3c5c91d2d255",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-text",
+      "targets": [
+        ["id=test-error-text", "id"],
+        ["css=#test-error-text", "css:finder"],
+        ["xpath=//div[@id='test-error-text']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div[2]", "xpath:position"]
+      ],
+      "value": "Недостаточно параметров"
+    }]
+  }, {
+    "id": "e693d0f7-4345-46da-9816-2f9c8b4605f5",
+    "name": "Test-lack-of-Pass-and-VerifyPass",
+    "commands": [{
+      "id": "788126fa-10ed-4fb5-9c6f-eecceb4f1849",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b2f00b06-7e3f-4c1b-902b-11b40b29878b",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-create-account-button",
+      "targets": [
+        ["id=test-create-account-button", "id"],
+        ["css=#test-create-account-button", "css:finder"],
+        ["xpath=//button[@id='test-create-account-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-other-buttons']/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Создать учетную запись')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b73feedf-c25e-4e0b-b3ca-8945eba40708",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return (\"TestLogin\"+Math.floor(Math.random() * 1000000))",
+      "targets": [],
+      "value": "loginValue"
+    }, {
+      "id": "22c522b5-c6ae-4448-a732-2e55ac23d34b",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-login",
+      "targets": [
+        ["id=test-input-login", "id"],
+        ["css=#test-input-login", "css:finder"],
+        ["xpath=//input[@id='test-input-login']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${loginValue}"
+    }, {
+      "id": "56381eef-7cac-4dc8-878a-7e4901d4a3cb",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-nick",
+      "targets": [
+        ["id=test-input-nick", "id"],
+        ["css=#test-input-nick", "css:finder"],
+        ["xpath=//input[@id='test-input-nick']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "TestNickname"
+    }, {
+      "id": "8a06529c-8446-4441-b803-1adfdae9f0c5",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-reg-button",
+      "targets": [
+        ["id=test-reg-button", "id"],
+        ["css=#test-reg-button", "css:finder"],
+        ["xpath=//button[@id='test-reg-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Регистрация')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "1fe09a00-1322-4049-8b12-e3b37d16783b",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-code",
+      "targets": [
+        ["id=test-error-code", "id"],
+        ["css=#test-error-code", "css:finder"],
+        ["xpath=//div[@id='test-error-code']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div", "xpath:position"]
+      ],
+      "value": "Error Code: 1501"
+    }, {
+      "id": "b54b6c68-0768-4397-a5e9-5b353d05ec1a",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-text",
+      "targets": [
+        ["id=test-error-text", "id"],
+        ["css=#test-error-text", "css:finder"],
+        ["xpath=//div[@id='test-error-text']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div[2]", "xpath:position"]
+      ],
+      "value": "Введите пароль и подтверждение пароля"
+    }]
+  }, {
+    "id": "d0db9904-12be-4775-821c-047970085f63",
+    "name": "Test-lack-of-Nick-and-VerifyPass",
+    "commands": [{
+      "id": "362363ba-09d8-44ba-9f7c-8f502da50ca6",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d3a7a08b-8d7d-4cf5-9b9b-7c4074c01334",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-create-account-button",
+      "targets": [
+        ["id=test-create-account-button", "id"],
+        ["css=#test-create-account-button", "css:finder"],
+        ["xpath=//button[@id='test-create-account-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-other-buttons']/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Создать учетную запись')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "933f68da-7ee7-4cca-be9f-751ba91662d9",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-login",
+      "targets": [
+        ["id=test-input-login", "id"],
+        ["css=#test-input-login", "css:finder"],
+        ["xpath=//input[@id='test-input-login']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "TestLogin"
+    }, {
+      "id": "6333fc98-45f5-4586-889c-a54b12b20dcf",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-password",
+      "targets": [
+        ["id=test-input-password", "id"],
+        ["css=#test-input-password", "css:finder"],
+        ["xpath=//input[@id='test-input-password']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[3]", "xpath:idRelative"],
+        ["xpath=//input[3]", "xpath:position"]
+      ],
+      "value": "TestPassword"
+    }, {
+      "id": "baae73cc-0c60-491f-91bc-8d42e6d3361c",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-reg-button",
+      "targets": [
+        ["id=test-reg-button", "id"],
+        ["css=#test-reg-button", "css:finder"],
+        ["xpath=//button[@id='test-reg-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Регистрация')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "df89effb-004c-4c85-9407-6ae42dbeed4a",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-code",
+      "targets": [
+        ["id=test-error-code", "id"],
+        ["css=#test-error-code", "css:finder"],
+        ["xpath=//div[@id='test-error-code']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div", "xpath:position"]
+      ],
+      "value": "Error Code: 1001"
+    }, {
+      "id": "740fbbca-1c80-40ea-852f-7b5648dfc8d5",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-text",
+      "targets": [
+        ["id=test-error-text", "id"],
+        ["css=#test-error-text", "css:finder"],
+        ["xpath=//div[@id='test-error-text']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div[2]", "xpath:position"]
+      ],
+      "value": "Недостаточно параметров"
+    }]
+  }, {
+    "id": "42883170-c0d5-40f6-a5a3-24a31b15efc3",
+    "name": "Test-lack-of-Nick-and-Pass",
+    "commands": [{
+      "id": "6057ae93-fa30-4cd9-902d-8c629389e946",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "71c64bc2-10c2-4948-831a-a9d026f098ac",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-create-account-button",
+      "targets": [
+        ["id=test-create-account-button", "id"],
+        ["css=#test-create-account-button", "css:finder"],
+        ["xpath=//button[@id='test-create-account-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-other-buttons']/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Создать учетную запись')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "84f88477-9040-4bab-83b5-d9826939dcf7",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-login",
+      "targets": [
+        ["id=test-input-login", "id"],
+        ["css=#test-input-login", "css:finder"],
+        ["xpath=//input[@id='test-input-login']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "TestLogin"
+    }, {
+      "id": "63085ed6-1c5b-48fd-8c5c-a2832a90b28a",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-verify",
+      "targets": [
+        ["id=test-input-verify", "id"],
+        ["css=#test-input-verify", "css:finder"],
+        ["xpath=//input[@id='test-input-verify']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": "TestVerifyPassword"
+    }, {
+      "id": "1c90d326-ab5a-44f1-83e4-5a330c1483dd",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-reg-button",
+      "targets": [
+        ["id=test-reg-button", "id"],
+        ["css=#test-reg-button", "css:finder"],
+        ["xpath=//button[@id='test-reg-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Регистрация')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "047db27a-c0f7-48eb-8cf7-cf40db6403ed",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-code",
+      "targets": [
+        ["id=test-error-code", "id"],
+        ["css=#test-error-code", "css:finder"],
+        ["xpath=//div[@id='test-error-code']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div", "xpath:position"]
+      ],
+      "value": "Error Code: 1001"
+    }, {
+      "id": "6cf25251-634b-4beb-9b92-5d20abe7e731",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-text",
+      "targets": [
+        ["id=test-error-text", "id"],
+        ["css=#test-error-text", "css:finder"],
+        ["xpath=//div[@id='test-error-text']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div[2]", "xpath:position"]
+      ],
+      "value": "Недостаточно параметров"
+    }]
+  }, {
+    "id": "af8e4b4c-1e4e-4188-b51f-b59632d71525",
+    "name": "Test-lack-of-Login-and-VerifyPass",
+    "commands": [{
+      "id": "3f34c941-f1d1-46ce-b8b9-7c76a14c7a4f",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f621ea80-0fd9-4dd0-b412-01990c7f4b67",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-create-account-button",
+      "targets": [
+        ["id=test-create-account-button", "id"],
+        ["css=#test-create-account-button", "css:finder"],
+        ["xpath=//button[@id='test-create-account-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-other-buttons']/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Создать учетную запись')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "1d90fc2e-9d80-4bdf-952b-aef57467793e",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-nick",
+      "targets": [
+        ["id=test-input-nick", "id"],
+        ["css=#test-input-nick", "css:finder"],
+        ["xpath=//input[@id='test-input-nick']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "TestNickname"
+    }, {
+      "id": "0ddee356-78c3-44fe-bfa4-4d68d5ed492e",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-password",
+      "targets": [
+        ["id=test-input-password", "id"],
+        ["css=#test-input-password", "css:finder"],
+        ["xpath=//input[@id='test-input-password']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[3]", "xpath:idRelative"],
+        ["xpath=//input[3]", "xpath:position"]
+      ],
+      "value": "TestPassword"
+    }, {
+      "id": "ee597ce9-6d52-43fe-a6bd-a5f5e0397b17",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-reg-button",
+      "targets": [
+        ["id=test-reg-button", "id"],
+        ["css=#test-reg-button", "css:finder"],
+        ["xpath=//button[@id='test-reg-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Регистрация')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5be63d99-e911-4334-a4cd-d906a1ec6f30",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-code",
+      "targets": [
+        ["id=test-error-code", "id"],
+        ["css=#test-error-code", "css:finder"],
+        ["xpath=//div[@id='test-error-code']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div", "xpath:position"]
+      ],
+      "value": "Error Code: 1001"
+    }, {
+      "id": "92bfffcf-4cef-4622-b2a0-6323e288c3d7",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-text",
+      "targets": [
+        ["id=test-error-text", "id"],
+        ["css=#test-error-text", "css:finder"],
+        ["xpath=//div[@id='test-error-text']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div[2]", "xpath:position"]
+      ],
+      "value": "Недостаточно параметров"
+    }]
+  }, {
+    "id": "d4a1d6bc-2867-40a4-962e-a0ccf8e53827",
+    "name": "Test-lack-of-Login-and-Pass",
+    "commands": [{
+      "id": "0357cf1b-86ba-4ce7-b201-6795c0de1766",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d7384f35-53ea-4365-aa77-a60a14d5fee8",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-create-account-button",
+      "targets": [
+        ["id=test-create-account-button", "id"],
+        ["css=#test-create-account-button", "css:finder"],
+        ["xpath=//button[@id='test-create-account-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-other-buttons']/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Создать учетную запись')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7e370405-91e9-4726-abb1-09bc877b5678",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-nick",
+      "targets": [
+        ["id=test-input-nick", "id"],
+        ["css=#test-input-nick", "css:finder"],
+        ["xpath=//input[@id='test-input-nick']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "TestNickname"
+    }, {
+      "id": "51db443e-0e30-49ea-ab91-e0319ff98a6c",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-verify",
+      "targets": [
+        ["id=test-input-verify", "id"],
+        ["css=#test-input-verify", "css:finder"],
+        ["xpath=//input[@id='test-input-verify']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": "TestVerifyPassword"
+    }, {
+      "id": "b30e9f4c-9ced-4b31-9571-919e37ba27e4",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-reg-button",
+      "targets": [
+        ["id=test-reg-button", "id"],
+        ["css=#test-reg-button", "css:finder"],
+        ["xpath=//button[@id='test-reg-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Регистрация')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "40d4f006-a1f2-428d-8c0c-501f6890dae5",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-code",
+      "targets": [
+        ["id=test-error-code", "id"],
+        ["css=#test-error-code", "css:finder"],
+        ["xpath=//div[@id='test-error-code']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div", "xpath:position"]
+      ],
+      "value": "Error Code: 1001"
+    }, {
+      "id": "11801b78-9c28-42a0-aa1b-3a5ebb18a571",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-text",
+      "targets": [
+        ["id=test-error-text", "id"],
+        ["css=#test-error-text", "css:finder"],
+        ["xpath=//div[@id='test-error-text']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div[2]", "xpath:position"]
+      ],
+      "value": "Недостаточно параметров"
+    }]
+  }, {
+    "id": "53a88087-ce7a-489b-bfed-035fdeb99593",
+    "name": "Test-lack-of-Login-and-Nick",
+    "commands": [{
+      "id": "a6722c82-a407-4320-8775-16dc53ba2256",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6b24ae81-9c08-401a-a24a-e698b03d7c5b",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-create-account-button",
+      "targets": [
+        ["id=test-create-account-button", "id"],
+        ["css=#test-create-account-button", "css:finder"],
+        ["xpath=//button[@id='test-create-account-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-other-buttons']/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Создать учетную запись')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e29a9032-f583-42b2-9c52-1c35fef64bc9",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-password",
+      "targets": [
+        ["id=test-input-password", "id"],
+        ["css=#test-input-password", "css:finder"],
+        ["xpath=//input[@id='test-input-password']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[3]", "xpath:idRelative"],
+        ["xpath=//input[3]", "xpath:position"]
+      ],
+      "value": "TestPassword"
+    }, {
+      "id": "e02219f6-82cd-4080-81aa-07d6f7132435",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-verify",
+      "targets": [
+        ["id=test-input-verify", "id"],
+        ["css=#test-input-verify", "css:finder"],
+        ["xpath=//input[@id='test-input-verify']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": "TestVerifyPassword"
+    }, {
+      "id": "d6f77cad-cc59-4708-99d3-42742b9601c7",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-reg-button",
+      "targets": [
+        ["id=test-reg-button", "id"],
+        ["css=#test-reg-button", "css:finder"],
+        ["xpath=//button[@id='test-reg-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Регистрация')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5ac40201-6680-4c24-b528-c319ad4935d7",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-code",
+      "targets": [
+        ["id=test-error-code", "id"],
+        ["css=#test-error-code", "css:finder"],
+        ["xpath=//div[@id='test-error-code']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div", "xpath:position"]
+      ],
+      "value": "Error Code: 1001"
+    }, {
+      "id": "247339d0-6a20-4a93-896d-e285f43b1a9c",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-text",
+      "targets": [
+        ["id=test-error-text", "id"],
+        ["css=#test-error-text", "css:finder"],
+        ["xpath=//div[@id='test-error-text']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div[2]", "xpath:position"]
+      ],
+      "value": "Недостаточно параметров"
+    }]
+  }, {
+    "id": "078922c6-1432-46cb-978b-b541ca16b3db",
+    "name": "Test-lack-of-VerifyPassword",
+    "commands": [{
+      "id": "92558873-1a62-4790-a91b-fae8dbab0127",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "59761f7a-2186-432b-8285-7e49f1cc103a",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-create-account-button",
+      "targets": [
+        ["id=test-create-account-button", "id"],
+        ["css=#test-create-account-button", "css:finder"],
+        ["xpath=//button[@id='test-create-account-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-other-buttons']/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Создать учетную запись')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5338cb7c-47a1-410c-b07b-ab88e3c479f7",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-login",
+      "targets": [
+        ["id=test-input-login", "id"],
+        ["css=#test-input-login", "css:finder"],
+        ["xpath=//input[@id='test-input-login']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "TestLogin"
+    }, {
+      "id": "44b83d1d-e788-4d21-ba50-76e1b0471728",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-nick",
+      "targets": [
+        ["id=test-input-nick", "id"],
+        ["css=#test-input-nick", "css:finder"],
+        ["xpath=//input[@id='test-input-nick']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "TestNickname"
+    }, {
+      "id": "e3f2a217-5aa5-43e6-87c8-435f7d8f7989",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-password",
+      "targets": [
+        ["id=test-input-password", "id"],
+        ["css=#test-input-password", "css:finder"],
+        ["xpath=//input[@id='test-input-password']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[3]", "xpath:idRelative"],
+        ["xpath=//input[3]", "xpath:position"]
+      ],
+      "value": "TestPassword"
+    }, {
+      "id": "e6de0047-e5a4-4d11-8558-8e26aaa3c1cc",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-reg-button",
+      "targets": [
+        ["id=test-reg-button", "id"],
+        ["css=#test-reg-button", "css:finder"],
+        ["xpath=//button[@id='test-reg-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Регистрация')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "29805a6a-d3dc-41d1-848e-00baf6df644f",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-code",
+      "targets": [
+        ["id=test-error-code", "id"],
+        ["css=#test-error-code", "css:finder"],
+        ["xpath=//div[@id='test-error-code']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div", "xpath:position"]
+      ],
+      "value": "Error Code: 1501"
+    }, {
+      "id": "ebc13e45-4ce7-4458-a5c4-9293fafd33a7",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-text",
+      "targets": [
+        ["id=test-error-text", "id"],
+        ["css=#test-error-text", "css:finder"],
+        ["xpath=//div[@id='test-error-text']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div[2]", "xpath:position"]
+      ],
+      "value": "Введите пароль и подтверждение пароля"
+    }]
+  }, {
+    "id": "5b977ff8-d12c-4588-a17a-b65bdacd062d",
+    "name": "Test-lack-of-Password",
+    "commands": [{
+      "id": "4ed5aa92-1b7b-47e1-bb34-c94459660ad1",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4543254a-3292-4496-97ec-03587df88f09",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-create-account-button",
+      "targets": [
+        ["id=test-create-account-button", "id"],
+        ["css=#test-create-account-button", "css:finder"],
+        ["xpath=//button[@id='test-create-account-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-other-buttons']/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Создать учетную запись')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "39f1f8b3-1bf3-41d3-8de2-a1b32dc6cbaf",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-login",
+      "targets": [
+        ["id=test-input-login", "id"],
+        ["css=#test-input-login", "css:finder"],
+        ["xpath=//input[@id='test-input-login']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "TestLogin"
+    }, {
+      "id": "63c220b5-1dc8-474f-9e3a-1f5d19e95867",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-nick",
+      "targets": [
+        ["id=test-input-nick", "id"],
+        ["css=#test-input-nick", "css:finder"],
+        ["xpath=//input[@id='test-input-nick']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "TestNickname"
+    }, {
+      "id": "2998c163-7202-4520-93ce-a14b75f7826a",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-verify",
+      "targets": [
+        ["id=test-input-verify", "id"],
+        ["css=#test-input-verify", "css:finder"],
+        ["xpath=//input[@id='test-input-verify']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": "TestVerifyPassword"
+    }, {
+      "id": "f3f1429a-7e79-47c7-bb07-dadc4ea33125",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-reg-button",
+      "targets": [
+        ["id=test-reg-button", "id"],
+        ["css=#test-reg-button", "css:finder"],
+        ["xpath=//button[@id='test-reg-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Регистрация')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ca926dbd-a5b7-4faf-ae4f-4f7945059170",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-code",
+      "targets": [
+        ["id=test-error-code", "id"],
+        ["css=#test-error-code", "css:finder"],
+        ["xpath=//div[@id='test-error-code']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div", "xpath:position"]
+      ],
+      "value": "Error Code: 1501"
+    }, {
+      "id": "fa566c19-4370-4425-917f-f18e6467821e",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-text",
+      "targets": [
+        ["id=test-error-text", "id"],
+        ["css=#test-error-text", "css:finder"],
+        ["xpath=//div[@id='test-error-text']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div[2]", "xpath:position"]
+      ],
+      "value": "Введите пароль и подтверждение пароля"
+    }]
+  }, {
+    "id": "ccdb95aa-54f7-4c34-80d4-2b564b96cf49",
+    "name": "Test-lack-of-Nickname",
+    "commands": [{
+      "id": "65aa6649-2f33-467c-b985-cbb2978fcd4e",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3e05c3e2-fadb-4d0a-a922-58d0e9a4c338",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-create-account-button",
+      "targets": [
+        ["id=test-create-account-button", "id"],
+        ["css=#test-create-account-button", "css:finder"],
+        ["xpath=//button[@id='test-create-account-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-other-buttons']/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Создать учетную запись')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "cba19c63-5226-49fd-b3d3-d57e09dd8839",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-login",
+      "targets": [
+        ["id=test-input-login", "id"],
+        ["css=#test-input-login", "css:finder"],
+        ["xpath=//input[@id='test-input-login']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "TestLogin"
+    }, {
+      "id": "98cb42c9-93ac-4799-8f4d-cda6ad00ef4d",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-password",
+      "targets": [
+        ["id=test-input-password", "id"],
+        ["css=#test-input-password", "css:finder"],
+        ["xpath=//input[@id='test-input-password']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[3]", "xpath:idRelative"],
+        ["xpath=//input[3]", "xpath:position"]
+      ],
+      "value": "TestPassword"
+    }, {
+      "id": "339a2b02-22c9-44c5-868e-a8a941bf9f11",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-verify",
+      "targets": [
+        ["id=test-input-verify", "id"],
+        ["css=#test-input-verify", "css:finder"],
+        ["xpath=//input[@id='test-input-verify']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": "TestVerifyPassword"
+    }, {
+      "id": "7903e963-5071-4bee-b23c-c995b970c60c",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-reg-button",
+      "targets": [
+        ["id=test-reg-button", "id"],
+        ["css=#test-reg-button", "css:finder"],
+        ["xpath=//button[@id='test-reg-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Регистрация')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "75c0c0b6-8edc-45c4-ad12-50c814658287",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-code",
+      "targets": [
+        ["id=test-error-code", "id"],
+        ["css=#test-error-code", "css:finder"],
+        ["xpath=//div[@id='test-error-code']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div", "xpath:position"]
+      ],
+      "value": "Error Code: 1001"
+    }, {
+      "id": "aa9740dc-b32e-4dfa-be35-d5795f52c340",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-text",
+      "targets": [
+        ["id=test-error-text", "id"],
+        ["css=#test-error-text", "css:finder"],
+        ["xpath=//div[@id='test-error-text']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div[2]", "xpath:position"]
+      ],
+      "value": "Недостаточно параметров"
+    }]
+  }, {
+    "id": "0cb36ef4-0515-4715-9026-7b70f8caa790",
+    "name": "Test-lack-of-Login",
+    "commands": [{
+      "id": "eeca117b-1fd7-465e-a16c-749b803e923a",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "16da0a54-7bfb-48bd-9d6e-d8f2a602adeb",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-create-account-button",
+      "targets": [
+        ["id=test-create-account-button", "id"],
+        ["css=#test-create-account-button", "css:finder"],
+        ["xpath=//button[@id='test-create-account-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-other-buttons']/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Создать учетную запись')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "82b39db9-5cfd-4e84-92fd-e8b69f8c4694",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-nick",
+      "targets": [
+        ["id=test-input-nick", "id"],
+        ["css=#test-input-nick", "css:finder"],
+        ["xpath=//input[@id='test-input-nick']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "TestNickname"
+    }, {
+      "id": "04cbdb79-2dfc-41fd-9dcc-bb4f9f10a47b",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-password",
+      "targets": [
+        ["id=test-input-password", "id"],
+        ["css=#test-input-password", "css:finder"],
+        ["xpath=//input[@id='test-input-password']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[3]", "xpath:idRelative"],
+        ["xpath=//input[3]", "xpath:position"]
+      ],
+      "value": "TestPassword"
+    }, {
+      "id": "3cb4caab-050d-4676-98e6-e53efd442027",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-verify",
+      "targets": [
+        ["id=test-input-verify", "id"],
+        ["css=#test-input-verify", "css:finder"],
+        ["xpath=//input[@id='test-input-verify']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": "TestVerifyPassword"
+    }, {
+      "id": "8cf002c1-efa5-4de5-897c-4bfcbfa58f5b",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-reg-button",
+      "targets": [
+        ["id=test-reg-button", "id"],
+        ["css=#test-reg-button", "css:finder"],
+        ["xpath=//button[@id='test-reg-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Регистрация')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "02d7bd6d-b9ad-45eb-bcf9-b4d482baa936",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-code",
+      "targets": [
+        ["id=test-error-code", "id"],
+        ["css=#test-error-code", "css:finder"],
+        ["xpath=//div[@id='test-error-code']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div", "xpath:position"]
+      ],
+      "value": "Error Code: 1001"
+    }, {
+      "id": "19172dd1-a002-4ebe-8d4f-dc34428dd221",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-text",
+      "targets": [
+        ["id=test-error-text", "id"],
+        ["css=#test-error-text", "css:finder"],
+        ["xpath=//div[@id='test-error-text']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div[2]", "xpath:position"]
+      ],
+      "value": "Недостаточно параметров"
+    }]
+  }, {
+    "id": "69339b2c-4d39-4a2f-a818-c680d85ccd53",
+    "name": "Test-Existing-Login",
+    "commands": [{
+      "id": "cb6fc0af-3bba-40c4-957f-d7aa45cd7062",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "305a3ffb-05db-4b0d-8251-5bc48525028b",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-create-account-button",
+      "targets": [
+        ["id=test-create-account-button", "id"],
+        ["css=#test-create-account-button", "css:finder"],
+        ["xpath=//button[@id='test-create-account-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-other-buttons']/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Создать учетную запись')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "1ad733b8-19de-4a64-a779-056d2e413f38",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-login",
+      "targets": [
+        ["id=test-input-login", "id"],
+        ["css=#test-input-login", "css:finder"],
+        ["xpath=//input[@id='test-input-login']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "vasya"
+    }, {
+      "id": "41707487-0e9f-4d03-9ccf-2ec51ee06c0e",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-nick",
+      "targets": [
+        ["id=test-input-nick", "id"],
+        ["css=#test-input-nick", "css:finder"],
+        ["xpath=//input[@id='test-input-nick']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "TestNickname"
+    }, {
+      "id": "5073e3e9-8c02-4df0-ba5c-11fea56622ff",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-password",
+      "targets": [
+        ["id=test-input-password", "id"],
+        ["css=#test-input-password", "css:finder"],
+        ["xpath=//input[@id='test-input-password']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[3]", "xpath:idRelative"],
+        ["xpath=//input[3]", "xpath:position"]
+      ],
+      "value": "TestPassword"
+    }, {
+      "id": "68dc72f7-6eff-4150-8ae4-ce5294716ff5",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-verify",
+      "targets": [
+        ["id=test-input-verify", "id"],
+        ["css=#test-input-verify", "css:finder"],
+        ["xpath=//input[@id='test-input-verify']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": "TestPassword"
+    }, {
+      "id": "414c59fd-2738-4d2e-ade5-8f1f7b84d97b",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-reg-button",
+      "targets": [
+        ["id=test-reg-button", "id"],
+        ["css=#test-reg-button", "css:finder"],
+        ["xpath=//button[@id='test-reg-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Регистрация')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0c14ba67-5144-4507-9d00-f9decf1f1e80",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-code",
+      "targets": [
+        ["id=test-error-code", "id"],
+        ["css=#test-error-code", "css:finder"],
+        ["xpath=//div[@id='test-error-code']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div", "xpath:position"]
+      ],
+      "value": "Error Code: 487"
+    }, {
+      "id": "34f6d3ad-7c86-493f-ade1-13bfcb11a58a",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-text",
+      "targets": [
+        ["id=test-error-text", "id"],
+        ["css=#test-error-text", "css:finder"],
+        ["xpath=//div[@id='test-error-text']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div[2]", "xpath:position"]
+      ],
+      "value": "Этот пользователь уже существует"
+    }]
+  }, {
+    "id": "49e8ca7e-86d1-41b0-b077-649f794be6a7",
+    "name": "Test-Password-Verification",
+    "commands": [{
+      "id": "c83f91dd-17f5-4baf-99e4-2bf81a17048f",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9f606853-476b-4f29-baad-e0f8436fbc29",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-create-account-button",
+      "targets": [
+        ["id=test-create-account-button", "id"],
+        ["css=#test-create-account-button", "css:finder"],
+        ["xpath=//button[@id='test-create-account-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-other-buttons']/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Создать учетную запись')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "52d00239-44d8-4a9a-9f0b-f6f26698495a",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return (\"TestLogin\"+Math.floor(Math.random() * 1000000))",
+      "targets": [],
+      "value": "loginValue"
+    }, {
+      "id": "f76550fc-d02e-4e2d-bdbb-f9a3650f1056",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-login",
+      "targets": [
+        ["id=test-input-login", "id"],
+        ["css=#test-input-login", "css:finder"],
+        ["xpath=//input[@id='test-input-login']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${loginValue}"
+    }, {
+      "id": "d21ef82c-c20f-4f79-9aab-0a9b2bcbc9cd",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-nick",
+      "targets": [
+        ["id=test-input-nick", "id"],
+        ["css=#test-input-nick", "css:finder"],
+        ["xpath=//input[@id='test-input-nick']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "TestNickname"
+    }, {
+      "id": "2f227e6b-2440-454a-8e38-a99c4de3691f",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-password",
+      "targets": [
+        ["id=test-input-password", "id"],
+        ["css=#test-input-password", "css:finder"],
+        ["xpath=//input[@id='test-input-password']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[3]", "xpath:idRelative"],
+        ["xpath=//input[3]", "xpath:position"]
+      ],
+      "value": "TestPassword"
+    }, {
+      "id": "192d58a3-476d-4a8a-8671-a54991286019",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-input-verify",
+      "targets": [
+        ["id=test-input-verify", "id"],
+        ["css=#test-input-verify", "css:finder"],
+        ["xpath=//input[@id='test-input-verify']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": "TestVerifyPassword"
+    }, {
+      "id": "214f6f71-6ee6-444b-b5e0-5f3405fb226f",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-reg-button",
+      "targets": [
+        ["id=test-reg-button", "id"],
+        ["css=#test-reg-button", "css:finder"],
+        ["xpath=//button[@id='test-reg-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-SignUp']/div[2]/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Регистрация')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3cb7d459-9b55-4584-974d-2979bf6938b4",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-code",
+      "targets": [
+        ["id=test-error-code", "id"],
+        ["css=#test-error-code", "css:finder"],
+        ["xpath=//div[@id='test-error-code']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div", "xpath:position"]
+      ],
+      "value": "Error Code: 1502"
+    }, {
+      "id": "b5ffff2f-e0dc-469f-9f0e-1ce01e455fe5",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-error-text",
+      "targets": [
+        ["id=test-error-text", "id"],
+        ["css=#test-error-text", "css:finder"],
+        ["xpath=//div[@id='test-error-text']", "xpath:attributes"],
+        ["xpath=//div[@id='test-error-message']/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div[2]", "xpath:position"]
+      ],
+      "value": "Пароли не совпадают"
+    }]
+  }],
+  "suites": [{
+    "id": "27779a2a-9daf-474c-bb03-a2baf011d981",
+    "name": "Login Positive Auto Test",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["c341c2fc-cfa3-4c36-9739-cb0ec011e524", "902e6f67-a0dd-48cc-a7f4-e939f999ea93", "35543de7-adea-4640-8b2e-b68eaf77439e", "ebf5a79b-fae3-4b71-bce9-a27bcf83da1f", "8c336de2-e9a9-479f-a5df-21ef2180adb0"]
+  }, {
+    "id": "87c2d59c-b069-46f2-9a81-fde10a26ee8c",
+    "name": "Login Negative Auto Test",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["69339b2c-4d39-4a2f-a818-c680d85ccd53", "49e8ca7e-86d1-41b0-b077-649f794be6a7", "078922c6-1432-46cb-978b-b541ca16b3db", "5b977ff8-d12c-4588-a17a-b65bdacd062d", "ccdb95aa-54f7-4c34-80d4-2b564b96cf49", "0cb36ef4-0515-4715-9026-7b70f8caa790", "e693d0f7-4345-46da-9816-2f9c8b4605f5", "d0db9904-12be-4775-821c-047970085f63", "42883170-c0d5-40f6-a5a3-24a31b15efc3", "af8e4b4c-1e4e-4188-b51f-b59632d71525", "d4a1d6bc-2867-40a4-962e-a0ccf8e53827", "53a88087-ce7a-489b-bfed-035fdeb99593", "a9d22526-0884-4b19-bbc7-3152964c8c34", "c05439e2-2196-4814-a56b-5b3782f8d2b1", "35a15ad5-3385-4525-b30a-14a2a17b96ca", "aebc4067-256e-4cad-b4b6-2a0292810f8f", "3fcf0dcb-f984-44b1-91fc-c3d713a3ebfb"]
+  }],
+  "urls": ["http://localhost:3000/", "http://localhost:3001/"],
+  "plugins": []
+}
