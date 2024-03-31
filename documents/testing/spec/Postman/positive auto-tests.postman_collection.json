@@ -78,95 +78,6 @@
 			"response": []
 		},
 		{
-			"name": "logout by vasya",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							"const login = pm.environment.get('login');\r",
-							"const hash = pm.environment.get('hash');\r",
-							"const rnd = pm.environment.get('rnd');\r",
-							"\r",
-							"pm.sendRequest({\r",
-							"    url: `http://localhost:3000/login?login=${login}&hash=${hash}&rnd=${rnd}`,\r",
-							"    method: 'GET',\r",
-							"}, function (err, res) {\r",
-							"    if (err) {\r",
-							"        console.error(err);\r",
-							"        return;\r",
-							"    }\r",
-							"\r",
-							"    const responseData = res.json().data;\r",
-							"\r",
-							"    if (responseData) {\r",
-							"        pm.globals.set(\"responseData\", responseData);\r",
-							"        pm.environment.set(\"token\", responseData.token);\r",
-							"    }\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test('проверка статуса 200', () => {",
-							"   pm.response.to.have.status(200); ",
-							"});",
-							"",
-							"const response = pm.response.json();",
-							"const responseData = pm.globals.get(\"responseData\");",
-							"",
-							"pm.test('проверка, что ответ в формате JSON', () => {",
-							"   pm.expect(response).to.be.an('object');",
-							"});",
-							"",
-							"pm.test('проверка свойства \"result\"', () => {",
-							"  pm.expect(response).to.have.property('result');",
-							"  pm.expect(response.result).to.eql('ok');",
-							"});",
-							"",
-							"pm.test('проверка свойства \"data\"', () => {",
-							"  pm.expect(response).to.have.property('data');",
-							"  const { name } = responseData;",
-							"  const _name = pm.environment.get('name');",
-							"  pm.expect(name).to.eql(_name);",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/logout?token={{token}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"logout"
-					],
-					"query": [
-						{
-							"key": "token",
-							"value": "{{token}}"
-						}
-					]
-				},
-				"description": "Какое-то очень важное описание первого теста!"
-			},
-			"response": []
-		},
-		{
 			"name": "signUp by randomLogin",
 			"event": [
 				{
@@ -259,6 +170,402 @@
 			"response": []
 		},
 		{
+			"name": "logout by vasya",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const login = pm.environment.get('login');\r",
+							"const hash = pm.environment.get('hash');\r",
+							"const rnd = pm.environment.get('rnd');\r",
+							"\r",
+							"pm.sendRequest({\r",
+							"    url: `http://localhost:3000/login?login=${login}&hash=${hash}&rnd=${rnd}`,\r",
+							"    method: 'GET',\r",
+							"}, function (err, res) {\r",
+							"    if (err) {\r",
+							"        console.error(err);\r",
+							"        return;\r",
+							"    }\r",
+							"\r",
+							"    const responseData = res.json().data;\r",
+							"\r",
+							"    if (responseData) {\r",
+							"        pm.globals.set(\"responseData\", responseData);\r",
+							"        pm.environment.set(\"token\", responseData.token);\r",
+							"    }\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('проверка статуса 200', () => {",
+							"   pm.response.to.have.status(200); ",
+							"});",
+							"",
+							"const response = pm.response.json();",
+							"const responseData = pm.globals.get(\"responseData\");",
+							"",
+							"pm.test('проверка, что ответ в формате JSON', () => {",
+							"   pm.expect(response).to.be.an('object');",
+							"});",
+							"",
+							"pm.test('проверка свойства \"result\"', () => {",
+							"  pm.expect(response).to.have.property('result');",
+							"  pm.expect(response.result).to.eql('ok');",
+							"});",
+							"",
+							"pm.test('проверка свойства \"data\"', () => {",
+							"  pm.expect(response).to.have.property('data');",
+							"  const { name } = responseData;",
+							"  const _name = pm.environment.get('name');",
+							"  pm.expect(name).to.eql(_name);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/logout?token={{token}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"logout"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				},
+				"description": "Какое-то очень важное описание первого теста!"
+			},
+			"response": []
+		},
+		{
+			"name": "Test-getUserById",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Проверка статуса кода 200', () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка, что ответ в формате JSON', () => {\r",
+							"    pm.response.to.have.header('Content-Type', 'application/json; charset=utf-8');\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка, что поле \"result\" существует и равно \"ok\"', () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('result').that.eql('ok');\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка, что поле \"data\" существует и является объектом', () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('data').that.is.an('object');\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка, что поле \"data\" содержит обязательные поля', () => {\r",
+							"    const data = pm.response.json().data;\r",
+							"    pm.expect(data).to.include.all.keys('id', 'login', 'password', 'name', 'token', 'friends');\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка типов данных в поле \"data\"', () => {\r",
+							"    const data = pm.response.json().data;\r",
+							"    pm.expect(data.id).to.be.a('number');\r",
+							"    pm.expect(data.login).to.be.a('string');\r",
+							"    pm.expect(data.password).to.be.a('string');\r",
+							"    pm.expect(data.name).to.be.a('string');\r",
+							"    pm.expect(data.token).to.be.a('string');\r",
+							"    pm.expect(data.friends).to.be.an('array');\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка поля \"friends\"', () => {\r",
+							"    const data = pm.response.json().data;\r",
+							"    pm.expect(data.friends).to.be.an('array');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/getUserById?id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"getUserById"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test-getUserByToken",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const login = pm.environment.get('login');\r",
+							"const hash = pm.environment.get('hash');\r",
+							"const rnd = pm.environment.get('rnd');\r",
+							"\r",
+							"pm.sendRequest({\r",
+							"    url: `http://localhost:3000/login?login=${login}&hash=${hash}&rnd=${rnd}`,\r",
+							"    method: 'GET',\r",
+							"}, function (err, res) {\r",
+							"    if (err) {\r",
+							"        console.error(err);\r",
+							"        return;\r",
+							"    }\r",
+							"\r",
+							"    const responseData = res.json().data;\r",
+							"\r",
+							"    if (responseData) {\r",
+							"        pm.environment.set(\"token\", responseData.token);\r",
+							"    }\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Проверка статуса кода 200', () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка, что ответ в формате JSON', () => {\r",
+							"    pm.response.to.have.header('Content-Type', 'application/json; charset=utf-8');\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка, что поле \"result\" существует и равно \"ok\"', () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('result').that.eql('ok');\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка, что поле \"data\" существует и является объектом', () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('data').that.is.an('object');\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка, что поле \"data\" содержит обязательные поля', () => {\r",
+							"    const data = pm.response.json().data;\r",
+							"    pm.expect(data).to.include.all.keys('id', 'login', 'password', 'name', 'token', 'friends');\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка типов данных в поле \"data\"', () => {\r",
+							"    const data = pm.response.json().data;\r",
+							"    pm.expect(data.id).to.be.a('number');\r",
+							"    pm.expect(data.login).to.be.a('string');\r",
+							"    pm.expect(data.password).to.be.a('string');\r",
+							"    pm.expect(data.name).to.be.a('string');\r",
+							"    pm.expect(data.token).to.be.a('string');\r",
+							"    pm.expect(data.friends).to.be.an('array');\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка поля \"friends\"', () => {\r",
+							"    const data = pm.response.json().data;\r",
+							"    pm.expect(data.friends).to.be.an('array');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/getUserByToken?token={{token}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"getUserByToken"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test-getMessage",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test('Статус кода 200', () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка, что ответ в формате JSON', () => {\r",
+							"    pm.response.to.have.header('Content-Type', 'application/json; charset=utf-8');\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка наличия поля \"result\" в ответе', () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('result');\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка, что поле \"result\" равно \"ok\"', () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.result).to.eql('ok');\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка, что поле \"data\" присутствует в ответе', () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('data');\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка, что поле \"messages\" присутствует в поле \"data\"', () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.have.property('messages');\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка, что поле \"messages\" является массивом', () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.messages).to.be.an('array');\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка, что поле \"hash\" присутствует в поле \"data\"', () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.have.property('hash');\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка содержимого массива \"messages\"', () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.messages[0]).to.have.property('message');\r",
+							"    pm.expect(jsonData.data.messages[0]).to.have.property('name');\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка содержимого поля \"hash\"', () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const hashValue = jsonData.data.hash;\r",
+							"    pm.expect(hashValue).to.not.be.empty;\r",
+							"    pm.expect(hashValue).to.be.a('string');\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const login = pm.environment.get('login');\r",
+							"const hash = pm.environment.get('hash');\r",
+							"const rnd = pm.environment.get('rnd');\r",
+							"\r",
+							"pm.sendRequest({\r",
+							"    url: `http://localhost:3000/login?login=${login}&hash=${hash}&rnd=${rnd}`,\r",
+							"    method: 'GET',\r",
+							"}, function (err, res) {\r",
+							"    if (err) {\r",
+							"        console.error(err);\r",
+							"        return;\r",
+							"    }\r",
+							"\r",
+							"    const responseData = res.json().data;\r",
+							"\r",
+							"    if (responseData) {\r",
+							"        pm.environment.set(\"token\", responseData.token);\r",
+							"    }\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/getMessages?token={{token}}&hash={{hash}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"getMessages"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "{{token}}"
+						},
+						{
+							"key": "hash",
+							"value": "{{hash}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Test-sendMessage",
 			"event": [
 				{
@@ -320,7 +627,7 @@
 							"\r",
 							"pm.test('Проверка значения поля \"data\" в ответе', () => {\r",
 							"    const jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.data).to.eql(true);\r",
+							"    pm.expect(jsonData.data).to.eql(\"ok\");\r",
 							"});\r",
 							""
 						],
@@ -350,6 +657,518 @@
 						{
 							"key": "message",
 							"value": "Hello, this is a test message."
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test-getGamers",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Проверка статуса кода 200', () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка, что ответ в формате JSON', () => {\r",
+							"    pm.response.to.have.header('Content-Type', 'application/json; charset=utf-8');\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка поля \"result\"', () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('result').that.eql('ok');\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка наличия поля \"data\"', () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('data');\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка, что \"data\" является массивом', () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.be.an('array');\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка элементов массива \"data\"', () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const data = jsonData.data;\r",
+							"\r",
+							"    pm.expect(data).to.not.be.empty; \r",
+							"\r",
+							"    data.forEach((item) => {\r",
+							"        pm.expect(item).to.have.property('name').that.is.a('string');\r",
+							"        pm.expect(item).to.have.property('person_id').that.is.a('number');\r",
+							"        pm.expect(item).to.have.property('status').that.is.a('string');\r",
+							"        pm.expect(item).to.have.property('x').that.is.a('number');\r",
+							"        pm.expect(item).to.have.property('y').that.is.a('number');\r",
+							"        pm.expect(item).to.have.property('direction').that.is.a('string');\r",
+							"        pm.expect(item).to.have.property('hp').that.is.a('number');\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/getGamers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"getGamers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test-addGamers",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const login = pm.environment.get('login');\r",
+							"const hash = pm.environment.get('hash');\r",
+							"const rnd = pm.environment.get('rnd');\r",
+							"\r",
+							"pm.sendRequest({\r",
+							"    url: `http://localhost:3000/login?login=${login}&hash=${hash}&rnd=${rnd}`,\r",
+							"    method: 'GET',\r",
+							"}, function (err, res) {\r",
+							"    if (err) {\r",
+							"        console.error(err);\r",
+							"        return;\r",
+							"    }\r",
+							"\r",
+							"    const responseData = res.json().data;\r",
+							"\r",
+							"    if (responseData) {\r",
+							"        pm.environment.set(\"token\", responseData.token);\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Проверка статуса кода 200', () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка, что ответ в формате JSON', () => {\r",
+							"    pm.response.to.have.header('Content-Type', 'application/json; charset=utf-8');\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка наличия поля \"result\" и его значения', () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('result').and.eql('ok');\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка наличия поля \"data\" и его значения', () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('data').and.eql('ok');\r",
+							"});\r",
+							"\r",
+							"pm.sendRequest({\r",
+							"    url: `http://localhost:3000/getGamers`,\r",
+							"    method: 'GET',\r",
+							"}, function (err, res) {\r",
+							"    if (err) {\r",
+							"        console.error(err);\r",
+							"        return;\r",
+							"    }\r",
+							"\r",
+							"    pm.test('Проверка, что геймер добавлен', () => {\r",
+							"        const jsonData = res.json().data;\r",
+							"        pm.expect(jsonData).to.be.not.empty;\r",
+							"    });\r",
+							"\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/addGamers?token={{token}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"addGamers"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test-deleteGamers",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Проверка статуса кода 200', () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка, что ответ в формате JSON', () => {\r",
+							"    pm.response.to.have.header('Content-Type', 'application/json; charset=utf-8');\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка наличия поля \"result\" и его значения', () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('result').and.eql('ok');\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка наличия поля \"data\" и его значения', () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('data').and.eql('ok');\r",
+							"});\r",
+							"\r",
+							"pm.sendRequest({\r",
+							"    url: `http://localhost:3000/getGamers`,\r",
+							"    method: 'GET',\r",
+							"}, function (err, res) {\r",
+							"    if (err) {\r",
+							"        console.error(err);\r",
+							"        return;\r",
+							"    }\r",
+							"\r",
+							"    pm.test('Проверка, что игроки удалены', () => {\r",
+							"        const jsonData = res.json().data;\r",
+							"        pm.expect(jsonData).to.be.empty;\r",
+							"    });\r",
+							"\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/deleteGamers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"deleteGamers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test-updatePersonId",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const login = pm.environment.get('login');\r",
+							"const hash = pm.environment.get('hash');\r",
+							"const rnd = pm.environment.get('rnd');\r",
+							"\r",
+							"pm.sendRequest({\r",
+							"    url: `http://localhost:3000/login?login=${login}&hash=${hash}&rnd=${rnd}`,\r",
+							"    method: 'GET',\r",
+							"}, function (err, res) {\r",
+							"    if (err) {\r",
+							"        console.error(err);\r",
+							"        return;\r",
+							"    }\r",
+							"\r",
+							"    const responseData = res.json().data;\r",
+							"\r",
+							"    if (responseData && responseData.token) {\r",
+							"        pm.environment.set('token', responseData.token);\r",
+							"\r",
+							"        pm.sendRequest({\r",
+							"            url: `http://localhost:3000/addGamers?token=${responseData.token}`,\r",
+							"            method: 'GET',\r",
+							"        }, function (err, res) {\r",
+							"            if (err) {\r",
+							"                console.error(err);\r",
+							"                return;\r",
+							"            }\r",
+							"\r",
+							"            pm.test('Проверка, добавления тестового игрока', () => {\r",
+							"                const jsonData = res.json().data;\r",
+							"                pm.expect(jsonData).to.be.not.empty;\r",
+							"            });\r",
+							"        });\r",
+							"    }\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Проверка статуса кода 200', () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка, что ответ в формате JSON', () => {\r",
+							"    pm.response.to.have.header('Content-Type', 'application/json; charset=utf-8');\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка наличия поля \"result\" и его значения', () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('result').and.eql('ok');\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка наличия поля \"data\" и его значения', () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('data').and.eql('ok');\r",
+							"});\r",
+							"\r",
+							"pm.sendRequest({\r",
+							"    url: `http://localhost:3000/getGamers`,\r",
+							"    method: 'GET',\r",
+							"}, function (err, res) {\r",
+							"    if (err) {\r",
+							"        console.error(err);\r",
+							"        return;\r",
+							"    }\r",
+							"\r",
+							"\r",
+							"pm.test('Проверка, изменения id персонажа', () => {\r",
+							"    const jsonData = res.json().data;\r",
+							"    const lastItem = jsonData[jsonData.length - 1];\r",
+							"    pm.expect(lastItem).to.have.property('person_id').and.eql(10);\r",
+							"});\r",
+							"\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/updatePersonId?token={{token}}&newPersonId=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"updatePersonId"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "{{token}}"
+						},
+						{
+							"key": "newPersonId",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test-updateHp",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const login = pm.environment.get('login');\r",
+							"const hash = pm.environment.get('hash');\r",
+							"const rnd = pm.environment.get('rnd');\r",
+							"\r",
+							"pm.sendRequest({\r",
+							"    url: `http://localhost:3000/login?login=${login}&hash=${hash}&rnd=${rnd}`,\r",
+							"    method: 'GET',\r",
+							"}, function (err, res) {\r",
+							"    if (err) {\r",
+							"        console.error(err);\r",
+							"        return;\r",
+							"    }\r",
+							"    \r",
+							"\r",
+							"    const responseData = res.json().data;\r",
+							"\r",
+							"    if (responseData) {\r",
+							"        pm.environment.set(\"token\", responseData.token);\r",
+							"    }\r",
+							"\r",
+							"    pm.sendRequest({\r",
+							"    url: `http://localhost:3000/getGamers`,\r",
+							"    method: 'GET',\r",
+							"    }, function (err, res) {\r",
+							"        if (err) {\r",
+							"            console.error(err);\r",
+							"            return;\r",
+							"        }\r",
+							"\r",
+							"        const jsonData = res.json().data;\r",
+							"        const lastItem = jsonData[jsonData.length - 1];\r",
+							"        const currentHp = lastItem.hp;\r",
+							"\r",
+							"\r",
+							"        pm.environment.set(\"currentHp\", currentHp);\r",
+							"\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Проверка статуса кода 200', () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка, что ответ в формате JSON', () => {\r",
+							"    pm.response.to.have.header('Content-Type', 'application/json; charset=utf-8');\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка наличия поля \"result\" и его значения', () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('result').and.eql('ok');\r",
+							"});\r",
+							"\r",
+							"pm.test('Проверка наличия поля \"data\" и его значения', () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('data').and.eql('ok');\r",
+							"});\r",
+							"\r",
+							"pm.sendRequest({\r",
+							"    url: `http://localhost:3000/getGamers`,\r",
+							"    method: 'GET',\r",
+							"}, function (err, res) {\r",
+							"    if (err) {\r",
+							"        console.error(err);\r",
+							"        return;\r",
+							"    }\r",
+							"\r",
+							"    const currentHp = pm.environment.get(\"currentHp\");\r",
+							"\r",
+							"\r",
+							"    pm.test('Проверка, изменения hp персонажа', () => {\r",
+							"        const newHp = currentHp - 5;\r",
+							"\r",
+							"        console.error(\"Новое HP:\", newHp);\r",
+							"\r",
+							"        pm.expect(res.json().data[res.json().data.length - 1].hp).to.eql(newHp);\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/updateHp?gamerName=Vasya%20Ivanoff&gamerHp=0&token={{token}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"updateHp"
+					],
+					"query": [
+						{
+							"key": "gamerName",
+							"value": "Vasya%20Ivanoff"
+						},
+						{
+							"key": "gamerHp",
+							"value": "0"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
 						}
 					]
 				}
@@ -608,537 +1427,6 @@
 							"key": "status",
 							"value": "{{status}}"
 						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Test-getMessage",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"\r",
-							"pm.test('Статус кода 200', () => {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка, что ответ в формате JSON', () => {\r",
-							"    pm.response.to.have.header('Content-Type', 'application/json; charset=utf-8');\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка наличия поля \"result\" в ответе', () => {\r",
-							"    const jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.property('result');\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка, что поле \"result\" равно \"ok\"', () => {\r",
-							"    const jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.result).to.eql('ok');\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка, что поле \"data\" присутствует в ответе', () => {\r",
-							"    const jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.property('data');\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка, что поле \"messages\" присутствует в поле \"data\"', () => {\r",
-							"    const jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.data).to.have.property('messages');\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка, что поле \"messages\" является массивом', () => {\r",
-							"    const jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.data.messages).to.be.an('array');\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка, что поле \"hash\" присутствует в поле \"data\"', () => {\r",
-							"    const jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.data).to.have.property('hash');\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка содержимого массива \"messages\"', () => {\r",
-							"    const jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.data.messages[0]).to.have.property('message');\r",
-							"    pm.expect(jsonData.data.messages[0]).to.have.property('name');\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка содержимого поля \"hash\"', () => {\r",
-							"    const jsonData = pm.response.json();\r",
-							"    const hashValue = jsonData.data.hash;\r",
-							"    pm.expect(hashValue).to.not.be.empty;\r",
-							"    pm.expect(hashValue).to.be.a('string');\r",
-							"});\r",
-							"\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				},
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							"const login = pm.environment.get('login');\r",
-							"const hash = pm.environment.get('hash');\r",
-							"const rnd = pm.environment.get('rnd');\r",
-							"\r",
-							"pm.sendRequest({\r",
-							"    url: `http://localhost:3000/login?login=${login}&hash=${hash}&rnd=${rnd}`,\r",
-							"    method: 'GET',\r",
-							"}, function (err, res) {\r",
-							"    if (err) {\r",
-							"        console.error(err);\r",
-							"        return;\r",
-							"    }\r",
-							"\r",
-							"    const responseData = res.json().data;\r",
-							"\r",
-							"    if (responseData) {\r",
-							"        pm.environment.set(\"token\", responseData.token);\r",
-							"    }\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/getMessages?token={{token}}&hash={{hash}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"getMessages"
-					],
-					"query": [
-						{
-							"key": "token",
-							"value": "{{token}}"
-						},
-						{
-							"key": "hash",
-							"value": "{{hash}}"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Test-getUserByToken",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							"const login = pm.environment.get('login');\r",
-							"const hash = pm.environment.get('hash');\r",
-							"const rnd = pm.environment.get('rnd');\r",
-							"\r",
-							"pm.sendRequest({\r",
-							"    url: `http://localhost:3000/login?login=${login}&hash=${hash}&rnd=${rnd}`,\r",
-							"    method: 'GET',\r",
-							"}, function (err, res) {\r",
-							"    if (err) {\r",
-							"        console.error(err);\r",
-							"        return;\r",
-							"    }\r",
-							"\r",
-							"    const responseData = res.json().data;\r",
-							"\r",
-							"    if (responseData) {\r",
-							"        pm.environment.set(\"token\", responseData.token);\r",
-							"    }\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test('Проверка статуса кода 200', () => {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка, что ответ в формате JSON', () => {\r",
-							"    pm.response.to.have.header('Content-Type', 'application/json; charset=utf-8');\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка, что поле \"result\" существует и равно \"ok\"', () => {\r",
-							"    const jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.property('result').that.eql('ok');\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка, что поле \"data\" существует и является объектом', () => {\r",
-							"    const jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.property('data').that.is.an('object');\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка, что поле \"data\" содержит обязательные поля', () => {\r",
-							"    const data = pm.response.json().data;\r",
-							"    pm.expect(data).to.include.all.keys('id', 'login', 'password', 'name', 'token', 'friends');\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка типов данных в поле \"data\"', () => {\r",
-							"    const data = pm.response.json().data;\r",
-							"    pm.expect(data.id).to.be.a('number');\r",
-							"    pm.expect(data.login).to.be.a('string');\r",
-							"    pm.expect(data.password).to.be.a('string');\r",
-							"    pm.expect(data.name).to.be.a('string');\r",
-							"    pm.expect(data.token).to.be.a('string');\r",
-							"    pm.expect(data.friends).to.be.an('array');\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка поля \"friends\"', () => {\r",
-							"    const data = pm.response.json().data;\r",
-							"    pm.expect(data.friends).to.be.an('array');\r",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/getUserByToken?token={{token}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"getUserByToken"
-					],
-					"query": [
-						{
-							"key": "token",
-							"value": "{{token}}"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Test-getUserById",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test('Проверка статуса кода 200', () => {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка, что ответ в формате JSON', () => {\r",
-							"    pm.response.to.have.header('Content-Type', 'application/json; charset=utf-8');\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка, что поле \"result\" существует и равно \"ok\"', () => {\r",
-							"    const jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.property('result').that.eql('ok');\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка, что поле \"data\" существует и является объектом', () => {\r",
-							"    const jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.property('data').that.is.an('object');\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка, что поле \"data\" содержит обязательные поля', () => {\r",
-							"    const data = pm.response.json().data;\r",
-							"    pm.expect(data).to.include.all.keys('id', 'login', 'password', 'name', 'token', 'friends');\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка типов данных в поле \"data\"', () => {\r",
-							"    const data = pm.response.json().data;\r",
-							"    pm.expect(data.id).to.be.a('number');\r",
-							"    pm.expect(data.login).to.be.a('string');\r",
-							"    pm.expect(data.password).to.be.a('string');\r",
-							"    pm.expect(data.name).to.be.a('string');\r",
-							"    pm.expect(data.token).to.be.a('string');\r",
-							"    pm.expect(data.friends).to.be.an('array');\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка поля \"friends\"', () => {\r",
-							"    const data = pm.response.json().data;\r",
-							"    pm.expect(data.friends).to.be.an('array');\r",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/getUserById?id=1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"getUserById"
-					],
-					"query": [
-						{
-							"key": "id",
-							"value": "1"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Test-getGamers",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test('Проверка статуса кода 200', () => {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка, что ответ в формате JSON', () => {\r",
-							"    pm.response.to.have.header('Content-Type', 'application/json; charset=utf-8');\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка поля \"result\"', () => {\r",
-							"    const jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.property('result').that.eql('ok');\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка наличия поля \"data\"', () => {\r",
-							"    const jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.property('data');\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка, что \"data\" является массивом', () => {\r",
-							"    const jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.data).to.be.an('array');\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка элементов массива \"data\"', () => {\r",
-							"    const jsonData = pm.response.json();\r",
-							"    const data = jsonData.data;\r",
-							"\r",
-							"    pm.expect(data).to.not.be.empty; \r",
-							"\r",
-							"    data.forEach((item) => {\r",
-							"        pm.expect(item).to.have.property('name').that.is.a('string');\r",
-							"        pm.expect(item).to.have.property('person_id').that.is.a('number');\r",
-							"        pm.expect(item).to.have.property('status').that.is.a('string');\r",
-							"        pm.expect(item).to.have.property('x').that.is.a('number');\r",
-							"        pm.expect(item).to.have.property('y').that.is.a('number');\r",
-							"        pm.expect(item).to.have.property('direction').that.is.a('string');\r",
-							"        pm.expect(item).to.have.property('hp').that.is.a('number');\r",
-							"    });\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/getGamers",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"getGamers"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Test-addGamers",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							"const login = pm.environment.get('login');\r",
-							"const hash = pm.environment.get('hash');\r",
-							"const rnd = pm.environment.get('rnd');\r",
-							"\r",
-							"pm.sendRequest({\r",
-							"    url: `http://localhost:3000/login?login=${login}&hash=${hash}&rnd=${rnd}`,\r",
-							"    method: 'GET',\r",
-							"}, function (err, res) {\r",
-							"    if (err) {\r",
-							"        console.error(err);\r",
-							"        return;\r",
-							"    }\r",
-							"\r",
-							"    const responseData = res.json().data;\r",
-							"\r",
-							"    if (responseData) {\r",
-							"        pm.environment.set(\"token\", responseData.token);\r",
-							"    }\r",
-							"});\r",
-							"\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test('Проверка статуса кода 200', () => {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка, что ответ в формате JSON', () => {\r",
-							"    pm.response.to.have.header('Content-Type', 'application/json; charset=utf-8');\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка наличия поля \"result\" и его значения', () => {\r",
-							"    const jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.property('result').and.eql('ok');\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка наличия поля \"data\" и его значения', () => {\r",
-							"    const jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.property('data').and.eql('ok');\r",
-							"});\r",
-							"\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/addGamers?token={{token}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"addGamers"
-					],
-					"query": [
-						{
-							"key": "token",
-							"value": "{{token}}"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Test-deleteGamers",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test('Проверка статуса кода 200', () => {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка, что ответ в формате JSON', () => {\r",
-							"    pm.response.to.have.header('Content-Type', 'application/json; charset=utf-8');\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка наличия поля \"result\" и его значения', () => {\r",
-							"    const jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.property('result').and.eql('ok');\r",
-							"});\r",
-							"\r",
-							"pm.test('Проверка наличия поля \"data\" и его значения', () => {\r",
-							"    const jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.property('data').and.eql('ok');\r",
-							"});\r",
-							"\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/deleteGamers",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"deleteGamers"
 					]
 				}
 			},
