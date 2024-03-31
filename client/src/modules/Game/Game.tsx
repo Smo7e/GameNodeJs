@@ -81,41 +81,8 @@ const Game: React.FC = () => {
                     <Bullets infoFriends={infoFriends} infoMobs={infoMobs} />
                 </Physics>
             </Canvas>
+        {mediator.triger && questionFlag ? <TaskSelection setQuestionFlag={setQuestionFlag} /> : <></>}
 
-            <div
-                style={{ position: "absolute", left: 50, top: 200 }}
-                onClick={() => {
-                    setQuestionFlag(true);
-                }}
-            >
-                {infoFriends ? (
-                    infoFriends.map((elem) => (
-                        <div style={{ height: 30, width: 200, marginTop: 1, color: "red" }}>
-                            {elem.name} : {elem.hp}/100HP
-                        </div>
-                    ))
-                ) : (
-                    <></>
-                )}
-            </div>
-            {mediator.triger && questionFlag ? <TaskSelection setQuestionFlag={setQuestionFlag} /> : <></>}
-            {mediator.triger ? (
-                <div
-                    style={{
-                        width: 200,
-                        height: 100,
-                        fontSize: 30,
-                        position: "absolute",
-                        left: "50%",
-                        top: 0,
-                        color: "red",
-                    }}
-                >
-                    {infoMobs ? <div>BossXP: {infoMobs[0].hp}</div> : <></>}
-                </div>
-            ) : (
-                <></>
-            )}
         </>
     );
 };
