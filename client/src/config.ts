@@ -4,7 +4,7 @@
 
 // dev
 const DOMAIN = "http://localhost";
-const PORT = 3000;
+const PORT = 3001;
 
 // prod
 //...

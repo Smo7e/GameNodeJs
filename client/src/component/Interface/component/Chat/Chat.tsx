@@ -15,11 +15,6 @@ const Chat: React.FC = () => {
 
     const chatHandler = () => {
         setIsActiveChat(!isActiveChat);
-        if (isActiveChat) {
-            server.stopChatInterval();
-            return;
-        }
-        server.startChatInterval();
     };
     const sendMessagesHandler = () => {
         let message = messageRef.current!.value;

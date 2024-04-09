@@ -88,8 +88,8 @@ const Interface: React.FC = () => {
         
         <div className="I">
           {gamers ? (
-            gamers.map((elem: any) => (
-              <div className="HP" style={{ background: `linear-gradient(to right, red ${elem.hp}%, #898888 ${elem.hp}%)` }}>
+            gamers.map((elem: any, index: number) => (
+              <div key={index} className="HP" style={{ background: `linear-gradient(to right, red ${elem.hp}%, #898888 ${elem.hp}%)` }}>
                 {elem.name} : {elem.hp}/100HP
               </div>
             ))

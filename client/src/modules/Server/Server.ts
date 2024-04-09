@@ -1,13 +1,12 @@
+import { io } from "socket.io-client";
 import { Mediator } from "..";
-import { TUser, TUserFull, TError, TMessages, TMessage, TScene } from "./types";
+import { TUser, TUserFull, TError, TMessage, TScene } from "./types";
 
 export default class Server {
     private HOST: string;
     private token: string | null = null;
     private mediator: Mediator;
-
-    private chatHash: string = "123";
-    private chatInterval: ReturnType<typeof setInterval> | null = null;
+    private socket: any;
 
     private hashGamers: string = "123";
     private hashMobs: string = "123";
@@ -16,7 +15,21 @@ export default class Server {
 
     constructor(HOST: string, mediator: Mediator) {
         this.HOST = HOST;
-        this.mediator = mediator;
+        this.mediator = mediator;        
+
+        const socket = io(HOST);
+
+        this.socket = socket;
+
+        this.socket.on('connect', () => {
+            this.socket.on('GET_MESSAGES', (data: any) => {
+                const { messages } = data.data;
+                if (messages?.length && Array.isArray(messages)) {
+                    const { GET_MESSAGES } = this.mediator.getEventTypes();
+                    this.mediator.call<Array<TMessage>>(GET_MESSAGES, messages);
+                }
+            });
+        });
     }
 
     async request<T>(method: string, params: any = {}): Promise<T | null> {
@@ -37,23 +50,6 @@ export default class Server {
             return null;
         } catch (e) {
             return null;
-        }
-    }
-
-    startChatInterval() {
-        this.chatInterval = setInterval(async () => {
-            const messages = await this.getMessages();
-            if (messages?.length && Array.isArray(messages)) {
-                const { GET_MESSAGES } = this.mediator.getEventTypes();
-                this.mediator.call<Array<TMessage>>(GET_MESSAGES, messages);
-            }
-        }, 150);
-    }
-
-    stopChatInterval() {
-        if (this.chatInterval) {
-            clearInterval(this.chatInterval);
-            this.chatInterval = null;
         }
     }
 
@@ -94,16 +90,9 @@ export default class Server {
         return this.request<TUser>("signUp", { login, nickname, hash, verifyHash });
     }
     sendMessage(message: string) {
-        return this.request("sendMessage", { token: this.token, message });
-    }
+        this.socket.emit('SEND_MESSAGE', { token: this.token, message });
 
-    async getMessages(): Promise<Array<TMessage> | null> {
-        const answer = await this.request<TMessages>("getMessages", { hash: this.chatHash });
-        if (answer && answer.hash) {
-            this.chatHash = answer.hash;
-            return answer.messages;
-        }
-        return answer as null;
+        //return this.request("sendMessage", { token: this.token, message });
     }
 
     addFriend(id: string) {

@@ -1,5 +1,12 @@
 const express = require("express");
 const app = express();
+const server = require('http').createServer(app);
+
+const io = require('socket.io')(server, {
+    cors: {
+        origin: '*',
+    }
+});
 
 const CONFIG = require("./config");
 const { DATABASE } = CONFIG;
@@ -17,10 +24,10 @@ const db = new DB(DATABASE);
 const user = new User(answer, db);
 const lobby = new Lobby(answer, db);
 const game = new Game(answer, db);
-const chat = new Chat(answer, db);
+const chat = new Chat(answer, db, io);
 
 const Router = require("./application/router/Router");
-const router = new Router(user, lobby, game, chat);
+const router = new Router(user, lobby, game);
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*"); // Разрешить доступ с любых доменов
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -29,4 +36,4 @@ app.use((req, res, next) => {
 app.use(express.static(`${__dirname}/public`));
 app.use("/", router);
 
-app.listen(3000, () => console.log("Йа родилсо!!!"));
+server.listen(3001, () => console.log("Йа родилсо!!!"));
