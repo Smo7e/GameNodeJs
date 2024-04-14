@@ -2,7 +2,7 @@
   "id": "557cee25-2dee-4a7f-b760-5aebc25e85a9",
   "version": "2.0",
   "name": "Auto-test_Menu",
-  "url": "http://localhost:3001/",
+  "url": "http://localhost:3000/",
   "tests": [{
     "id": "5b5e9b40-6014-4b80-98a4-d3a81ec2cb1a",
     "name": "Test-goTo-Menu",
@@ -1012,6 +1012,289 @@
       ],
       "value": ""
     }]
+  }, {
+    "id": "5d9f5313-bd79-4ae4-ad48-07a67fef4364",
+    "name": "Test-Heroes_list",
+    "commands": [{
+      "id": "8b37e32f-0fb8-416e-ba9e-ebd77c9bd30a",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ccdd61a0-15d9-4ead-8a63-ed63da5734d2",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-login-input",
+      "targets": [
+        ["id=test-login-input", "id"],
+        ["css=#test-login-input", "css:finder"],
+        ["xpath=//input[@id='test-login-input']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "vasya"
+    }, {
+      "id": "da997958-73c5-4113-993b-046041fa9600",
+      "comment": "",
+      "command": "type",
+      "target": "id=test-password-input",
+      "targets": [
+        ["id=test-password-input", "id"],
+        ["css=#test-password-input", "css:finder"],
+        ["xpath=//input[@id='test-password-input']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container']/div[2]/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "123"
+    }, {
+      "id": "aa507d2f-a4ba-4827-9195-4dbea0b41591",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-login-button",
+      "targets": [
+        ["id=test-login-button", "id"],
+        ["css=#test-login-button", "css:finder"],
+        ["xpath=//button[@id='test-login-button']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Продолжить')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4074fb8b-6dea-4013-b08c-99c1cfad54cd",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-heroes",
+      "targets": [
+        ["id=test-heroes", "id"],
+        ["css=#test-heroes", "css:finder"],
+        ["xpath=//div[@id='test-heroes']", "xpath:attributes"],
+        ["xpath=//div[@id='test-mainMemu']/div[2]/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4bd59ca7-a08c-4ade-846b-d82dec15baf7",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test-sportik-image",
+      "targets": [
+        ["id=test-sportik-image", "id"],
+        ["css=#test-sportik-image", "css:finder"],
+        ["xpath=//div[@id='test-sportik-image']", "xpath:attributes"],
+        ["xpath=//div[@id='test-sportik-container']/div", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b0af1155-1288-4239-8791-699caeffa60a",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test-sportik-panel",
+      "targets": [
+        ["id=test-sportik-panel", "id"],
+        ["css=#test-sportik-panel", "css:finder"],
+        ["xpath=//div[@id='test-sportik-panel']", "xpath:attributes"],
+        ["xpath=//div[@id='test-sportik-container']/div[2]", "xpath:idRelative"],
+        ["xpath=//div/div[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "acc634b5-86f9-4d8c-b532-c8611b2ee548",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "css=.text-heroes",
+      "targets": [
+        ["css=.text-heroes", "css:finder"],
+        ["xpath=//div[@id='test-sportik-panel']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "eda76981-562a-45f3-b284-dcc4257f7e2d",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test-sportik-to-humanitarian",
+      "targets": [
+        ["id=test-sportik-to-humanitarian", "id"],
+        ["css=#test-sportik-to-humanitarian", "css:finder"],
+        ["xpath=//button[@id='test-sportik-to-humanitarian']", "xpath:attributes"],
+        ["xpath=//div[@id='test-sportik-container']/button", "xpath:idRelative"],
+        ["xpath=//div/div/div/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c22576ba-e1ba-4d08-963a-25e581381f9d",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test-arrow-1-heroes",
+      "targets": [
+        ["id=test-arrow-1-heroes", "id"],
+        ["css=#test-arrow-1-heroes", "css:finder"],
+        ["xpath=//button[@id='test-arrow-1-heroes']", "xpath:attributes"],
+        ["xpath=//div[@id='test-container-Heroes']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "02feed04-19e8-4e2d-8ad1-2a2339d04251",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-text-sportik",
+      "targets": [
+        ["id=test-text-sportik", "id"],
+        ["css=#test-text-sportik", "css:finder"],
+        ["xpath=//div[@id='test-text-sportik']", "xpath:attributes"],
+        ["xpath=//div[@id='test-sportik-panel']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div", "xpath:position"]
+      ],
+      "value": "“Спортик” - имеет повышенное здоровье в 150 единиц, увеличенный вдвое урон по паре “Физра” и любое улучшение от предметов увеличивается в 1.25 раза."
+    }, {
+      "id": "b21e2578-1d57-492d-9a83-5a98c6d70b4e",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-sportik-to-humanitarian",
+      "targets": [
+        ["id=test-sportik-to-humanitarian", "id"],
+        ["css=#test-sportik-to-humanitarian", "css:finder"],
+        ["xpath=//button[@id='test-sportik-to-humanitarian']", "xpath:attributes"],
+        ["xpath=//div[@id='test-sportik-container']/button", "xpath:idRelative"],
+        ["xpath=//div/div/div/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "57832535-0a83-4b97-9fb7-e9a09952f506",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test-humanitarian-image",
+      "targets": [
+        ["id=test-humanitarian-image", "id"],
+        ["css=#test-humanitarian-image", "css:finder"],
+        ["xpath=//div[@id='test-humanitarian-image']", "xpath:attributes"],
+        ["xpath=//div[@id='test-humanitarian-container']/div", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "46c1ede8-fbae-47c7-8378-742d1c65f056",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test-humanitarian-panel",
+      "targets": [
+        ["id=test-humanitarian-panel", "id"],
+        ["css=#test-humanitarian-panel", "css:finder"],
+        ["xpath=//div[@id='test-humanitarian-panel']", "xpath:attributes"],
+        ["xpath=//div[@id='test-humanitarian-container']/div[2]", "xpath:idRelative"],
+        ["xpath=//div/div[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b9f88484-49ee-4357-bcc3-746c01993257",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test-humanitarian-to-sportik",
+      "targets": [
+        ["id=test-humanitarian-to-sportik", "id"],
+        ["css=#test-humanitarian-to-sportik", "css:finder"],
+        ["xpath=//button[@id='test-humanitarian-to-sportik']", "xpath:attributes"],
+        ["xpath=//div[@id='test-humanitarian-container']/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "87faf830-1aab-4476-a7f5-2cec792f4111",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test-humanitarian-to-techguy",
+      "targets": [
+        ["id=test-humanitarian-to-techguy", "id"],
+        ["css=#test-humanitarian-to-techguy", "css:finder"],
+        ["xpath=//button[@id='test-humanitarian-to-techguy']", "xpath:attributes"],
+        ["xpath=//div[@id='test-humanitarian-container']/button", "xpath:idRelative"],
+        ["xpath=//div/div/div/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0a6dd451-e03b-4a4f-a47d-d9125ba06767",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-text-humanitarian",
+      "targets": [
+        ["id=test-text-humanitarian", "id"],
+        ["css=#test-text-humanitarian", "css:finder"],
+        ["xpath=//div[@id='test-text-humanitarian']", "xpath:attributes"],
+        ["xpath=//div[@id='test-humanitarian-panel']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div", "xpath:position"]
+      ],
+      "value": "“Гуманитарий” - имеет обычное здоровье в 100 единиц, увеличенный вдвое урон по парам “Русский язык”, “Английский язык”. Предметы типа “Книга улучшают характеристики в 1.5 раза сильнее."
+    }, {
+      "id": "5fd57189-8904-44e6-88fd-6b0557dedb53",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-humanitarian-to-techguy",
+      "targets": [
+        ["id=test-humanitarian-to-techguy", "id"],
+        ["css=#test-humanitarian-to-techguy", "css:finder"],
+        ["xpath=//button[@id='test-humanitarian-to-techguy']", "xpath:attributes"],
+        ["xpath=//div[@id='test-humanitarian-container']/button", "xpath:idRelative"],
+        ["xpath=//div/div/div/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d7400183-a252-4350-909b-c4fe00d30c9c",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test-techguy-image",
+      "targets": [
+        ["id=test-techguy-image", "id"],
+        ["css=#test-techguy-image", "css:finder"],
+        ["xpath=//div[@id='test-techguy-image']", "xpath:attributes"],
+        ["xpath=//div[@id='test-techguy-container']/div", "xpath:idRelative"],
+        ["xpath=//div[4]/div/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "024b105a-4dde-4f15-a372-fc16b309da4f",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test-techguy-panel",
+      "targets": [
+        ["id=test-techguy-panel", "id"],
+        ["css=#test-techguy-panel", "css:finder"],
+        ["xpath=//div[@id='test-techguy-panel']", "xpath:attributes"],
+        ["xpath=//div[@id='test-techguy-container']/div[2]", "xpath:idRelative"],
+        ["xpath=//div/div[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d598b8df-8ff0-468e-bbc8-81e9040f4783",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test-techguy-to-humanitarian",
+      "targets": [
+        ["id=test-techguy-to-humanitarian", "id"],
+        ["css=#test-techguy-to-humanitarian", "css:finder"],
+        ["xpath=//button[@id='test-techguy-to-humanitarian']", "xpath:attributes"],
+        ["xpath=//div[@id='test-techguy-container']/button", "xpath:idRelative"],
+        ["xpath=//div/div/div/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "131bbca6-d259-4e6f-9e77-370b2ae292e8",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=test-text-techguy",
+      "targets": [
+        ["id=test-text-techguy", "id"],
+        ["css=#test-text-techguy", "css:finder"],
+        ["xpath=//div[@id='test-text-techguy']", "xpath:attributes"],
+        ["xpath=//div[@id='test-techguy-panel']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div", "xpath:position"]
+      ],
+      "value": "“Технарь”- имеет обычное здоровье в 100 единиц, увеличенный вдвое урон по парам “Математика” и “Программирование”. Предметы типа “Гаджет” улучшают характеристики в 1.5 раза сильнее."
+    }]
   }],
   "suites": [{
     "id": "90ee65b0-50ef-4a1e-9b65-e3a2e79cadd9",
@@ -1021,6 +1304,6 @@
     "timeout": 300,
     "tests": []
   }],
-  "urls": ["http://localhost:3000/"],
+  "urls": ["http://localhost:3000/", "http://localhost:3001/"],
   "plugins": []
 }

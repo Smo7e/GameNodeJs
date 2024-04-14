@@ -2,7 +2,7 @@
   "id": "d60b1651-7c48-4a33-8e27-35e2f9e6bbd5",
   "version": "2.0",
   "name": "Auto_test_Login",
-  "url": "http://localhost:3001/",
+  "url": "http://localhost:3000/",
   "tests": [{
     "id": "b4b10c33-af36-414d-a3b5-3d050b5f354a",
     "name": "Test-text",

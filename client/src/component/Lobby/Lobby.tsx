@@ -68,7 +68,11 @@ const Lobby: React.FC<ILobbyProps> = ({ epages }) => {
     }, []);
     return (
         <div id="test-container-Lobby" className="container-Lobby">
-            <button onClick={() => epages(EPAGES.MENU)} id="test-arrow-1" className="arrow-1"></button>
+            <button
+                onClick={() => epages(EPAGES.MENU)}
+                id="test-arrow-1"
+                className="arrow-1"
+            ></button>
             <ShopLobby />
             <FriendLobby1 gamers={gamers} setPanel={setPanel} />
             <FriendLobby2 gamers={gamers} setPanel={setPanel} />
@@ -109,7 +113,7 @@ const Lobby: React.FC<ILobbyProps> = ({ epages }) => {
             ) : (
                 <></>
             )}
-            <button onClick={gameHadler} id="test-play" className="play">
+            <button onClick={gameHadler} id="test-play-game" className="play">
                 ИГРАТЬ
             </button>
         </div>

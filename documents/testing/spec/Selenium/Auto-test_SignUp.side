@@ -2,7 +2,7 @@
   "id": "9257c282-16b3-4c14-88fa-bacb61e58745",
   "version": "2.0",
   "name": "Auto-test_SignUp",
-  "url": "http://localhost:3001/",
+  "url": "http://localhost:3000/",
   "tests": [{
     "id": "902e6f67-a0dd-48cc-a7f4-e939f999ea93",
     "name": "Test-gotoSignUp",
