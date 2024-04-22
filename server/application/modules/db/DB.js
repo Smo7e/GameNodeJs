@@ -24,8 +24,8 @@ class DB {
         return this.orm.get("users", { login });
     }
 
-    getUserByToken(token) {
-        return this.orm.get("users", { token });
+    async getUserByToken(token) {
+        return await this.orm.get("users", { token });
     }
 
     // убрать

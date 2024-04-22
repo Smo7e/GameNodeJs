@@ -1,5 +1,4 @@
-
-const User = require('./User');
+const User = require("./User");
 
 class UserManager {
     constructor(answer, db, io) {
@@ -7,14 +6,14 @@ class UserManager {
 
         this.answer = answer;
         this.db = db;
-
         if (!io) {
             return;
         }
-        io.on('connection', socket => {
-            socket.on('SEND_MESSAGE', (data) => this.sendMessage(data, socket));
+        this.io = io;
+        io.on("connection", (socket) => {
+            socket.on("LOGIN", (data) => this.login(data, socket.id));
 
-            socket.on('disconnect', () => console.log('disCONNECT', socket.id));
+            socket.on("disconnect", () => console.log("disCONNECT", socket.id));
         });
     }
 
@@ -31,16 +30,18 @@ class UserManager {
 
     async login({ login, hash, rnd }, socketId) {
         const user = this._getUserBySocketId(socketId);
+        console.log(this.users);
         if (user) {
             const data = await user.login(login, hash, rnd, socketId);
             if (data) {
-                this.io.to(socketId).emit('LOGIN', this.answer.good(data));
+                this.io.to(socketId).emit("LOGIN", this.answer.good(data));
+                this.io.to(socketId).emit("GET_USER", data); ////////////////////////////
                 return;
             }
-            this.io.to(socketId).emit('LOGIN', this.answer.bad());
+            this.io.to(socketId).emit("LOGIN", this.answer.bad());
             return;
         }
-        this.io.to(socketId).emit('LOGIN', this.answer.bad());
+        this.io.to(socketId).emit("LOGIN", this.answer.bad());
     }
 
     async signUp(login, nickname, hash, verifyHash) {
@@ -65,13 +66,13 @@ class UserManager {
         if (user) {
             if (await user.logout(token)) {
                 delete this.users[socketId];
-                this.io.to(socketId).emit('LOGOUT', this.answer.good('ok'));
+                this.io.to(socketId).emit("LOGOUT", this.answer.good("ok"));
                 return;
             }
-            this.io.to(socketId).emit('LOGOUT', this.answer.bad());
+            this.io.to(socketId).emit("LOGOUT", this.answer.bad());
             return;
         }
-        this.io.to(socketId).emit('LOGOUT', this.answer.bad());
+        this.io.to(socketId).emit("LOGOUT", this.answer.bad());
     }
 
     async getUserById(id, socketId) {

@@ -6,7 +6,7 @@ export default class Server {
     private HOST: string;
     private token: string | null = null;
     private mediator: Mediator;
-    private socket: any;
+    socket: any;
 
     private hashGamers: string = "123";
     private hashMobs: string = "123";
@@ -21,21 +21,38 @@ export default class Server {
 
         this.socket = socket;
 
-        this.socket.on('connect', () => {
-            this.socket.on('GET_MESSAGES', (data: any) => {
+        this.socket.on("connect", () => {
+            this.socket.on("GET_MESSAGES", (data: any) => {
                 const { messages } = data.data;
                 if (messages?.length && Array.isArray(messages)) {
                     const { GET_MESSAGES } = this.mediator.getEventTypes();
                     this.mediator.call<Array<TMessage>>(GET_MESSAGES, messages);
                 }
             });
+            this.socket.on("GET_USER", (data: any) => {
+                console.log(data);
+                this.mediator.user = data;
+            });
+
+            this.socket.on("GET_GAMER", (data: any) => {
+                console.log(data);
+                this.mediator.gamer = data;
+            });
+            this.socket.on("GET_GAMERS", (data: any) => {
+                console.log(data);
+                this.mediator.gamers = data;
+            });
+            this.socket.on("GET_MOBS", (data: any) => {
+                console.log(data);
+                this.mediator.mobs = data;
+            });
         });
     }
 
     async request<T>(method: string, params: any = {}): Promise<T | null> {
         try {
-            if (this.token) {
-                params.token = this.token;
+            if (this.mediator.user.token) {
+                params.token = this.mediator.user.token;
             }
             const str = Object.keys(params)
                 .map((key) => `${key}=${params[key]}`)
@@ -68,16 +85,18 @@ export default class Server {
         }
     }
 
-    async login(login: string, hash: string, rnd: number): Promise<TUser | null> {
-        const answer = await this.request<TUserFull>("login", { login, hash, rnd });
-        if (answer) {
-            this.token = answer.token;
-            return {
-                id: answer.id,
-                name: answer.name,
-            };
-        }
-        return answer;
+    login(login: string, hash: string, rnd: number): void {
+        // const answer = await this.request<TUserFull>("login", { login, hash, rnd });
+        // if (answer) {
+        //     this.token = answer.token;
+        //     return {
+        //         id: answer.id,
+        //         name: answer.name,
+        //     };
+        // }
+        // return answer;
+
+        this.socket.emit("LOGIN", { login, hash, rnd });
     }
 
     async logout() {
@@ -90,7 +109,7 @@ export default class Server {
         return this.request<TUser>("signUp", { login, nickname, hash, verifyHash });
     }
     sendMessage(message: string) {
-        this.socket.emit('SEND_MESSAGE', { token: this.token, message });
+        this.socket.emit("SEND_MESSAGE", { token: this.token, message });
 
         //return this.request("sendMessage", { token: this.token, message });
     }
@@ -113,9 +132,9 @@ export default class Server {
         }
         return answer;
     }
-    async getUserByToken() {
-        return await this.request("getUserByToken", {});
-    }
+    // async getUserByToken() {
+    //     return await this.request("getUserByToken", {});
+    //}
     async addGamers() {
         return await this.request("addGamers", {});
     }
@@ -137,9 +156,9 @@ export default class Server {
     async moveMobs(x: number, y: number) {
         return await this.request("moveMobs", { x, y });
     }
-    getUserById(idFriend: number) {
-        return this.request("getUserById", { idFriend: idFriend });
-    }
+    // getUserById(idFriend: number) {
+    //     return this.request("getUserById", { idFriend: idFriend });
+    // }
     addInvitation(userId: number, friendId: number) {
         return this.request("addInvitation", { userId: userId, friendId: friendId });
     }

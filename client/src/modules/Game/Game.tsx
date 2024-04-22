@@ -22,6 +22,7 @@ const Game: React.FC = () => {
         server.startGameInterval();
         const getSceneHandler = (scene: TScene) => {
             if (scene.gamers != null) {
+                mediator.gamers = scene.gamers;
                 setInfoFriends(scene.gamers);
             }
             if (scene.mobs != null) {
@@ -66,7 +67,7 @@ const Game: React.FC = () => {
                 <ambientLight intensity={2} position={[0, 0, 5]} />
                 <Physics gravity={[0, 0, -10]}>
                     <Scene />
-                    <Player infoFriends={infoFriends?.filter((n) => n.name == mediator.user.name)} />
+                    <Player />
                     {infoFriends && infoFriends!.length >= 2 ? (
                         <Friends infoFriends={infoFriends.filter((n) => n.name !== mediator.user.name)} />
                     ) : (
@@ -81,8 +82,7 @@ const Game: React.FC = () => {
                     <Bullets infoFriends={infoFriends} infoMobs={infoMobs} />
                 </Physics>
             </Canvas>
-        {mediator.triger && questionFlag ? <TaskSelection setQuestionFlag={setQuestionFlag} /> : <></>}
-
+            {mediator.triger && questionFlag ? <TaskSelection setQuestionFlag={setQuestionFlag} /> : <></>}
         </>
     );
 };

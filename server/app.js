@@ -1,11 +1,11 @@
 const express = require("express");
 const app = express();
-const server = require('http').createServer(app);
+const server = require("http").createServer(app);
 
-const io = require('socket.io')(server, {
+const io = require("socket.io")(server, {
     cors: {
-        origin: '*',
-    }
+        origin: "*",
+    },
 });
 
 const CONFIG = require("./config");
@@ -19,7 +19,6 @@ const Lobby = require("./application/modules/lobby/Lobby");
 const Game = require("./application/modules/game/Game");
 const Chat = require("./application/modules/chat/Chat");
 const DB = require("./application/modules/db/DB");
-
 const db = new DB(DATABASE);
 const user = new UserManager(answer, db, io);
 const lobby = new Lobby(answer, db);

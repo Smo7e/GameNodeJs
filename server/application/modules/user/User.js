@@ -5,16 +5,17 @@ class User {
         this.db = db;
         this.socketId = socketId;
 
-        this.id = id;
+        this.id;
         this.name;
         this.token;
     }
 
     get() {
         return {
+            id: this.id,
             name: this.name,
             token: this.token,
-        }
+        };
     }
 
     _includeData({ name, token, id }, socketId) {
@@ -31,7 +32,7 @@ class User {
             if (hash === hashS) {
                 const token = md5(hash + Math.random());
                 this.db.updateToken(user.id, token);
-                this._includeData(user, socketId);
+                this._includeData({ name: user.name, token, id: user.id }, socketId);
                 return this.get();
             }
         }
@@ -53,7 +54,6 @@ class User {
     getUserByToken(token) {
         return this.token === token;
     }
-
 }
 
 module.exports = User;

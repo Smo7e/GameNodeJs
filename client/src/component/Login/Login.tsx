@@ -14,7 +14,6 @@ const Login: React.FC<ILoginProps> = ({ epages }) => {
     const loginRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
 
-    
     const [error, setError] = useState<TError | null>(null);
 
     const clickHandler = async () => {
@@ -23,61 +22,79 @@ const Login: React.FC<ILoginProps> = ({ epages }) => {
         const password = passwordRef.current!.value;
         const rnd = Math.round(Math.random() * 1000000);
         const hash = md5(md5(login + password) + rnd);
-        const user = await server.login(login, hash, rnd);
-        if (user) {
-            epages(EPAGES.MENU);
-        }
+        server.login(login, hash, rnd);
+        //epages(EPAGES.MENU);
     };
 
     useEffect(() => {
-      const { SERVER_ERROR } = mediator.getEventTypes();
+        server.socket.on("connect", () => {
+            server.socket.on("LOGIN", (data: any) => {
+                if (data.result === "ok") {
+                    epages(EPAGES.MENU);
+                }
+            });
+        });
 
-      const serverErrorHandler = (error: TError) => {
-          setError(error);
-      };
+        const { SERVER_ERROR } = mediator.getEventTypes();
 
-      mediator.subscribe(SERVER_ERROR, serverErrorHandler);
+        const serverErrorHandler = (error: TError) => {
+            setError(error);
+        };
 
-      return () => {
-          mediator.unsubscribe(SERVER_ERROR, serverErrorHandler);
-      };
-  });
+        mediator.subscribe(SERVER_ERROR, serverErrorHandler);
+
+        return () => {
+            mediator.unsubscribe(SERVER_ERROR, serverErrorHandler);
+        };
+    });
 
     return (
         <div className="Login" id="test-login">
-          <div className="logoLogin" id="test-logo"></div>
-          <div className="containerLogin" id="test-container">
-            <div className="containerLoginHeader" id="test-header">
-              Войти
+            <div className="logoLogin" id="test-logo"></div>
+            <div className="containerLogin" id="test-container">
+                <div className="containerLoginHeader" id="test-header">
+                    Войти
+                </div>
+                <div>
+                    <input ref={loginRef} className="loginInput" placeholder="Логин" id="test-login-input" />
+                    <input
+                        ref={passwordRef}
+                        type="password"
+                        className="loginInput"
+                        placeholder="Пароль"
+                        id="test-password-input"
+                    />
+                </div>
+
+                <div className="checkboxLogin-container" id="test-checkbox-container">
+                    <input type="checkbox" className="checkboxLogin" id="test-remember-checkbox" />
+                    <div className="checkboxLoginText" id="test-text-checkbox">
+                        Не выходить из учетной записи
+                    </div>
+                </div>
+
+                <button className="loginButton" onClick={clickHandler} id="test-login-button">
+                    Продолжить
+                </button>
+                <ErrorMessage error={error} />
+
+                <hr className="hrLogin" id="test-hrLogin" />
+
+                <div className="otherButtonsLogin" id="test-other-buttons">
+                    <button className="otherButtonLogin" id="test-forgot-password-button">
+                        Не можете войти?
+                    </button>
+                    <button
+                        className="otherButtonLogin"
+                        onClick={() => epages(EPAGES.SIGNUP)}
+                        id="test-create-account-button"
+                    >
+                        Создать учетную запись
+                    </button>
+                </div>
             </div>
-            <div>
-              <input ref={loginRef} className="loginInput" placeholder="Логин" id="test-login-input" />
-              <input ref={passwordRef} type="password" className="loginInput" placeholder="Пароль" id="test-password-input" />
-            </div>
-    
-            <div className="checkboxLogin-container" id="test-checkbox-container">
-              <input type="checkbox" className="checkboxLogin" id="test-remember-checkbox" />
-              <div className="checkboxLoginText" id="test-text-checkbox">Не выходить из учетной записи</div>
-            </div>
-    
-            <button className="loginButton" onClick={clickHandler} id="test-login-button">
-              Продолжить
-            </button>
-            <ErrorMessage error={error} />
-            
-            <hr className="hrLogin" id="test-hrLogin"/>
-    
-            <div className="otherButtonsLogin" id="test-other-buttons">
-              <button className="otherButtonLogin" id="test-forgot-password-button">
-                Не можете войти?
-              </button>
-              <button className="otherButtonLogin" onClick={() => epages(EPAGES.SIGNUP)} id="test-create-account-button">
-                Создать учетную запись
-              </button>
-            </div>
-          </div>
         </div>
-      );
+    );
 };
 
 export default Login;

@@ -15,6 +15,7 @@ class ORM {
             FROM ${table} 
             WHERE ${keys.join(` ${operand} `)}
         `;
+        console.log(query, values);
         const res = await this.db.query(query, values);
         return res.rows ? res.rows[0] : null;
     }
