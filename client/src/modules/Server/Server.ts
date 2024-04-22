@@ -15,7 +15,7 @@ export default class Server {
 
     constructor(HOST: string, mediator: Mediator) {
         this.HOST = HOST;
-        this.mediator = mediator;        
+        this.mediator = mediator;
 
         const socket = io(HOST);
 
