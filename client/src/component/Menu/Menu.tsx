@@ -65,12 +65,7 @@ const Menu: React.FC<IMenuProps> = ({ epages }) => {
         epages(EPAGES.LOBBY);
     };
 
-    const userSave = async () => {
-        await server.getUserByToken().then((result): any => {
-            mediator.user = result;
-        });
-    };
-    userSave();
+    // mp
 
     const logoutHandler = async () => {
         await server.logout();

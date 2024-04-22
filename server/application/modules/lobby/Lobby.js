@@ -40,6 +40,7 @@ class Lobby {
     async addGamers(token) {
         if (token) {
             const user = await this.db.getUserByToken(token);
+            console.log(user);
             if (user) {
                 this.db.addGamers(user.id);
                 return this.answer.good("ok");

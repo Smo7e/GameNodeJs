@@ -33,11 +33,12 @@ const Lobby: React.FC<ILobbyProps> = ({ epages }) => {
 
     const [lobby, setLobby] = useState<ELOBBY>(ELOBBY.SPORTIK);
     const [panel, setPanel] = useState<EPANEL>();
-    const [gamers, setGamers] = useState<any>(null);
+    const [gamers, setGamers] = useState<any>([]);
     const panelRef = useRef<HTMLDivElement>(null);
 
     const gameHadler = async () => {
         await server.getGamerById(mediator.user.id).then((result): any => {
+            console.log(result);
             mediator.gamer = result;
         });
 
@@ -45,6 +46,7 @@ const Lobby: React.FC<ILobbyProps> = ({ epages }) => {
     };
 
     useEffect(() => {
+        console.log(server.getGamers());
         server.moveMobs(8, -3);
         const handleClickOutside = (event: MouseEvent) => {
             if (panelRef.current && !panelRef.current.contains(event.target as Node)) {
@@ -54,9 +56,8 @@ const Lobby: React.FC<ILobbyProps> = ({ epages }) => {
         const interval = setInterval(async () => {
             await server.getGamers().then((result): any => {
                 mediator.gamers = result;
-                if (mediator.gamer != gamers) {
-                    setGamers(result);
-                }
+
+                setGamers(result);
             });
         }, 800);
 
@@ -66,34 +67,30 @@ const Lobby: React.FC<ILobbyProps> = ({ epages }) => {
             return clearInterval(interval);
         };
     }, []);
+    if (!gamers || !gamers[0] || !gamers[0].name) return <></>;
     return (
         <div id="test-container-Lobby" className="container-Lobby">
-            <button
-                onClick={() => epages(EPAGES.MENU)}
-                id="test-arrow-1"
-                className="arrow-1"
-            ></button>
+            <button onClick={() => epages(EPAGES.MENU)} id="test-arrow-1" className="arrow-1"></button>
             <ShopLobby />
             <FriendLobby1 gamers={gamers} setPanel={setPanel} />
             <FriendLobby2 gamers={gamers} setPanel={setPanel} />
-            {/* infoFriends && infoFriends[0].name === mediator.user.name */}
-            {lobby === ELOBBY.SPORTIK && gamers && mediator.user.name === gamers[0].name ? (
+            {lobby === ELOBBY.SPORTIK && gamers && gamers[0] && mediator.user.name === gamers[0].name ? (
                 <SportikLobby lobby={setLobby} gamerNumber={0} />
-            ) : lobby === ELOBBY.HUMANITARIAN && gamers && mediator.user.name === gamers[0].name ? (
+            ) : lobby === ELOBBY.HUMANITARIAN && gamers && gamers[0] && mediator.user.name === gamers[0].name ? (
                 <HumanitarianLobby lobby={setLobby} gamerNumber={0} />
-            ) : lobby === ELOBBY.TECHGUY && gamers && mediator.user.name === gamers[0].name ? (
+            ) : lobby === ELOBBY.TECHGUY && gamers[0] && mediator.user.name === gamers[0].name ? (
                 <TechguyLobby lobby={setLobby} gamerNumber={0} />
             ) : (
                 <>
-                    {gamers && gamers[0].person_id - 0 === 0 ? (
+                    {gamers && gamers[0] && gamers[0].person_id && gamers[0].person_id - 0 === 0 ? (
                         <div className="image-Sportik">
                             <button className="button">&lt;Спортик&gt;</button>
                         </div>
-                    ) : gamers && gamers[0].person_id - 0 === 1 ? (
+                    ) : gamers && gamers[0] && gamers[0].person_id && gamers[0].person_id - 0 === 1 ? (
                         <div className="image-techguy">
                             <button className="button">&lt;Технарь&gt;</button>
                         </div>
-                    ) : gamers && gamers[0].person_id - 0 === 2 ? (
+                    ) : gamers && gamers[0] && gamers[0].person_id && gamers[0].person_id - 0 === 2 ? (
                         <div className="image-humanitarian">
                             <button className="button">&lt;Гуманитарий&gt;</button>
                         </div>
@@ -113,7 +110,7 @@ const Lobby: React.FC<ILobbyProps> = ({ epages }) => {
             ) : (
                 <></>
             )}
-            <button onClick={gameHadler} id="test-play-game" className="play">
+            <button onClick={gameHadler} id="test-play" className="play">
                 ИГРАТЬ
             </button>
         </div>
