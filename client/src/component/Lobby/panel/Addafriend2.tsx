@@ -9,8 +9,8 @@ const Addafriend2Lobby: React.FC<Addafriend2LobbyProps> = ({ friends, userId }) 
     const server = useContext(ServerContext);
     return (
         <div className="addafriend2" key={Math.random()}>
-            {friends.map((friend: any) => (
-                <div style={{ display: "flex" }}>
+            {friends.map((friend: any, index: number) => (
+                <div key={index} style={{ display: "flex" }}>
                     <div className="plays">{friend.name}</div>
                     <button className="plus" onClick={() => server.addInvitation(userId, friend.id)}></button>
                 </div>

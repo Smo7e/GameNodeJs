@@ -67,9 +67,24 @@ class DB {
         return row;
     }
 
-    async getFriends(id) {
-        return this.orm.get("users", { id }, friends);
+    async addFriend(user_id, friend_id) {
+        await this.orm.insert("friends", { user_id, friend_id });
     }
+
+    async getFriends(user_id) {
+        const query = `
+            SELECT CASE
+                WHEN f.user_id = $1 THEN f.friend_id
+                WHEN f.friend_id = $1 THEN f.user_id
+            END AS friend_id
+            FROM friends f
+            WHERE f.user_id = $1 OR f.friend_id = $1
+        `;
+        const result = await this.db.query(query, [user_id]);
+        const friendIds = result.rows.map((row) => row.friend_id);
+        return friendIds;
+    }
+
     async getGamers() {
         const result = await this.db.query(
             `SELECT u.name AS name,

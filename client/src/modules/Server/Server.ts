@@ -15,14 +15,14 @@ export default class Server {
 
     constructor(HOST: string, mediator: Mediator) {
         this.HOST = HOST;
-        this.mediator = mediator;        
+        this.mediator = mediator;
 
         const socket = io(HOST);
 
         this.socket = socket;
 
-        this.socket.on('connect', () => {
-            this.socket.on('GET_MESSAGES', (data: any) => {
+        this.socket.on("connect", () => {
+            this.socket.on("GET_MESSAGES", (data: any) => {
                 const { messages } = data.data;
                 if (messages?.length && Array.isArray(messages)) {
                     const { GET_MESSAGES } = this.mediator.getEventTypes();
@@ -90,7 +90,7 @@ export default class Server {
         return this.request<TUser>("signUp", { login, nickname, hash, verifyHash });
     }
     sendMessage(message: string) {
-        this.socket.emit('SEND_MESSAGE', { token: this.token, message });
+        this.socket.emit("SEND_MESSAGE", { token: this.token, message });
 
         //return this.request("sendMessage", { token: this.token, message });
     }
@@ -138,7 +138,7 @@ export default class Server {
         return await this.request("moveMobs", { x, y });
     }
     getUserById(idFriend: number) {
-        return this.request("getUserById", { idFriend: idFriend });
+        return this.request("getUserById", { id: idFriend });
     }
     addInvitation(userId: number, friendId: number) {
         return this.request("addInvitation", { userId: userId, friendId: friendId });

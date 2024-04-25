@@ -11,39 +11,48 @@ const Menu: React.FC<IMenuProps> = ({ epages }) => {
     const mediator = useContext(MediatorContext);
 
     const idRef = useRef<HTMLInputElement>(null);
-    const [friends, setFriends] = useState<number[]>([]);
-    const [friend, setFriend] = useState<TFriend[]>([{ id: 0, name: "У Вас нету друзей,пхахахахахха!" }]);
+    const [friends, setFriends] = useState<any[]>([{ id: 0, name: "У Вас нету друзей,пхахахахахха!" }]);
     const [invites, setInvites] = useState<any>([]);
+    const [polzavatel, setPolzavatel] = useState<any>([]);
+
+    const fetchFriends = async (): Promise<TFriend[]> => {
+        const loadedFriendsIds = await server.getFriends();
+        const updatedFriends: TFriend[] = [];
+        if (loadedFriendsIds) {
+            for (const friendId of loadedFriendsIds) {
+                const user: any = await server.getUserById(friendId);
+                if (user) {
+                    const friendInfo: TFriend = {
+                        id: user.id,
+                        name: user.name,
+                    };
+                    updatedFriends.push(friendInfo);
+                }
+            }
+        }
+        mediator.friends = updatedFriends;
+        return updatedFriends;
+    };
 
     const clickHandler = async () => {
         const id = idRef.current!.value;
         const result = await server.addFriend(id);
 
         if (result) {
-            const updatedFriends = await server.getFriends();
-            if (updatedFriends) {
-                setFriends(updatedFriends);
-            }
+            const updatedFriends = await fetchFriends();
+            setFriends(updatedFriends);
         }
     };
 
     useEffect(() => {
-        // const fetchFriends = async () => {
-        //     const loadedFriends = await server.getFriends();
-        //     if (loadedFriends) {
-        //         const updatedFriends = await Promise.all(
-        //             loadedFriends.map(async (friendId) => {
-        //                 const user = await server.getUserById(friendId);
-        //                 if (user && typeof user === "object" && "id" in user && "name" in user) {
-        //                     return { id: user.id, name: user.name };
-        //                 }
-        //             })
-        //         );
-        //         mediator.friends = updatedFriends;
-        //         setFriend(updatedFriends as TFriend[]);
-        //     }
-        // };
-        // fetchFriends();
+        (async () => {
+            const polzavatelData = await server.getUserByToken();
+            setPolzavatel(polzavatelData);
+
+            const loadedFriends = await fetchFriends();
+
+            setFriends(loadedFriends);
+        })();
 
         const interval = setInterval(async () => {
             if (mediator.user) {
@@ -58,7 +67,8 @@ const Menu: React.FC<IMenuProps> = ({ epages }) => {
         return () => {
             clearInterval(interval);
         };
-    }, [friends]);
+    }, []);
+
     const lobbyHandler = async () => {
         await server.deleteGamers();
         await server.addGamers();
@@ -81,7 +91,7 @@ const Menu: React.FC<IMenuProps> = ({ epages }) => {
             <div style={{ height: 200, width: 200, position: "absolute", bottom: 200, right: 200 }}>
                 {invites[0] != true ? (
                     invites.map((invite: any, index: number) => (
-                        <div style={{ display: "flex" }}>
+                        <div key={index} style={{ display: "flex" }}>
                             <div className="your-friend" key={index}>
                                 Пользователь с id:{invite.id_who} приглашает вас.
                             </div>
@@ -115,15 +125,17 @@ const Menu: React.FC<IMenuProps> = ({ epages }) => {
             </div>
 
             <div className="profile-panel" id="test-profile">
-                <div className="user-profile" id="test-user"></div>
+                <div className="user-profile" id="test-user">
+                    {`${polzavatel.id}: ${polzavatel.name}`}
+                </div>
                 <hr className="hr-user-profile1" id="test-hr1" />
 
                 <div className="text-button" id="test-friends">
                     Друзья
                 </div>
                 <div className="your-friend-menu" id="test-friend-menu">
-                    {friend.map((friend, index) => (
-                        <div className="your-friend" key={index}>
+                    {friends.map((friend) => (
+                        <div className="your-friend" key={friend.id}>
                             {`${friend.id}: ${friend.name}`}
                         </div>
                     ))}

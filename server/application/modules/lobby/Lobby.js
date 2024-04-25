@@ -10,29 +10,33 @@ class Lobby {
         }
         return this.answer.bad(405);
     }
-    // addFriend(token, id) {
-    //     if (token && id) {
-    //         const user = this.db.getUserByToken(token);
-    //         if (user) {
-    //             const userFriend = this.db.getFriends(user.id);
-    //             if (userFriend) {
-    //                 const friends = json_decode(user["friends"], true);
-    //                 if (!in_array(friendId, friends)) {
-    //                     const friend = this.db.getUserById(friendId);
-    //                     if (friend) {
-    //                         this.db.addFriend(user.id, friend.id, friends);
-    //                         return this.answer.good("ok");
-    //                     }
-    //                     return this.answer.bad(488);
-    //                 }
-    //                 return this.answer.bad(500);
-    //             }
-    //             return this.answer.bad(499);
-    //         }
-    //         return this.answer.bad(455);
-    //     }
-    //     return this.answer.bad(1001);
-    // }
+
+    async addFriend(token, friend_id) {
+        const friendIdNumber = parseInt(friend_id);
+        if (friend_id && (await this.db.getUserById(friend_id))) {
+            const user = await this.db.getUserByToken(token);
+            if (user && !(friendIdNumber == user.id)) {
+                const friends = await this.db.getFriends(user.id);
+                if (!friends.includes(friendIdNumber)) {
+                    await this.db.addFriend(user.id, friend_id);
+                    return this.answer.good("ok");
+                }
+                return this.answer.bad(500);
+            }
+            return this.answer.bad(455);
+        }
+        return this.answer.bad(488);
+    }
+
+    async getFriends(token) {
+        const user = await this.db.getUserByToken(token);
+        if (user) {
+            const friends = await this.db.getFriends(user.id);
+            return this.answer.good(friends);
+        }
+        return this.answer.bad(455);
+    }
+
     async getGamers() {
         return this.answer.good(await this.db.getGamers());
     }
