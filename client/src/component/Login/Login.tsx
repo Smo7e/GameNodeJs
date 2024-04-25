@@ -23,13 +23,13 @@ const Login: React.FC<ILoginProps> = ({ epages }) => {
         const rnd = Math.round(Math.random() * 1000000);
         const hash = md5(md5(login + password) + rnd);
         server.login(login, hash, rnd);
-        //epages(EPAGES.MENU);
     };
 
     useEffect(() => {
         server.socket.on("connect", () => {
             server.socket.on("LOGIN", (data: any) => {
                 if (data.result === "ok") {
+                    mediator.user = data;
                     epages(EPAGES.MENU);
                 }
             });

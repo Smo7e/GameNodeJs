@@ -28,6 +28,14 @@ const Menu: React.FC<IMenuProps> = ({ epages }) => {
     };
 
     useEffect(() => {
+        server.checkInvites(mediator.user.id);
+        server.socket.on("connect", () => {
+            server.socket.on("GET_INVITES", (data: any) => {
+                if (data.result === "ok") {
+                    setInvites(data);
+                }
+            });
+        });
         // const fetchFriends = async () => {
         //     const loadedFriends = await server.getFriends();
         //     if (loadedFriends) {
@@ -44,21 +52,16 @@ const Menu: React.FC<IMenuProps> = ({ epages }) => {
         //     }
         // };
         // fetchFriends();
-
-        const interval = setInterval(async () => {
-            if (mediator.user) {
-                await server.checkInvites(mediator.user.id).then((result): any => {
-                    if (result != null) {
-                        setInvites(result);
-                    }
-                });
-            }
-        }, 1000);
-
-        return () => {
-            clearInterval(interval);
-        };
-    }, [friends]);
+        // const interval = setInterval(async () => {
+        //     if (mediator.user) {
+        //         await server.checkInvites(mediator.user.id).then((result): any => {
+        //             if (result != null) {
+        //                 setInvites(result);
+        //             }
+        //         });
+        //     }
+        // }, 1000);
+    });
     const lobbyHandler = async () => {
         await server.deleteGamers();
         await server.addGamers();

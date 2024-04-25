@@ -46,7 +46,7 @@ function Router(user, lobby, game) {
     router.get("/getFriends", useGetFriendsHandler(lobby));
     router.get("/getGamers", useGetGamersHandler(lobby));
     router.get("/addGamers", useAddGamersHandler(lobby));
-    router.get("/deleteGamers", useDeleteGamersHandler(lobby));
+    router.get("/deleteGamers", useDeleteGamersHandler(game));
     router.get("/updatePersonId", useUpdatePersonIdHandler(lobby));
     router.get("/getGamerById", useGetGamerByIdHandler(lobby));
     router.get("/addInvitation", useAddInvitationHandler(lobby));

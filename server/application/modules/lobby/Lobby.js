@@ -1,7 +1,16 @@
 class Lobby {
-    constructor(answer, db) {
+    constructor(answer, db, io) {
         this.answer = answer;
         this.db = db;
+        this.io = io;
+        if (!io) {
+            return;
+        }
+
+        io.on("connection", (socket) => {
+            socket.on("GET_INVITES", (data) => this.checkInvites(data, socket.id));
+            socket.on("ADD_INVITES", (data) => this.checkInvites(data, socket.id));
+        });
     }
     async getItems() {
         const item = await this.db.getItems();
@@ -33,26 +42,7 @@ class Lobby {
     //     }
     //     return this.answer.bad(1001);
     // }
-    async getGamers() {
-        return this.answer.good(await this.db.getGamers());
-    }
 
-    async addGamers(token) {
-        if (token) {
-            const user = await this.db.getUserByToken(token);
-            console.log(user);
-            if (user) {
-                this.db.addGamers(user.id);
-                return this.answer.good("ok");
-            }
-            return this.answer.bad(455);
-        }
-        return this.answer.bad(1001);
-    }
-    async deleteGamers() {
-        this.db.deleteGamers();
-        return this.answer.good("ok");
-    }
     async updatePersonId(token, newPersonId) {
         if (token) {
             const user = await this.db.getUserByToken(token);
@@ -67,12 +57,13 @@ class Lobby {
     async getGamerById(userId) {
         return this.answer.good(await this.db.getGamerById(userId));
     }
-    addInvitation(userId, friendId) {
-        this.db.addInvitation(userId, friendId);
-        return this.answer.good("ok");
+    async addInvitation(userId, friendId) {
+        await this.db.addInvitation(userId, friendId);
+        this.io.emit("GET_INVITES", await this.answer.good(this.db.checkInvites(userId)));
     }
-    async checkInvites(userId) {
-        return this.answer.good(await this.db.checkInvites(userId));
+    async checkInvites({ userId }, soketId) {
+        this.io.to(soketId).emit("GET_INVITES", await this.answer.good(this.db.checkInvites(userId)));
+        //return this.answer.good(await this.db.checkInvites(userId));
     }
 }
 module.exports = Lobby;

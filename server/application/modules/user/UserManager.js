@@ -12,8 +12,9 @@ class UserManager {
         this.io = io;
         io.on("connection", (socket) => {
             socket.on("LOGIN", (data) => this.login(data, socket.id));
+            socket.on("SIGNUP", (data) => this.signUp(data, socket.id));
 
-            socket.on("disconnect", () => console.log("disCONNECT", socket.id));
+            //socket.on("disconnect", () => console.log("disCONNECT", socket.id));
         });
     }
 
@@ -30,12 +31,13 @@ class UserManager {
 
     async login({ login, hash, rnd }, socketId) {
         const user = this._getUserBySocketId(socketId);
-        console.log(this.users);
+        //console.log(this.users);
         if (user) {
             const data = await user.login(login, hash, rnd, socketId);
             if (data) {
                 this.io.to(socketId).emit("LOGIN", this.answer.good(data));
                 this.io.to(socketId).emit("GET_USER", data); ////////////////////////////
+
                 return;
             }
             this.io.to(socketId).emit("LOGIN", this.answer.bad());
@@ -44,21 +46,31 @@ class UserManager {
         this.io.to(socketId).emit("LOGIN", this.answer.bad());
     }
 
-    async signUp(login, nickname, hash, verifyHash) {
+    async signUp({ login, nickname, hash, verifyHash }, socketId) {
+        console.log("signUp");
         if (login && nickname) {
             if (hash && verifyHash && hash === verifyHash) {
                 const user = await this.db.getUserByLogin(login);
                 if (!user) {
                     await this.db.addUser(login, nickname, hash);
-                    return this.answer.good({
-                        name: nickname,
-                    });
+                    this.io.to(socketId).emit(
+                        "SIGNUP",
+                        this.answer.good({
+                            name: nickname,
+                        })
+                    );
+                    this.io.to(socketId).emit("SIGNUP", this.answer.bad(9999));
+                    return;
                 }
-                return this.answer.bad(487);
+                this.io.to(socketId).emit("SIGNUP", this.answer.bad(487));
+                return;
             }
-            return this.answer.bad(1501);
+            this.io.to(socketId).emit("SIGNUP", this.answer.bad(1501));
+
+            return;
         }
-        return this.answer.bad(1001);
+        this.io.to(socketId).emit("SIGNUP", this.answer.bad(1001));
+        return;
     }
 
     async logout({ token }, socketId) {

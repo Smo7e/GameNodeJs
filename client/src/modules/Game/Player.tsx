@@ -32,7 +32,6 @@ const Player: React.FC = memo(() => {
         a: false,
         d: false,
     };
-    const infoFriends: any = mediator.gamers?.filter((n: any) => n.name == mediator.user.name);
 
     const keydownHangler = (e: any) => {
         const key = e.code[e.code.length - 1].toLowerCase();
@@ -48,10 +47,26 @@ const Player: React.FC = memo(() => {
             [key]: false,
         };
     };
-    useFrame((state) => {
-        if (!personRef.current || !infoFriends) return;
-        if (infoFriends[0].hp <= 0) {
+    const updateFrame = (direction = moveDown, hp = 1) => {
+        if (hp != 0) {
+            currentFrame = (currentFrame + frameSpeed) % frameLegth;
+            directionPlayer = direction[Math.floor(currentFrame)];
+        } else {
             directionPlayer = death[0];
+        }
+
+        if (spriteRef.current && spriteRef.current.map) {
+            //spriteRef.current.map.dispose();
+            spriteRef.current.map = directionPlayer;
+            spriteRef.current.needsUpdate = true;
+        }
+    };
+    useFrame((state) => {
+        const infoFriends: any = mediator.gamers?.filter((n: any) => n.name == mediator.user.name);
+        if (!personRef.current || !infoFriends) return;
+
+        if (infoFriends[0].hp <= 0) {
+            updateFrame(null, 0);
             return;
         }
         const { w, a, s, d } = controls;
@@ -74,15 +89,7 @@ const Player: React.FC = memo(() => {
                 move.x += playerSpeed;
                 direction = moveRight;
             }
-            currentFrame = (currentFrame + frameSpeed) % frameLegth;
-
-            directionPlayer = direction[Math.floor(currentFrame)];
-            //
-            if (spriteRef.current && spriteRef.current.map) {
-                //spriteRef.current.map.dispose();
-                spriteRef.current.map = directionPlayer;
-                spriteRef.current.needsUpdate = true;
-            }
+            updateFrame(direction);
 
             //
             personRef.current?.setLinvel(move, true);

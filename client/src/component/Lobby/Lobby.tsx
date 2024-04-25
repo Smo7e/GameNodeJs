@@ -38,7 +38,6 @@ const Lobby: React.FC<ILobbyProps> = ({ epages }) => {
 
     const gameHadler = async () => {
         await server.getGamerById(mediator.user.id).then((result): any => {
-            console.log(result);
             mediator.gamer = result;
         });
 
@@ -46,25 +45,32 @@ const Lobby: React.FC<ILobbyProps> = ({ epages }) => {
     };
 
     useEffect(() => {
-        console.log(server.getGamers());
         server.moveMobs(8, -3);
         const handleClickOutside = (event: MouseEvent) => {
             if (panelRef.current && !panelRef.current.contains(event.target as Node)) {
                 setPanel(undefined);
             }
         };
-        const interval = setInterval(async () => {
-            await server.getGamers().then((result): any => {
-                mediator.gamers = result;
+        const { GET_GAMERS } = mediator.getEventTypes();
 
-                setGamers(result);
-            });
-        }, 800);
+        const Handler = (data: any) => {
+            setGamers(data);
+        };
+
+        mediator.subscribe(GET_GAMERS, Handler);
+        // const interval = setInterval(async () => {
+        //     await server.getGamers().then((result): any => {
+        //         mediator.gamers = result;
+
+        //         setGamers(result);
+        //     });
+        // }, 800);
 
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
-            return clearInterval(interval);
+            mediator.unsubscribe(GET_GAMERS, Handler);
+            // return clearInterval(interval);
         };
     }, []);
     if (!gamers || !gamers[0] || !gamers[0].name) return <></>;

@@ -21,8 +21,8 @@ const Chat = require("./application/modules/chat/Chat");
 const DB = require("./application/modules/db/DB");
 const db = new DB(DATABASE);
 const user = new UserManager(answer, db, io);
-const lobby = new Lobby(answer, db);
-const game = new Game(answer, db);
+const lobby = new Lobby(answer, db, io);
+const game = new Game(answer, db, io);
 new Chat(answer, db, io);
 
 const Router = require("./application/router/Router");

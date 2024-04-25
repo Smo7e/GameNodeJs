@@ -118,6 +118,7 @@ class DB {
     }
     async updateHp(user_id) {
         let hp = await this.orm.get("gamers", { user_id }, "hp");
+        console.log(hp, user_id);
         hp = hp.hp -= 5;
         this.orm.update("gamers", { hp }, { user_id });
     }
