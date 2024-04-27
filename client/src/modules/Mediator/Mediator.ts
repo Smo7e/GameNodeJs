@@ -36,7 +36,7 @@ export default class Mediator {
         this.TRIGGERS = TRIGGERS;
         this.user = null;
         this.gamer = 0;
-        this.gamers = 0;
+        this.gamers = [];
         this.friends = [];
         this.triger = false;
         this.mobs = null;

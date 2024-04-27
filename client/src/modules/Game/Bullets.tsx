@@ -1,15 +1,11 @@
-import { createRef, memo, useCallback, useContext, useEffect, useState } from "react";
+import { createRef, useContext, useEffect, useState } from "react";
 import { Mesh, TextureLoader } from "three";
 import { useFrame, useLoader } from "@react-three/fiber";
 import fireBall from "./image/Bullets/fireBall.png";
 import { TGamer, TMobs } from "../Server/types";
 import { MediatorContext, ServerContext } from "../../App";
 
-interface IPropsBullets {
-    infoFriends: TGamer[] | null;
-    infoMobs: TMobs[] | null;
-}
-const Bullets: React.FC<IPropsBullets> = memo(({ infoFriends, infoMobs }) => {
+const Bullets: React.FC = () => {
     const server = useContext(ServerContext);
     const mediator = useContext(MediatorContext);
 
@@ -17,8 +13,42 @@ const Bullets: React.FC<IPropsBullets> = memo(({ infoFriends, infoMobs }) => {
     const [arrBullet, setArrBullet] = useState<any>([]);
 
     const bulletsSpeed = 0.1;
+
+    const addBullet = (infoFriends: TGamer[], infoMobs: TMobs[]): void => {
+        setArrBullet([
+            infoFriends && infoFriends[0]
+                ? [
+                      infoMobs ? infoMobs[0].x - 0 : 200,
+                      infoMobs ? infoMobs[0].y - 0 : 200,
+                      infoFriends ? infoFriends[0].x - 0 : 200,
+                      infoFriends ? infoFriends[0].y - 0 : 200,
+                  ]
+                : null,
+
+            infoFriends && infoFriends[1]
+                ? [
+                      infoMobs ? infoMobs[0].x - 0 : 200,
+                      infoMobs ? infoMobs[0].y - 0 : 200,
+                      infoFriends ? infoFriends[1].x - 0 : 200,
+                      infoFriends ? infoFriends[1].y - 0 : 200,
+                  ]
+                : null,
+
+            infoFriends && infoFriends[2]
+                ? [
+                      infoMobs ? infoMobs[0].x - 0 : 200,
+                      infoMobs ? infoMobs[0].y - 0 : 200,
+                      infoFriends ? infoFriends[2].x - 0 : 200,
+                      infoFriends ? infoFriends[2].y - 0 : 200,
+                  ]
+                : null,
+        ]);
+    };
     useFrame(() => {
         if (!mediator.triger) return;
+        const infoFriends: TGamer[] = mediator.gamers;
+        const infoMobs: TMobs[] = mediator.mobs;
+
         if (infoMobs && infoMobs[0].hp <= 0) return;
 
         if (arrBullet.filter((n: any) => n).length === 0) {
@@ -34,34 +64,7 @@ const Bullets: React.FC<IPropsBullets> = memo(({ infoFriends, infoMobs }) => {
         }
 
         if (arrBullet.length === 0) {
-            setArrBullet([
-                infoFriends && infoFriends[0]
-                    ? [
-                          infoMobs ? infoMobs[0].x - 0 : 200,
-                          infoMobs ? infoMobs[0].y - 0 : 200,
-                          infoFriends ? infoFriends[0].x - 0 : 200,
-                          infoFriends ? infoFriends[0].y - 0 : 200,
-                      ]
-                    : null,
-
-                infoFriends && infoFriends[1]
-                    ? [
-                          infoMobs ? infoMobs[0].x - 0 : 200,
-                          infoMobs ? infoMobs[0].y - 0 : 200,
-                          infoFriends ? infoFriends[1].x - 0 : 200,
-                          infoFriends ? infoFriends[1].y - 0 : 200,
-                      ]
-                    : null,
-
-                infoFriends && infoFriends[2]
-                    ? [
-                          infoMobs ? infoMobs[0].x - 0 : 200,
-                          infoMobs ? infoMobs[0].y - 0 : 200,
-                          infoFriends ? infoFriends[2].x - 0 : 200,
-                          infoFriends ? infoFriends[2].y - 0 : 200,
-                      ]
-                    : null,
-            ]);
+            addBullet(infoFriends, infoMobs);
         }
 
         arrBullet.map((elem: number, i: number) => {
@@ -90,6 +93,7 @@ const Bullets: React.FC<IPropsBullets> = memo(({ infoFriends, infoMobs }) => {
             }
         });
     });
+
     useEffect(() => {
         setbulletsRefs((bulletsRefs: any) =>
             Array(arrBullet.length)
@@ -110,5 +114,5 @@ const Bullets: React.FC<IPropsBullets> = memo(({ infoFriends, infoMobs }) => {
                 ))}
         </>
     );
-});
+};
 export default Bullets;

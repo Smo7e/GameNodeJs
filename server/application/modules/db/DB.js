@@ -24,8 +24,8 @@ class DB {
         return this.orm.get("users", { login });
     }
 
-    getUserByToken(token) {
-        return this.orm.get("users", { token });
+    async getUserByToken(token) {
+        return await this.orm.get("users", { token });
     }
 
     // убрать
@@ -73,16 +73,13 @@ class DB {
 
     async getFriends(user_id) {
         const query = `
-            SELECT CASE
-                WHEN f.user_id = $1 THEN f.friend_id
-                WHEN f.friend_id = $1 THEN f.user_id
-            END AS friend_id
+            SELECT u.id, u.login, u.name, u.token
             FROM friends f
+            INNER JOIN users u ON (f.user_id = $1 AND u.id = f.friend_id) OR (f.friend_id = $1 AND u.id = f.user_id)
             WHERE f.user_id = $1 OR f.friend_id = $1
         `;
         const result = await this.db.query(query, [user_id]);
-        const friendIds = result.rows.map((row) => row.friend_id);
-        return friendIds;
+        return result.rows;
     }
 
     async getGamers() {
@@ -133,6 +130,7 @@ class DB {
     }
     async updateHp(user_id) {
         let hp = await this.orm.get("gamers", { user_id }, "hp");
+        console.log(hp, user_id);
         hp = hp.hp -= 5;
         this.orm.update("gamers", { hp }, { user_id });
     }
