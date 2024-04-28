@@ -9,6 +9,7 @@ import Heroes from "./component/Heroes/Heroes";
 import Interface from "./component/Interface/Interface";
 import Lobby from "./component/Lobby/Lobby";
 import ErrorMessage from "./modules/ErrorMessage/ErrorMessage";
+import Parameters from "./component/Parameters/Parameters";
 import "./App.css";
 
 export const ServerContext = React.createContext<Server>(null!);
@@ -21,6 +22,7 @@ export enum EPAGES {
     MENU,
     HEROES,
     LOBBY,
+    PARAMETERS,
 }
 
 const MainApp = () => {
@@ -42,6 +44,8 @@ const MainApp = () => {
                 <Heroes epages={setEpages} />
             ) : epages === EPAGES.LOBBY ? (
                 <Lobby epages={setEpages} />
+            ) : epages === EPAGES.PARAMETERS ? (
+                <Parameters epages={setEpages} />
             ) : (
                 <></>
             )}

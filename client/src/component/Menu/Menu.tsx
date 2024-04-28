@@ -84,7 +84,7 @@ const Menu: React.FC<IMenuProps> = ({ epages }) => {
                 <div onClick={() => epages(EPAGES.HEROES)} className="button2" id="test-heroes">
                     Герои
                 </div>
-                <div className="button3" id="test-settings">
+                <div onClick={() => epages(EPAGES.PARAMETERS)} className="button3" id="test-settings">
                     Параметры
                 </div>
             </div>
