@@ -107,6 +107,7 @@ class UserManager {
         if (user) {
             const friends = await this.db.getFriends(user.id);
             this.io.to(socketId).emit("GET_FRIENDS", this.answer.good(friends));
+            return;
         }
         this.io.to(socketId).emit("GET_FRIENDS", this.answer.bad(455));
     }

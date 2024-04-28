@@ -42,17 +42,17 @@ class Game {
         this.io.emit("GET_QUESTIONS_PROGRAMMER", this.answer.good(await this.db.getQuestionsProgrammer()));
     }
     async move({ token, direction, x, y, status }) {
-        if (token && direction && x && y && status) {
+        if (token && direction && `${x}` && `${y}` && status) {
             const user = await this.db.getUserByToken(token);
             if (user) {
                 this.db.move(user.id, direction, x, y, status);
                 this.getGamers();
                 return;
             }
-            this.io.emit("GET_GAMERS", this.answer.bad());
+            this.io.emit("GET_GAMERS", this.answer.bad(455));
             return;
         }
-        this.io.emit("GET_GAMERS", this.answer.bad());
+        this.io.emit("GET_GAMERS", this.answer.bad(1001));
         return;
     }
     async moveMobs({ x, y }) {
@@ -61,7 +61,7 @@ class Game {
             this.getMobs();
             return;
         }
-        this.io.emit("GET_MOBS", await this.answer.bad());
+        this.io.emit("GET_MOBS", await this.answer.bad(1001));
     }
 
     async getGamers() {
@@ -79,10 +79,10 @@ class Game {
                 this.getGamers();
                 return;
             }
-            this.io.emit("GET_GAMERS", await this.answer.bad());
+            this.io.emit("GET_GAMERS", await this.answer.bad(455));
             return;
         }
-        this.io.emit("GET_GAMERS", await this.answer.bad());
+        this.io.emit("GET_GAMERS", await this.answer.bad(1001));
         return;
     }
     deleteGamers() {

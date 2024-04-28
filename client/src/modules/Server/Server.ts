@@ -20,6 +20,8 @@ export default class Server {
             this.socket.on("LOGIN", (data: any) => {
                 if (data.result === "ok") {
                     mediator.user = data.data;
+                    this.token = data.data.token;
+
                     const { LOGIN } = this.mediator.getEventTypes();
                     this.mediator.call(LOGIN, data.data);
                 } else {
