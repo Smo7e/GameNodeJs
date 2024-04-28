@@ -8,7 +8,7 @@ import Login from "./component/Login/Login";
 import Heroes from "./component/Heroes/Heroes";
 import Interface from "./component/Interface/Interface";
 import Lobby from "./component/Lobby/Lobby";
-
+import ErrorMessage from "./modules/ErrorMessage/ErrorMessage";
 import "./App.css";
 
 export const ServerContext = React.createContext<Server>(null!);
@@ -45,6 +45,7 @@ const MainApp = () => {
             ) : (
                 <></>
             )}
+            <ErrorMessage />
         </>
     );
 };

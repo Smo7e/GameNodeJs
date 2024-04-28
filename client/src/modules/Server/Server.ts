@@ -22,6 +22,9 @@ export default class Server {
                     mediator.user = data.data;
                     const { LOGIN } = this.mediator.getEventTypes();
                     this.mediator.call(LOGIN, data.data);
+                } else {
+                    const { SERVER_ERROR } = this.mediator.getEventTypes();
+                    this.mediator.call<TError>(SERVER_ERROR, data.error);
                 }
             });
 
@@ -29,12 +32,18 @@ export default class Server {
                 if (data.result === "ok") {
                     const { SIGNUP } = this.mediator.getEventTypes();
                     this.mediator.call<Array<TMessage>>(SIGNUP);
+                } else {
+                    const { SERVER_ERROR } = this.mediator.getEventTypes();
+                    this.mediator.call<TError>(SERVER_ERROR, data.error);
                 }
             });
             this.socket.on("LOGOUT", (data: any) => {
                 if (data.result === "ok") {
                     const { LOGOUT } = this.mediator.getEventTypes();
                     this.mediator.call(LOGOUT);
+                } else {
+                    const { SERVER_ERROR } = this.mediator.getEventTypes();
+                    this.mediator.call<TError>(SERVER_ERROR, data.error);
                 }
             });
 
@@ -43,18 +52,27 @@ export default class Server {
                 if (messages?.length && Array.isArray(messages)) {
                     const { GET_MESSAGES } = this.mediator.getEventTypes();
                     this.mediator.call<Array<TMessage>>(GET_MESSAGES, messages);
+                } else {
+                    const { SERVER_ERROR } = this.mediator.getEventTypes();
+                    this.mediator.call<TError>(SERVER_ERROR, data.error);
                 }
             });
             this.socket.on("GET_USER", (data: any) => {
                 if (data.result === "ok") {
                     this.mediator.user = data.data;
                     this.token = data.data.token;
+                } else {
+                    const { SERVER_ERROR } = this.mediator.getEventTypes();
+                    this.mediator.call<TError>(SERVER_ERROR, data.error);
                 }
             });
 
             this.socket.on("GET_GAMER_BY_ID", (data: any) => {
                 if (data.result === "ok") {
                     this.mediator.gamer = data.data;
+                } else {
+                    const { SERVER_ERROR } = this.mediator.getEventTypes();
+                    this.mediator.call<TError>(SERVER_ERROR, data.error);
                 }
             });
             this.socket.on("GET_GAMERS", (data: any) => {
@@ -62,6 +80,9 @@ export default class Server {
                     this.mediator.gamers = data.data;
                     const { GET_GAMERS } = this.mediator.getEventTypes();
                     this.mediator.call(GET_GAMERS, data.data);
+                } else {
+                    const { SERVER_ERROR } = this.mediator.getEventTypes();
+                    this.mediator.call<TError>(SERVER_ERROR, data.error);
                 }
             });
             this.socket.on("GET_MOBS", (data: any) => {
@@ -69,12 +90,18 @@ export default class Server {
                     const { GET_MOBS } = this.mediator.getEventTypes();
                     this.mediator.call(GET_MOBS, data.data);
                     this.mediator.mobs = data.data;
+                } else {
+                    const { SERVER_ERROR } = this.mediator.getEventTypes();
+                    this.mediator.call<TError>(SERVER_ERROR, data.error);
                 }
             });
             this.socket.on("GET_INVITES", (data: any) => {
                 if (data.result === "ok") {
                     const { GET_INVITES } = this.mediator.getEventTypes();
                     this.mediator.call(GET_INVITES, data.data);
+                } else {
+                    const { SERVER_ERROR } = this.mediator.getEventTypes();
+                    this.mediator.call<TError>(SERVER_ERROR, data.error);
                 }
             });
             this.socket.on("GET_FRIENDS", (data: any) => {
@@ -82,11 +109,17 @@ export default class Server {
                     const { GET_FRIENDS } = this.mediator.getEventTypes();
                     this.mediator.call(GET_FRIENDS, data.data);
                     this.mediator.friends = data.data;
+                } else {
+                    const { SERVER_ERROR } = this.mediator.getEventTypes();
+                    this.mediator.call<TError>(SERVER_ERROR, data.error);
                 }
             });
             this.socket.on("GET_QUESTIONS_PROGRAMMER", (data: any) => {
                 if (data.result === "ok") {
                     this.mediator.questions = data.data;
+                } else {
+                    const { SERVER_ERROR } = this.mediator.getEventTypes();
+                    this.mediator.call<TError>(SERVER_ERROR, data.error);
                 }
             });
         });
@@ -105,8 +138,7 @@ export default class Server {
             if (answer.result === "ok") {
                 return answer.data;
             }
-            const { SERVER_ERROR } = this.mediator.getEventTypes();
-            this.mediator.call<TError>(SERVER_ERROR, answer.error);
+
             return null;
         } catch (e) {
             return null;

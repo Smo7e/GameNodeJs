@@ -24,6 +24,7 @@ export const MEDIATOR = {
         SIGNUP: "SIGNUP",
         LOGOUT: "LOGOUT",
         GET_MOBS: "GET_MOBS",
+        GET_ERROR: "GET_ERROR",
     },
     TRIGGERS: {},
 };

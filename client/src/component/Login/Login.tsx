@@ -75,7 +75,6 @@ const Login: React.FC<ILoginProps> = ({ epages }) => {
                 <button className="loginButton" onClick={clickHandler} id="test-login-button">
                     Продолжить
                 </button>
-                <ErrorMessage error={error} />
 
                 <hr className="hrLogin" id="test-hrLogin" />
 

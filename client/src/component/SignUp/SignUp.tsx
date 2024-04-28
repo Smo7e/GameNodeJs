@@ -77,7 +77,6 @@ const SignUp: React.FC<ISignProps> = ({ epages }) => {
                 <br />
                 <br />
                 <br />
-                <ErrorMessage error={error} />
                 <hr className="hr-SingUp" id="test-hr-SingUp" />
                 <div className="estakk" id="test-estakk" onClick={() => epages(EPAGES.LOGIN)}>
                     Уже есть аккаунт
