@@ -8,11 +8,6 @@ export default class Server {
     private mediator: Mediator;
     socket: any;
 
-    private hashGamers: string = "123";
-    private hashMobs: string = "123";
-
-    private gameInterval: ReturnType<typeof setInterval> | null = null;
-
     constructor(HOST: string, mediator: Mediator) {
         this.HOST = HOST;
         this.mediator = mediator;
@@ -22,6 +17,27 @@ export default class Server {
         this.socket = socket;
 
         this.socket.on("connect", () => {
+            this.socket.on("LOGIN", (data: any) => {
+                if (data.result === "ok") {
+                    mediator.user = data.data;
+                    const { LOGIN } = this.mediator.getEventTypes();
+                    this.mediator.call(LOGIN, data.data);
+                }
+            });
+
+            this.socket.on("SIGNUP", (data: any) => {
+                if (data.result === "ok") {
+                    const { SIGNUP } = this.mediator.getEventTypes();
+                    this.mediator.call<Array<TMessage>>(SIGNUP);
+                }
+            });
+            this.socket.on("LOGOUT", (data: any) => {
+                if (data.result === "ok") {
+                    const { LOGOUT } = this.mediator.getEventTypes();
+                    this.mediator.call(LOGOUT);
+                }
+            });
+
             this.socket.on("GET_MESSAGES", (data: any) => {
                 const { messages } = data.data;
                 if (messages?.length && Array.isArray(messages)) {
@@ -30,20 +46,30 @@ export default class Server {
                 }
             });
             this.socket.on("GET_USER", (data: any) => {
-                this.mediator.user = data;
-                this.token = data.token;
+                if (data.result === "ok") {
+                    this.mediator.user = data.data;
+                    this.token = data.data.token;
+                }
             });
 
-            this.socket.on("GET_GAMER", (data: any) => {
-                this.mediator.gamer = data;
+            this.socket.on("GET_GAMER_BY_ID", (data: any) => {
+                if (data.result === "ok") {
+                    this.mediator.gamer = data.data;
+                }
             });
             this.socket.on("GET_GAMERS", (data: any) => {
-                this.mediator.gamers = data;
-                const { GET_GAMERS } = this.mediator.getEventTypes();
-                this.mediator.call(GET_GAMERS, data);
+                if (data.result === "ok") {
+                    this.mediator.gamers = data.data;
+                    const { GET_GAMERS } = this.mediator.getEventTypes();
+                    this.mediator.call(GET_GAMERS, data.data);
+                }
             });
             this.socket.on("GET_MOBS", (data: any) => {
-                this.mediator.mobs = data;
+                if (data.result === "ok") {
+                    const { GET_MOBS } = this.mediator.getEventTypes();
+                    this.mediator.call(GET_MOBS, data.data);
+                    this.mediator.mobs = data.data;
+                }
             });
             this.socket.on("GET_INVITES", (data: any) => {
                 if (data.result === "ok") {
@@ -56,6 +82,11 @@ export default class Server {
                     const { GET_FRIENDS } = this.mediator.getEventTypes();
                     this.mediator.call(GET_FRIENDS, data.data);
                     this.mediator.friends = data.data;
+                }
+            });
+            this.socket.on("GET_QUESTIONS_PROGRAMMER", (data: any) => {
+                if (data.result === "ok") {
+                    this.mediator.questions = data.data;
                 }
             });
         });
@@ -82,76 +113,29 @@ export default class Server {
         }
     }
 
-    // startGameInterval() {
-    //     this.gameInterval = setInterval(async () => {
-    //         const scene = await this.getScene();
-    //         const { GET_SCENE } = this.mediator.getEventTypes();
-    //         this.mediator.call<TScene>(GET_SCENE, scene);
-    //     }, 150);
-    // }
-
-    // stopGameInterval() {
-    //     if (this.gameInterval) {
-    //         clearInterval(this.gameInterval);
-    //         this.gameInterval = null;
-    //     }
-    // }
-
     login(login: string, hash: string, rnd: number): void {
-        // const answer = await this.request<TUserFull>("login", { login, hash, rnd });
-        // if (answer) {
-        //     this.token = answer.token;
-        //     return {
-        //         id: answer.id,
-        //         name: answer.name,
-        //     };
-        // }
-        // return answer;
-
         this.socket.emit("LOGIN", { login, hash, rnd });
     }
 
     async logout() {
-        const answer = await this.request<boolean>("logout");
-        this.token = null;
-        return answer;
+        this.socket.emit("LOGOUT", { token: this.token });
     }
 
     signUp(login: string, nickname: string, hash: string, verifyHash: string): void {
-        //return this.request<TUser>("signUp", { login, nickname, hash, verifyHash });
         this.socket.emit("SIGNUP", { token: this.token, login, nickname, hash, verifyHash });
     }
     sendMessage(message: string) {
         this.socket.emit("SEND_MESSAGE", { token: this.token, message });
-
-        //return this.request("sendMessage", { token: this.token, message });
     }
 
     addFriend(friend_id: string) {
         this.socket.emit("ADD_FRIENDS", { friend_id, token: this.token });
-
-        //return this.request("addFriend", { id, token: this.token });
     }
 
     getFriends() {
         this.socket.emit("GET_FRIENDS", {});
-
-        //return this.request("getFriends", { token: this.token });
     }
 
-    async getScene(): Promise<TScene | null> {
-        const answer = await this.request<TScene>("getScene", { hashGamers: this.hashGamers, hashMobs: this.hashMobs });
-        if (answer && answer.hashGamers && answer.hashGamers !== this.hashGamers) {
-            this.hashGamers = answer.hashGamers as string;
-        }
-        if (answer && answer.hashMobs && answer.hashMobs !== this.hashMobs) {
-            this.hashMobs = answer.hashMobs as string;
-        }
-        return answer;
-    }
-    // async getUserByToken() {
-    //     return await this.request("getUserByToken", {});
-    //}
     async addGamers() {
         this.socket.emit("ADD_GAMERS", { token: this.token });
         // return await this.request("addGamers", {});
@@ -161,16 +145,25 @@ export default class Server {
         //return await this.request("deleteGamers", {});
     }
     async updatePersonId(newPersonId: number) {
-        return await this.request("updatePersonId", { newPersonId: newPersonId });
+        this.socket.emit("UPDATE_PERSON_ID", { newPersonId, token: this.token });
+
+        //return await this.request("updatePersonId", { newPersonId: newPersonId });
     }
+
     async getGamerById(userId: number) {
-        return await this.request("getGamerById", { userId: userId });
+        this.socket.emit("GET_GAMER_BY_ID", { userId });
+
+        //return await this.request("getGamerById", { userId: userId });
     }
     async getGamers() {
-        return await this.request("getGamers", { token: this.token });
+        this.socket.emit("GET_GAMERS", { token: this.token });
+
+        //return await this.request("getGamers", { token: this.token });
     }
     async move(direction: string, x: number, y: number, status: string) {
-        return await this.request("move", { direction, x, y, status });
+        this.socket.emit("MOVE", { direction, x, y, status, token: this.token });
+
+        //return await this.request("move", { direction, x, y, status });
     }
     async moveMobs(x: number, y: number) {
         //return await this.request("moveMobs", { x, y });
@@ -188,15 +181,22 @@ export default class Server {
         //return this.request("checkInvites", { userId: userId });
     }
     async updateHp(gamerName: string, gamerHp: number) {
-        return await this.request("updateHp", { gamerName: gamerName, gamerHp: gamerHp });
+        this.socket.emit("UPDATE_HP", { gamerName });
+
+        //return await this.request("updateHp", { gamerName });
     }
     async getQuestionsProgrammer() {
-        return await this.request("getQuestionsProgrammer", {});
+        this.socket.emit("GET_QUESTIONS_PROGRAMMER", {});
+
+        //return await this.request("getQuestionsProgrammer", {});
     }
     async updateHpMobs() {
-        return await this.request("updateHpMobs", {});
+        this.socket.emit("UPDATE_HP_MOBS", {});
+
+        //return await this.request("updateHpMobs", {});
     }
     async getMobs() {
-        return await this.request("getMobs", {});
+        this.socket.emit("GET_MOBS", {});
+        //return await this.request("getMobs", {});
     }
 }

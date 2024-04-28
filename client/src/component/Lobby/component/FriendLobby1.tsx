@@ -12,6 +12,7 @@ const FriendLobby1: React.FC<IFriendLobby1Props> = ({ setPanel, gamers }) => {
     const mediator = useContext(MediatorContext);
     const [lobbyFriend1, setLobbyFriend1] = useState<ELOBBY>(ELOBBY.SPORTIK);
     if (!gamers) return <></>;
+
     return (
         <>
             {gamers.length === 1 ? (

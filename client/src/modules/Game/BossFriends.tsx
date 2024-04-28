@@ -1,17 +1,20 @@
 import { RapierRigidBody, RigidBody } from "@react-three/rapier";
-import { useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Mesh, MeshStandardMaterial, Texture, Vector3 } from "three";
 import useSprites from "../hooks/Sprites/useSprites";
 import { useFrame } from "@react-three/fiber";
+import { MediatorContext } from "../../App";
 interface BossFriendsProps {
     infoMobs: any;
 }
-const BossFriends: React.FC<BossFriendsProps> = ({ infoMobs }) => {
+const BossFriends: React.FC = () => {
+    const mediator = useContext(MediatorContext);
     const bossRef = useRef<RapierRigidBody>(null);
     const bossPositionRef = useRef<Mesh>(null);
     const spriteRef = useRef<MeshStandardMaterial>(null);
     const [death, moveDown, moveRight, moveUp, moveLeft] = useSprites("trusov");
     const [currentFrame, setCurrentFrame] = useState(0);
+    const [infoMobs, setInfoMobs] = useState<any>(null);
     var frameSpeed = 0.1;
     var frameLength = 9;
     const bossSpeed = 4;
@@ -65,6 +68,18 @@ const BossFriends: React.FC<BossFriendsProps> = ({ infoMobs }) => {
         bossPositionRef.current?.position.set(bossCoord.x, bossCoord.y, 1);
         setCurrentFrame((currentFrame + frameSpeed) % frameLength);
         setDirectionPlayer(direction[Math.floor(currentFrame)]);
+    });
+    useEffect(() => {
+        const { GET_MOBS } = mediator.getEventTypes();
+
+        const getMobsHandler = (data: any) => {
+            setInfoMobs(data);
+        };
+
+        mediator.subscribe(GET_MOBS, getMobsHandler);
+        return () => {
+            mediator.subscribe(GET_MOBS, getMobsHandler);
+        };
     });
     return (
         <>

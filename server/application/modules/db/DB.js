@@ -102,9 +102,7 @@ class DB {
         this.orm.insert("invitations", { id_who, id_to_whom });
     }
     async checkInvites(id_to_whom) {
-        //console.log(await this.orm.get("invitations", { id_to_whom }, "id_who"));
         return await this.orm.all("invitations", { id_to_whom }, "id_who", true);
-        //return this.queryInDB(`SELECT id_who FROM invitations WHERE id_to_whom=${userId}`);
     }
     async addFriend(user_id, friend_id) {
         await this.orm.insert("friends", { user_id, friend_id });
@@ -131,7 +129,6 @@ class DB {
     }
     async updateHp(user_id) {
         let hp = await this.orm.get("gamers", { user_id }, "hp");
-        console.log(hp, user_id);
         hp = hp.hp -= 5;
         this.orm.update("gamers", { hp }, { user_id });
     }
@@ -148,15 +145,6 @@ class DB {
         //return await this.queryInDB("SELECT * FROM mobs");
     }
 
-    updateGamersHash(gamers_hash) {
-        this.orm.update("game", { gamers_hash }, { id: 1 });
-    }
-    updateMobsHash(mobs_hash) {
-        this.orm.update("game", { mobs_hash }, { id: 1 });
-    }
-    getHashes() {
-        return this.orm.get("game", { id: 1 });
-    }
     updateTimestamp(update_timestamp) {
         this.orm.update("game", { update_timestamp }, { id: 1 });
     }

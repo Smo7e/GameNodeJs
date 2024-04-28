@@ -26,28 +26,23 @@ const Login: React.FC<ILoginProps> = ({ epages }) => {
     };
 
     useEffect(() => {
-        server.socket.on("connect", () => {
-            server.socket.on("LOGIN", (data: any) => {
-                if (data.result === "ok") {
-                    mediator.user = data.data;
-
-                    server.getFriends();
-                    server.checkInvites(mediator.user.id);
-
-                    epages(EPAGES.MENU);
-                }
-            });
-        });
-
+        const { LOGIN } = mediator.getEventTypes();
         const { SERVER_ERROR } = mediator.getEventTypes();
 
+        const loginHandler = () => {
+            server.getFriends();
+            server.checkInvites(mediator.user.id);
+            epages(EPAGES.MENU);
+        };
         const serverErrorHandler = (error: TError) => {
             setError(error);
         };
 
+        mediator.subscribe(LOGIN, loginHandler);
         mediator.subscribe(SERVER_ERROR, serverErrorHandler);
 
         return () => {
+            mediator.unsubscribe(LOGIN, loginHandler);
             mediator.unsubscribe(SERVER_ERROR, serverErrorHandler);
         };
     });

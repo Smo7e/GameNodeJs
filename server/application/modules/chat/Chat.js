@@ -9,8 +9,6 @@ class Chat {
 
         io.on("connection", (socket) => {
             socket.on("SEND_MESSAGE", (data) => this.sendMessage(data, socket));
-
-            //socket.on('disconnect', () => console.log('disCONNECT', socket.id));
         });
     }
 

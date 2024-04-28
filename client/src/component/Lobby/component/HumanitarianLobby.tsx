@@ -13,11 +13,11 @@ const HumanitarianLobby: React.FC<IHumanitarianLobbyProps> = ({ lobby, gamerNumb
     const server = useContext(ServerContext);
 
     const leftArrowHandler = async () => {
-        await server.updatePersonId(0);
+        server.updatePersonId(0);
         lobby(ELOBBY.SPORTIK);
     };
     const rightArrowHandler = async () => {
-        await server.updatePersonId(1);
+        server.updatePersonId(1);
         lobby(ELOBBY.TECHGUY);
     };
     return (

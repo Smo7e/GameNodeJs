@@ -20,21 +20,27 @@ const Menu: React.FC<IMenuProps> = ({ epages }) => {
     };
 
     useEffect(() => {
+        const { GET_INVITES } = mediator.getEventTypes();
+        const { GET_FRIENDS } = mediator.getEventTypes();
+        const { LOGOUT } = mediator.getEventTypes();
+
         const getInvitesHandler = (invites: any) => {
             setInvites(invites);
         };
         const getFriendsHandler = (friends: any) => {
             setFriends(friends);
         };
-        const { GET_INVITES } = mediator.getEventTypes();
-        mediator.subscribe(GET_INVITES, getInvitesHandler);
-
-        const { GET_FRIENDS } = mediator.getEventTypes();
+        const logoutHandler = () => {
+            epages(EPAGES.LOGIN);
+        };
         mediator.subscribe(GET_FRIENDS, getFriendsHandler);
+        mediator.subscribe(GET_INVITES, getInvitesHandler);
+        mediator.subscribe(LOGOUT, logoutHandler);
 
         return () => {
             mediator.unsubscribe(GET_FRIENDS, getFriendsHandler);
             mediator.unsubscribe(GET_INVITES, getInvitesHandler);
+            mediator.unsubscribe(LOGOUT, logoutHandler);
         };
     });
     const lobbyHandler = async () => {
@@ -45,16 +51,12 @@ const Menu: React.FC<IMenuProps> = ({ epages }) => {
 
     // mp
 
-    const logoutHandler = async () => {
-        await server.logout();
-        epages(EPAGES.LOGIN);
-    };
     return (
         <div className="mainMenu" id="test-mainMemu">
             <div style={{ height: 200, width: 200, position: "absolute", bottom: 200, right: 200 }}>
                 {invites[0] != true ? (
                     invites.map((invite: any, index: number) => (
-                        <div style={{ display: "flex" }}>
+                        <div style={{ display: "flex" }} key={index}>
                             <div className="your-friend" key={index}>
                                 Пользователь с id:{invite.id_who} приглашает вас.
                             </div>
@@ -110,7 +112,7 @@ const Menu: React.FC<IMenuProps> = ({ epages }) => {
                     </button>
                 </div>
             </div>
-            <button className="button-account" id="test-change-account" onClick={logoutHandler}>
+            <button className="button-account" id="test-change-account" onClick={() => server.logout()}>
                 Сменить аккаунт
             </button>
         </div>

@@ -18,25 +18,6 @@ const Interface: React.FC = () => {
     const [timer, setTimer] = useState({ seconds: 0, minutes: 0 });
 
     useEffect(() => {
-        const getSceneHandler = (scene: TScene) => {
-            if (scene.gamers != null) {
-                setInfoFriends(scene.gamers);
-            }
-            if (scene.mobs != null) {
-                setInfoMobs(scene.mobs);
-            }
-        };
-        mediator.subscribe(GET_SCENE, getSceneHandler);
-        if (!mediator.triger) {
-            let srAr = 0;
-            infoFriends?.forEach((elem) => {
-                srAr += Math.sqrt(
-                    Math.pow((infoMobs ? infoMobs[0].x : 0) - elem.x - 0, 2) +
-                        Math.pow((infoMobs ? infoMobs[0].y : 0) - elem.y - 0, 2)
-                );
-            });
-            if (srAr / (infoFriends ? infoFriends?.length : 0) < 5) mediator.triger = true;
-        }
         const updateTime = () => {
             setTimer((prevTimer) => {
                 let seconds = prevTimer.seconds + 1;
@@ -58,18 +39,24 @@ const Interface: React.FC = () => {
     }, []);
 
     useEffect(() => {
-        // const interval = setInterval(async () => {
-        //     const result = await server.getGamers();
-        //     mediator.gamers = result;
-        //     if (mediator.gamer !== gamers) {
-        //         setGamers(result);
-        //     }
-        // }, 800);
+        const { GET_GAMERS } = mediator.getEventTypes();
+        const { GET_MOBS } = mediator.getEventTypes();
+
+        const getGamersHandler = (data: any) => {
+            setGamers(data);
+        };
+        const getMobsHandler = (data: any) => {
+            setInfoMobs(data);
+        };
+
+        mediator.subscribe(GET_GAMERS, getGamersHandler);
+        mediator.subscribe(GET_MOBS, getMobsHandler);
 
         return () => {
-            // clearInterval(interval);
+            mediator.unsubscribe(GET_GAMERS, getGamersHandler);
+            mediator.unsubscribe(GET_MOBS, getMobsHandler);
         };
-    }, [mediator.gamer, gamers, server]);
+    });
 
     // вызов окошка задания
     if (!questionFlag && mediator.triger) {
@@ -115,11 +102,6 @@ const Interface: React.FC = () => {
                     )}
                 </div>
 
-                {mediator.triger ? (
-                    <div className="BossXP">{infoMobs ? <div>BossXP: {infoMobs[0].hp}</div> : <></>}</div>
-                ) : (
-                    <></>
-                )}
                 <div className="player-level-interface">1</div>
             </div>
 
@@ -136,6 +118,11 @@ const Interface: React.FC = () => {
                 </div>
             </div>
             {mediator.triger && questionFlag ? <TaskSelection setQuestionFlag={setQuestionFlag} /> : <></>}
+            {mediator.triger ? (
+                <div className="BossXP">{infoMobs ? <div>BossXP: {infoMobs[0].hp}</div> : <></>}</div>
+            ) : (
+                <></>
+            )}
 
             <Chat />
         </div>

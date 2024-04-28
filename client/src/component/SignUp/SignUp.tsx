@@ -30,29 +30,24 @@ const SignUp: React.FC<ISignProps> = ({ epages }) => {
         const verifyHash = md5(login + verifyRef.current!.value);
 
         server.signUp(login, nickname, hash, verifyHash);
-        // if (register) {
-        //     epages(EPAGES.LOGIN);
-        // }
     };
 
     useEffect(() => {
+        const { SIGNUP } = mediator.getEventTypes();
         const { SERVER_ERROR } = mediator.getEventTypes();
+
+        const signUpHandler = () => {
+            epages(EPAGES.LOGIN);
+        };
 
         const serverErrorHandler = (error: TError) => {
             setError(error);
         };
-
+        mediator.subscribe(SIGNUP, signUpHandler);
         mediator.subscribe(SERVER_ERROR, serverErrorHandler);
 
-        server.socket.on("connect", () => {
-            server.socket.on("SIGNUP", (data: any) => {
-                if (data.result === "ok") {
-                    epages(EPAGES.LOGIN);
-                }
-            });
-        });
-
         return () => {
+            mediator.unsubscribe(SIGNUP, signUpHandler);
             mediator.unsubscribe(SERVER_ERROR, serverErrorHandler);
         };
     });

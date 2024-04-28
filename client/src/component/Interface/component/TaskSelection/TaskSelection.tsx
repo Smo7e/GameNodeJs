@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState, useRef, memo } from "react";
 import "./TaskSelection.css";
-import { ServerContext } from "../../../../App";
+import { MediatorContext, ServerContext } from "../../../../App";
 interface ITaskSelectionProps {
     setQuestionFlag: Function;
 }
 const TaskSelection: React.FC<ITaskSelectionProps> = memo(({ setQuestionFlag }) => {
     const server = useContext(ServerContext);
+    const mediator = useContext(MediatorContext);
     const timerRef = useRef<HTMLDivElement>(null);
     const questionRef = useRef<HTMLDivElement>(null);
     const answer1Ref = useRef<HTMLDivElement>(null);
@@ -13,18 +14,15 @@ const TaskSelection: React.FC<ITaskSelectionProps> = memo(({ setQuestionFlag }) 
     const answer3Ref = useRef<HTMLDivElement>(null);
     const answer4Ref = useRef<HTMLDivElement>(null);
 
-    const [question, setQuestion] = useState<any>(null);
-    const [timer, setTimer] = useState(15);
+    const questions = mediator.questions;
+    const question = questions[rndNumber(0, questions.length - 1)];
+
+    let timer = 15;
     useEffect(() => {
-        server.getQuestionsProgrammer().then((result: any): any => {
-            if (!question) {
-                setQuestion(result[rndNumber(0, 29)]);
-            }
-        });
         const timerId = setInterval(() => {
             if (timerRef.current) {
                 timerRef.current.innerHTML = `${timer}`;
-                setTimer(timer - 1);
+                timer -= 1;
                 if (timer == 0) {
                     clearInterval(timerId);
                     setQuestionFlag(false);
@@ -59,14 +57,24 @@ const TaskSelection: React.FC<ITaskSelectionProps> = memo(({ setQuestionFlag }) 
     return (
         <div className="taskselection-Container">
             <div className="taskselection-timer" ref={timerRef}></div>
-            <div className="taskselection-question" ref={questionRef}></div>
+            <div className="taskselection-question" ref={questionRef}>
+                {question.question}
+            </div>
 
             <div className="taskselection-answer">Ответы</div>
 
-            <div className="taskselection-choice1" ref={answer1Ref} onClick={() => checkAnswer(1)}></div>
-            <div className="taskselection-choice2" ref={answer2Ref} onClick={() => checkAnswer(2)}></div>
-            <div className="taskselection-choice3" ref={answer3Ref} onClick={() => checkAnswer(3)}></div>
-            <div className="taskselection-choice4" ref={answer4Ref} onClick={() => checkAnswer(4)}></div>
+            <div className="taskselection-choice1" ref={answer1Ref} onClick={() => checkAnswer(1)}>
+                {question.answer_1}
+            </div>
+            <div className="taskselection-choice2" ref={answer2Ref} onClick={() => checkAnswer(2)}>
+                {question.answer_2}
+            </div>
+            <div className="taskselection-choice3" ref={answer3Ref} onClick={() => checkAnswer(3)}>
+                {question.answer_3}
+            </div>
+            <div className="taskselection-choice4" ref={answer4Ref} onClick={() => checkAnswer(4)}>
+                {question.answer_4}
+            </div>
         </div>
     );
 });

@@ -13,6 +13,7 @@ class UserManager {
         io.on("connection", (socket) => {
             socket.on("LOGIN", (data) => this.login(data, socket.id));
             socket.on("SIGNUP", (data) => this.signUp(data, socket.id));
+            socket.on("LOGOUT", (data) => this.logout(data, socket.id));
             socket.on("GET_FRIENDS", () => this.getFriends(socket.id));
             socket.on("ADD_FRIENDS", (data) => this.addFriend(data, socket.id));
         });
@@ -25,6 +26,7 @@ class UserManager {
             }
             const user = new User(this.db, socketId);
             this.users[socketId] = user;
+            return user;
         }
         return null;
     }
@@ -35,7 +37,7 @@ class UserManager {
             const data = await user.login(login, hash, rnd, socketId);
             if (data) {
                 this.io.to(socketId).emit("LOGIN", this.answer.good(data));
-                this.io.to(socketId).emit("GET_USER", data); ////////////////////////////
+                this.io.to(socketId).emit("GET_USER", this.answer.good(data)); ////////////////////////////
 
                 return;
             }
@@ -48,19 +50,13 @@ class UserManager {
     async signUp({ login, nickname, hash, verifyHash }, socketId) {
         if (login && nickname) {
             if (hash && verifyHash && hash === verifyHash) {
-                const user = await this.db.getUserByLogin(login);
-                if (!user) {
-                    await this.db.addUser(login, nickname, hash);
-                    this.io.to(socketId).emit(
-                        "SIGNUP",
-                        this.answer.good({
-                            name: nickname,
-                        })
-                    );
-                    this.io.to(socketId).emit("SIGNUP", this.answer.bad(9999));
+                const user = this._getUserBySocketId(socketId);
+                const data = await user.signUp(login, nickname, hash);
+                if (data) {
+                    this.io.to(socketId).emit("SIGNUP", this.answer.good(data));
                     return;
                 }
-                this.io.to(socketId).emit("SIGNUP", this.answer.bad(487));
+                this.io.to(socketId).emit("SIGNUP", this.answer.bad(9999));
                 return;
             }
             this.io.to(socketId).emit("SIGNUP", this.answer.bad(1501));
@@ -84,6 +80,7 @@ class UserManager {
         }
         this.io.to(socketId).emit("LOGOUT", this.answer.bad());
     }
+
     async addFriend({ token, friend_id }, socketId) {
         const friendIdNumber = parseInt(friend_id);
         if (friend_id && (await this.db.getUserById(friend_id))) {

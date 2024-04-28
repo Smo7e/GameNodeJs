@@ -26,8 +26,8 @@
 
 .player-icon-interfaceSportik,
 .player-icon-interfaceHumanitarian,
-.player-icon-interfaceTheechguy  {
-    position:relative;
+.player-icon-interfaceTheechguy {
+    position: relative;
     background-image: url("./image/playerIconSportik.png");
     background-size: contain;
     margin-top: 99.8%;
@@ -36,10 +36,10 @@
     top: -4.3vw;
     height: 4vw;
 }
-.player-icon-interfaceHumanitarian{
+.player-icon-interfaceHumanitarian {
     background-image: url("./image/playerIconHumanitarian.png");
 }
-.player-icon-interfaceTheechguy{
+.player-icon-interfaceTheechguy {
     background-image: url("./image/playerIconTheechguy.png");
 }
 
@@ -104,27 +104,26 @@
     margin-left: 0.2vw;
 }
 
-
-.I{
-    position: absolute; 
-    top: -5vw; 
-    font-size: 0.7vw; 
-    left: 107%; 
-    height: 15%; 
-    width: 300%; 
+.I {
+    position: absolute;
+    top: -5vw;
+    font-size: 0.7vw;
+    left: 107%;
+    height: 15%;
+    width: 300%;
     /* background: linear-gradient(to right, red var(--elem-hp, 100%), #898888 var(--elem-hp, 100%)); */
-
 }
-.HP{
+.HP {
     color: white;
     margin-top: 61%;
-    clip-path: polygon(0 0, 100% 0, 89% 100%, 0 100%); 
+    clip-path: polygon(0 0, 100% 0, 89% 100%, 0 100%);
 }
-.BossXP{
-    position: absolute; 
-    font-size: 1.7vw; 
-    width: 300%; 
-    top: -1vw; 
-    left: 1217%; 
+.BossXP {
+    position: absolute;
+    font-size: 1.7vw;
+    width: 200px;
+    height: 200px;
+    top: 1vw;
+    right: 50%;
     color: red;
 }

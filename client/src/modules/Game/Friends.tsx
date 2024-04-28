@@ -10,9 +10,10 @@ interface IPropsFriends {
     infoFriends: TGamer[] | null;
 }
 
-const Friends: React.FC<IPropsFriends> = memo(({ infoFriends }) => {
+const Friends: React.FC = memo(() => {
     const mediator = useContext(MediatorContext);
     const [friendsRefs, setFriendsRefs] = useState<any>([]);
+    const [infoFriends, setInfoFriends] = useState<TGamer[]>([]);
     const [death, moveDown, moveRight, moveUp, moveLeft] = useSprites(
         `${infoFriends && infoFriends[0] ? infoFriends[0].person_id : 0}`
     );
@@ -24,12 +25,23 @@ const Friends: React.FC<IPropsFriends> = memo(({ infoFriends }) => {
     const [currentFrame, setCurrentFrame] = useState(0);
 
     useEffect(() => {
+        const { GET_GAMERS } = mediator.getEventTypes();
+
+        const getGamersHandler = (data: any) => {
+            setInfoFriends(data.filter((n: any) => n.name !== mediator.user.name));
+        };
+
+        mediator.subscribe(GET_GAMERS, getGamersHandler);
+
         setFriendsRefs((friendsRefs: any) =>
             Array(infoFriends ? infoFriends.length : 0)
                 .fill(0)
                 .map((_, i) => friendsRefs[i] || createRef())
         );
-    }, [infoFriends]);
+        return () => {
+            mediator.unsubscribe(GET_GAMERS, getGamersHandler);
+        };
+    });
     useFrame(() => {
         friendsRefs.map((elem: any, i: number) => {
             if (!friendsRefs[i] || !infoFriends) return;

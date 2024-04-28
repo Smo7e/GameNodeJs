@@ -11,11 +11,11 @@ interface ISportikLobbyProps {
 const SportikLobby: React.FC<ISportikLobbyProps> = ({ lobby, gamerNumber }) => {
     const server = useContext(ServerContext);
     const leftArrowHandler = async () => {
-        await server.updatePersonId(1);
+        server.updatePersonId(1);
         lobby(ELOBBY.TECHGUY);
     };
     const rightArrowHandler = async () => {
-        await server.updatePersonId(2);
+        server.updatePersonId(2);
         lobby(ELOBBY.HUMANITARIAN);
     };
 

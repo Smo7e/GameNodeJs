@@ -37,10 +37,8 @@ const Lobby: React.FC<ILobbyProps> = ({ epages }) => {
     const panelRef = useRef<HTMLDivElement>(null);
 
     const gameHadler = async () => {
-        await server.getGamerById(mediator.user.id).then((result): any => {
-            mediator.gamer = result;
-        });
-
+        await server.getGamerById(mediator.user.id);
+        server.getQuestionsProgrammer();
         epages(EPAGES.GAME);
     };
 
@@ -53,27 +51,20 @@ const Lobby: React.FC<ILobbyProps> = ({ epages }) => {
         };
         const { GET_GAMERS } = mediator.getEventTypes();
 
-        const Handler = (data: any) => {
+        const getGamersHandler = (data: any) => {
             setGamers(data);
         };
-
-        mediator.subscribe(GET_GAMERS, Handler);
-        // const interval = setInterval(async () => {
-        //     await server.getGamers().then((result): any => {
-        //         mediator.gamers = result;
-
-        //         setGamers(result);
-        //     });
-        // }, 800);
-
+        mediator.subscribe(GET_GAMERS, getGamersHandler);
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
-            mediator.unsubscribe(GET_GAMERS, Handler);
-            // return clearInterval(interval);
+            mediator.unsubscribe(GET_GAMERS, getGamersHandler);
         };
     }, []);
     if (!gamers || !gamers[0] || !gamers[0].name) return <></>;
+    gamers.forEach((element: any) => {
+        console.log(element.person_id);
+    });
     return (
         <div id="test-container-Lobby" className="container-Lobby">
             <button onClick={() => epages(EPAGES.MENU)} id="test-arrow-1" className="arrow-1"></button>
@@ -88,20 +79,20 @@ const Lobby: React.FC<ILobbyProps> = ({ epages }) => {
                 <TechguyLobby lobby={setLobby} gamerNumber={0} />
             ) : (
                 <>
-                    {gamers && gamers[0] && gamers[0].person_id && gamers[0].person_id - 0 === 0 ? (
+                    {gamers && gamers[0] && `${gamers[0].person_id}` && gamers[0].person_id - 0 === 0 ? (
                         <div className="image-Sportik">
                             <button className="button">&lt;Спортик&gt;</button>
                         </div>
-                    ) : gamers && gamers[0] && gamers[0].person_id && gamers[0].person_id - 0 === 1 ? (
+                    ) : gamers && gamers[0] && `${gamers[0].person_id}` && gamers[0].person_id - 0 === 1 ? (
                         <div className="image-techguy">
                             <button className="button">&lt;Технарь&gt;</button>
                         </div>
-                    ) : gamers && gamers[0] && gamers[0].person_id && gamers[0].person_id - 0 === 2 ? (
+                    ) : gamers && gamers[0] && `${gamers[0].person_id}` && gamers[0].person_id - 0 === 2 ? (
                         <div className="image-humanitarian">
                             <button className="button">&lt;Гуманитарий&gt;</button>
                         </div>
                     ) : (
-                        <></>
+                        <>чо то не то</>
                     )}
                 </>
             )}

@@ -8,32 +8,21 @@ class Lobby {
         }
 
         io.on("connection", (socket) => {
-            socket.on("GET_INVITES", (data) => this.checkInvites(data, socket.id));
+            socket.on("GET_ITEMS", () => this.getItems(socket.id));
             socket.on("ADD_INVITES", (data) => this.addInvitation(data, socket.id));
+            socket.on("GET_INVITES", (data) => this.checkInvites(data, socket.id));
         });
     }
     async getItems() {
         const item = await this.db.getItems();
         if (item) {
-            return this.answer.good(item);
+            this.io.emit("GET_ITEMS", this.answer.good(item));
+            return;
         }
-        return this.answer.bad(405);
+        this.io.emit("GET_ITEMS", this.answer.bad(405));
+        return;
     }
 
-    async updatePersonId(token, newPersonId) {
-        if (token) {
-            const user = await this.db.getUserByToken(token);
-            if (user) {
-                this.db.updatePersonId(user.id, newPersonId);
-                return this.answer.good("ok");
-            }
-            return this.answer.bad(455);
-        }
-        return this.answer.bad(1001);
-    }
-    async getGamerById(userId) {
-        return this.answer.good(await this.db.getGamerById(userId));
-    }
     async addInvitation({ userId, friendId }) {
         await this.db.addInvitation(userId, friendId);
         this.io.emit("GET_INVITES", this.answer.good(await this.db.checkInvites(userId)));

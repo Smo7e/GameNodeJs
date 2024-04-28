@@ -22,7 +22,7 @@ class Answer {
         9000: "Неопределенная ошибка",
     };
 
-    good(data) {
+    good(data = "ok") {
         return {
             result: "ok",
             data,

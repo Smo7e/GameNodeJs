@@ -18,7 +18,7 @@ const Game: React.FC = () => {
     useEffect(() => {
         const { GET_GAMERS } = mediator.getEventTypes();
 
-        const Handler = (data: any) => {
+        const getGamersHandler = (data: any) => {
             infoFriends = mediator.gamers;
             infoMobs = mediator.mobs;
             if (!mediator.triger) {
@@ -33,18 +33,10 @@ const Game: React.FC = () => {
             }
         };
 
-        mediator.subscribe(GET_GAMERS, Handler);
-        // server.startGameInterval();
-        // const getSceneHandler = (scene: TScene) => {
-        //     if (scene.gamers != null) {
-        //         mediator.gamers = scene.gamers;
-        //         setInfoFriends(scene.gamers);
-        //     }
-        //     if (scene.mobs != null) {
-        //         setInfoMobs(scene.mobs);
-        //     }
-        // };
-        // mediator.subscribe(GET_SCENE, getSceneHandler);
+        mediator.subscribe(GET_GAMERS, getGamersHandler);
+        return () => {
+            mediator.unsubscribe(GET_GAMERS, getGamersHandler);
+        };
     });
 
     return (
@@ -62,16 +54,8 @@ const Game: React.FC = () => {
                 <Physics gravity={[0, 0, -10]}>
                     <Scene />
                     <Player />
-                    {infoFriends && infoFriends!.length >= 2 ? (
-                        <Friends infoFriends={infoFriends.filter((n) => n.name !== mediator.user.name)} />
-                    ) : (
-                        <></>
-                    )}
-                    {infoFriends && infoFriends[0].name === mediator.user.name ? (
-                        <Boss />
-                    ) : (
-                        <BossFriends infoMobs={infoMobs} />
-                    )}
+                    {infoFriends && infoFriends!.length >= 2 ? <Friends /> : <></>}
+                    {infoFriends && infoFriends[0].name === mediator.user.name ? <Boss /> : <BossFriends />}
 
                     <Bullets />
                 </Physics>

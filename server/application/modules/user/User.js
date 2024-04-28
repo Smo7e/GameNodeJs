@@ -38,6 +38,18 @@ class User {
         }
         return null;
     }
+    async signUp(login, nickname, hash, verifyHash) {
+        const user = await this.db.getUserByLogin(login);
+        if (!user) {
+            await this.db.addUser(login, nickname, hash);
+            return {
+                login,
+                name: nickname,
+            };
+        }
+
+        return null;
+    }
 
     async logout(token) {
         if (token === this.token) {

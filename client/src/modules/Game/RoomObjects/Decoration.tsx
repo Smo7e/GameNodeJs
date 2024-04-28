@@ -27,23 +27,19 @@ interface IDecorationProps {
 }
 
 const Decoration: React.FC<IDecorationProps> = ({ position, type }) => {
-    const { planeGeometryArgs, boxGeometryArgs } =
-        decorationConfig[type] || decorationConfig.trashcan;
+    const { planeGeometryArgs, boxGeometryArgs } = decorationConfig[type] || decorationConfig.trashcan;
     const decorationTexture = decorationTextures[type] || trashcan;
 
     return (
         <>
             <mesh position={new Vector3(position[0], position[1] - 0.25, position[2])}>
                 <planeGeometry args={planeGeometryArgs} />
-                <meshStandardMaterial
-                    map={useLoader(TextureLoader, decorationTexture)}
-                    transparent
-                />
+                <meshStandardMaterial map={useLoader(TextureLoader, decorationTexture)} transparent />
             </mesh>
             <RigidBody position={position} lockTranslations lockRotations>
                 <mesh>
                     <boxGeometry args={boxGeometryArgs} />
-                    <meshStandardMaterial color="red" transparent opacity={0.5} />
+                    <meshStandardMaterial color="red" transparent opacity={0} />
                 </mesh>
             </RigidBody>
         </>

@@ -29,6 +29,7 @@ export default class Mediator {
     triger: any;
     mobs: any;
     tim: number;
+    questions: any;
 
     constructor(params: TParams) {
         const { EVENTS, TRIGGERS } = params;
