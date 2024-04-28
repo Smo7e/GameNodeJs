@@ -87,23 +87,22 @@ const Boss: React.FC = memo(() => {
             canPosition = 1;
         }
         bossRef.current.setLinvel(move, true);
-        if (limitationОfSending % 50 === 0) {
-            //куда смотрит препод
+        //куда смотрит препод
 
-            if (Math.abs(newPosition.y - bossCoord.y) > Math.abs(newPosition.x - bossCoord.x)) {
-                if (newPosition.y > bossCoord.y) {
-                    direction = moveUp;
-                } else {
-                    direction = moveDown;
-                }
+        if (Math.abs(newPosition.y - bossCoord.y) > Math.abs(newPosition.x - bossCoord.x)) {
+            if (newPosition.y > bossCoord.y) {
+                direction = moveUp;
             } else {
-                if (newPosition.x > bossCoord.x) {
-                    direction = moveRight;
-                } else {
-                    direction = moveLeft;
-                }
+                direction = moveDown;
             }
-
+        } else {
+            if (newPosition.x > bossCoord.x) {
+                direction = moveRight;
+            } else {
+                direction = moveLeft;
+            }
+        }
+        if (limitationОfSending % 50 === 0) {
             server.moveMobs(bossCoord.x, bossCoord.y);
         }
 

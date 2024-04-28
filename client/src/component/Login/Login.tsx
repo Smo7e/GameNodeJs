@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import "./Login.css";
 import { EPAGES, MediatorContext, ServerContext } from "../../App";
 import md5 from "md5";
-import ErrorMessage from "../../modules/ErrorMessage/ErrorMessage";
 import { TError } from "../../modules";
+
 interface ILoginProps {
     epages: Function;
 }
@@ -50,7 +50,14 @@ const Login: React.FC<ILoginProps> = ({ epages }) => {
     return (
         <div className="Login" id="test-login">
             <div className="logoLogin" id="test-logo"></div>
-            <div className="containerLogin" id="test-container">
+            <div
+                className="containerLogin"
+                id="test-container"
+                onClick={() => {
+                    var audio = new Audio("https://www.chosic.com/wp-content/uploads/2022/10/Powerful(chosic.com).mp3");
+                    audio.play();
+                }}
+            >
                 <div className="containerLoginHeader" id="test-header">
                     Войти
                 </div>
