@@ -18,6 +18,8 @@ export const MEDIATOR = {
         GET_SCENE: "GET_SCENE",
         GET_USER: "GET_USER",
         GET_GAMERS: "GET_GAMERS",
+        GET_FRIENDS: "GET_FRIENDS",
+        GET_INVITES: "GET_INVITES",
     },
     TRIGGERS: {},
 };

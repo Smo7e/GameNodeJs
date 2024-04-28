@@ -106,6 +106,19 @@ class DB {
         return await this.orm.all("invitations", { id_to_whom }, "id_who", true);
         //return this.queryInDB(`SELECT id_who FROM invitations WHERE id_to_whom=${userId}`);
     }
+    async addFriend(user_id, friend_id) {
+        await this.orm.insert("friends", { user_id, friend_id });
+    }
+    async getFriends(user_id) {
+        const query = `
+            SELECT u.id, u.login, u.name, u.token
+            FROM friends f
+            INNER JOIN users u ON (f.user_id = $1 AND u.id = f.friend_id) OR (f.friend_id = $1 AND u.id = f.user_id)
+            WHERE f.user_id = $1 OR f.friend_id = $1
+        `;
+        const result = await this.db.query(query, [user_id]);
+        return result.rows;
+    }
 
     ///Lobby///
 

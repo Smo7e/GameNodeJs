@@ -11,56 +11,31 @@ const Menu: React.FC<IMenuProps> = ({ epages }) => {
     const mediator = useContext(MediatorContext);
 
     const idRef = useRef<HTMLInputElement>(null);
-    const [friends, setFriends] = useState<number[]>([]);
-    const [friend, setFriend] = useState<TFriend[]>([{ id: 0, name: "У Вас нету друзей,пхахахахахха!" }]);
+    const [friends, setFriends] = useState<TFriend[]>([{ id: 0, name: "У Вас нету друзей,пхахахахахха!" }]);
     const [invites, setInvites] = useState<any>([]);
 
-    const clickHandler = async () => {
+    const clickHandler = () => {
         const id = idRef.current!.value;
-        const result = await server.addFriend(id);
-
-        if (result) {
-            const updatedFriends = await server.getFriends();
-            if (updatedFriends) {
-                setFriends(updatedFriends);
-            }
-        }
+        server.addFriend(id);
     };
 
     useEffect(() => {
-        server.checkInvites(mediator.user.id);
-        server.socket.on("connect", () => {
-            server.socket.on("GET_INVITES", (data: any) => {
-                if (data.result === "ok") {
-                    setInvites(data);
-                }
-            });
-        });
-        // const fetchFriends = async () => {
-        //     const loadedFriends = await server.getFriends();
-        //     if (loadedFriends) {
-        //         const updatedFriends = await Promise.all(
-        //             loadedFriends.map(async (friendId) => {
-        //                 const user = await server.getUserById(friendId);
-        //                 if (user && typeof user === "object" && "id" in user && "name" in user) {
-        //                     return { id: user.id, name: user.name };
-        //                 }
-        //             })
-        //         );
-        //         mediator.friends = updatedFriends;
-        //         setFriend(updatedFriends as TFriend[]);
-        //     }
-        // };
-        // fetchFriends();
-        // const interval = setInterval(async () => {
-        //     if (mediator.user) {
-        //         await server.checkInvites(mediator.user.id).then((result): any => {
-        //             if (result != null) {
-        //                 setInvites(result);
-        //             }
-        //         });
-        //     }
-        // }, 1000);
+        const getInvitesHandler = (invites: any) => {
+            setInvites(invites);
+        };
+        const getFriendsHandler = (friends: any) => {
+            setFriends(friends);
+        };
+        const { GET_INVITES } = mediator.getEventTypes();
+        mediator.subscribe(GET_INVITES, getInvitesHandler);
+
+        const { GET_FRIENDS } = mediator.getEventTypes();
+        mediator.subscribe(GET_FRIENDS, getFriendsHandler);
+
+        return () => {
+            mediator.unsubscribe(GET_FRIENDS, getFriendsHandler);
+            mediator.unsubscribe(GET_INVITES, getInvitesHandler);
+        };
     });
     const lobbyHandler = async () => {
         await server.deleteGamers();
@@ -120,7 +95,7 @@ const Menu: React.FC<IMenuProps> = ({ epages }) => {
                     Друзья
                 </div>
                 <div className="your-friend-menu" id="test-friend-menu">
-                    {friend.map((friend, index) => (
+                    {friends.map((friend, index) => (
                         <div className="your-friend" key={index}>
                             {`${friend.id}: ${friend.name}`}
                         </div>

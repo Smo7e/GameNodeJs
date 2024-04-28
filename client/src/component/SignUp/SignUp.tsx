@@ -46,7 +46,6 @@ const SignUp: React.FC<ISignProps> = ({ epages }) => {
 
         server.socket.on("connect", () => {
             server.socket.on("SIGNUP", (data: any) => {
-                console.log(data);
                 if (data.result === "ok") {
                     epages(EPAGES.LOGIN);
                 }

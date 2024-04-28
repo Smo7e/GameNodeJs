@@ -45,9 +45,18 @@ export default class Server {
             this.socket.on("GET_MOBS", (data: any) => {
                 this.mediator.mobs = data;
             });
+            this.socket.on("GET_INVITES", (data: any) => {
+                if (data.result === "ok") {
+                    const { GET_INVITES } = this.mediator.getEventTypes();
+                    this.mediator.call(GET_INVITES, data.data);
+                }
+            });
             this.socket.on("GET_FRIENDS", (data: any) => {
-                console.log(data);
-                this.mediator.mobs = data;
+                if (data.result === "ok") {
+                    const { GET_FRIENDS } = this.mediator.getEventTypes();
+                    this.mediator.call(GET_FRIENDS, data.data);
+                    this.mediator.friends = data.data;
+                }
             });
         });
     }
@@ -118,12 +127,16 @@ export default class Server {
         //return this.request("sendMessage", { token: this.token, message });
     }
 
-    addFriend(id: string) {
-        return this.request("addFriend", { id, token: this.token });
+    addFriend(friend_id: string) {
+        this.socket.emit("ADD_FRIENDS", { friend_id, token: this.token });
+
+        //return this.request("addFriend", { id, token: this.token });
     }
 
-    getFriends(): Promise<Array<number> | null> {
-        return this.request("getFriends", { token: this.token });
+    getFriends() {
+        this.socket.emit("GET_FRIENDS", {});
+
+        //return this.request("getFriends", { token: this.token });
     }
 
     async getScene(): Promise<TScene | null> {
@@ -171,7 +184,7 @@ export default class Server {
         this.socket.emit("ADD_INVITES", { token: this.token, userId, friendId });
     }
     checkInvites(userId: number) {
-        this.socket.emit("  ", { token: this.token, userId });
+        this.socket.emit("GET_INVITES", { token: this.token, userId });
         //return this.request("checkInvites", { userId: userId });
     }
     async updateHp(gamerName: string, gamerHp: number) {

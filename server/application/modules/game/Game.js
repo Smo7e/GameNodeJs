@@ -47,7 +47,6 @@ class Game {
         return this.answer.bad(1);
     }
     async moveMobs({ x, y }) {
-        console.log(x, y);
         if (x && y) {
             this.db.moveMobs(x, y);
             this.io.emit("GET_MOBS", await this.getMobs());
@@ -61,7 +60,6 @@ class Game {
     }
 
     async addGamers({ token }) {
-        console.log(token);
         if (token) {
             const user = await this.db.getUserByToken(token);
             console.log(user);
@@ -123,30 +121,6 @@ class Game {
     updateScene(updateTimestamp, updateTimeout) {
         if (Math.floor(new Date().getTime() / 1000) - updateTimestamp >= updateTimeout) {
             this.db.updateTimestamp(Math.floor(new Date().getTime() / 1000));
-
-            // удалить мёртвых игроков
-            // если у игрока статус "умер" - удалить его из БД
-
-            // передвинуть мобов
-            // передвинуть моба к ближайшему игроку
-            // или воспользоваться либой easystar
-
-            // переместить пули мобов
-            // переместить пули мобов
-
-            // воткнуть пули мобов в стены или в игроков
-            // если пуля куда-нибудь воткнулась, посчитать урон окружающим
-
-            // нанести урон игрокам
-            // из ХП игрока вычесть урон в зависимости от расстояния попадания пули
-
-            // стукнувшиеся пули мобов удалить
-            //...
-
-            // умершему игроку выставить статус "умер"
-            // выставить игроку статус, чтобы на него могли отреагировать клиенты
-
-            // обновить хеши игроков, мобов и пуль
         }
     }
 }

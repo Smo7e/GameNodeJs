@@ -8,8 +8,8 @@ const Addafriend1Lobby: React.FC<Addafriend1LobbyProps> = ({ friends, userId }) 
     return (
         <>
             <div className="addafriend" key={userId}>
-                {friends.map((friend: any) => (
-                    <div style={{ display: "flex" }}>
+                {friends.map((friend: any, index: number) => (
+                    <div key={index} style={{ display: "flex" }}>
                         <div className="plays">{friend.name}</div>
                         <button className="plus"></button>
                     </div>

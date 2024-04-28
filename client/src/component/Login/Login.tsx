@@ -29,7 +29,11 @@ const Login: React.FC<ILoginProps> = ({ epages }) => {
         server.socket.on("connect", () => {
             server.socket.on("LOGIN", (data: any) => {
                 if (data.result === "ok") {
-                    mediator.user = data;
+                    mediator.user = data.data;
+
+                    server.getFriends();
+                    server.checkInvites(mediator.user.id);
+
                     epages(EPAGES.MENU);
                 }
             });

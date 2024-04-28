@@ -134,13 +134,26 @@ CREATE TABLE users (
   password VARCHAR(256) NOT NULL,
   name VARCHAR(256) NOT NULL,
   token VARCHAR(256),
-  friends JSONB NOT NULL DEFAULT '[]'
 );
 
-INSERT INTO users (login, password, name, token, friends) VALUES
+INSERT INTO users (login, password, name, token) VALUES
 ('vasya', '4a2d247d0c05a4f798b0b03839d94cf0', 'Vasya Ivanoff', '5c0e79a2a36184de2d7d6d1d189d365e', '[2,4,5,6,7]'),
 ('petya', '123', 'Petya Petroff', NULL, '[]'),
 ('masha', 'ebf191604221bd6bc7af3f959d41b5eb', 'Masha', 'e5b1f3fa1ee368b38248f4dad09b5bc6', '[5]'),
 ('1', 'c51ce410c124a10e0db5e4b97fc2af39', '2', NULL, '[]'),
 ('12', '78bf4f00f81a36b57950e239f1df91c1', '12', NULL, '[]'),
 ('123', '4297f44b13955235245b2497399d7a93', '123', '96226ee233d1296fd85dc8f3815aaefb', '[4,2,1]');
+
+CREATE TABLE public.friends (
+    id serial PRIMARY KEY,
+    user_id integer,
+    friend_id integer,
+    FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE,
+    FOREIGN KEY (friend_id) REFERENCES public.users(id) ON DELETE CASCADE
+);
+
+INSERT INTO public.friends (user_id, friend_id) VALUES
+    (1, 2),
+    (1, 4),
+    (6, 1),
+    (1, 3);
