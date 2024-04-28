@@ -1,14 +1,9 @@
 import { useFrame } from "@react-three/fiber";
 import { TGamer } from "../Server/types";
 import { createRef, memo, useContext, useEffect, useState } from "react";
-import { RigidBody } from "@react-three/rapier";
 import useSprites from "../hooks/Sprites/useSprites";
 import { Vector3 } from "three";
 import { MediatorContext } from "../../App";
-
-interface IPropsFriends {
-    infoFriends: TGamer[] | null;
-}
 
 const Friends: React.FC = memo(() => {
     const mediator = useContext(MediatorContext);
