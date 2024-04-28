@@ -81,7 +81,7 @@ const Bullets: React.FC = () => {
                 infoFriends?.forEach((gamer) => {
                     const dist = Math.pow(arrBullet[i][0] - gamer.x, 2) + Math.pow(arrBullet[i][1] - gamer.y, 2);
                     if (dist < 1) {
-                        server.updateHp(gamer.name, gamer.hp - 5);
+                        server.updateHp(gamer.name);
                     }
                 });
                 delete arrBullet[i];

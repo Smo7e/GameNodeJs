@@ -127,25 +127,25 @@ export default class Server {
         });
     }
 
-    async request<T>(method: string, params: any = {}): Promise<T | null> {
-        try {
-            if (this.mediator.user.token) {
-                params.token = this.mediator.user.token;
-            }
-            const str = Object.keys(params)
-                .map((key) => `${key}=${params[key]}`)
-                .join("&");
-            const res = await fetch(`${this.HOST}/${method}?${str}`);
-            const answer = await res.json();
-            if (answer.result === "ok") {
-                return answer.data;
-            }
+    // async request<T>(method: string, params: any = {}): Promise<T | null> {
+    //     try {
+    //         if (this.mediator.user.token) {
+    //             params.token = this.mediator.user.token;
+    //         }
+    //         const str = Object.keys(params)
+    //             .map((key) => `${key}=${params[key]}`)
+    //             .join("&");
+    //         const res = await fetch(`${this.HOST}/${method}?${str}`);
+    //         const answer = await res.json();
+    //         if (answer.result === "ok") {
+    //             return answer.data;
+    //         }
 
-            return null;
-        } catch (e) {
-            return null;
-        }
-    }
+    //         return null;
+    //     } catch (e) {
+    //         return null;
+    //     }
+    // }
 
     login(login: string, hash: string, rnd: number): void {
         this.socket.emit("LOGIN", { login, hash, rnd });
@@ -172,65 +172,42 @@ export default class Server {
 
     async addGamers() {
         this.socket.emit("ADD_GAMERS", { token: this.token });
-        // return await this.request("addGamers", {});
     }
     async deleteGamers() {
         this.socket.emit("DELETE_GAMERS", { token: this.token });
-        //return await this.request("deleteGamers", {});
     }
     async updatePersonId(newPersonId: number) {
         this.socket.emit("UPDATE_PERSON_ID", { newPersonId, token: this.token });
-
-        //return await this.request("updatePersonId", { newPersonId: newPersonId });
     }
 
     async getGamerById(userId: number) {
         this.socket.emit("GET_GAMER_BY_ID", { userId });
-
-        //return await this.request("getGamerById", { userId: userId });
     }
     async getGamers() {
         this.socket.emit("GET_GAMERS", { token: this.token });
-
-        //return await this.request("getGamers", { token: this.token });
     }
     async move(direction: string, x: number, y: number, status: string) {
         this.socket.emit("MOVE", { direction, x, y, status, token: this.token });
-
-        //return await this.request("move", { direction, x, y, status });
     }
     async moveMobs(x: number, y: number) {
-        //return await this.request("moveMobs", { x, y });
         this.socket.emit("MOVE_MOBS", { x, y });
     }
-    // getUserById(idFriend: number) {
-    //     return this.request("getUserById", { idFriend: idFriend });
-    // }
     addInvitation(userId: number, friendId: number) {
-        //return this.request("addInvitation", { userId: userId, friendId: friendId });
         this.socket.emit("ADD_INVITES", { token: this.token, userId, friendId });
     }
     checkInvites(userId: number) {
         this.socket.emit("GET_INVITES", { token: this.token, userId });
-        //return this.request("checkInvites", { userId: userId });
     }
-    async updateHp(gamerName: string, gamerHp: number) {
+    async updateHp(gamerName: string) {
         this.socket.emit("UPDATE_HP", { gamerName });
-
-        //return await this.request("updateHp", { gamerName });
     }
     async getQuestionsProgrammer() {
         this.socket.emit("GET_QUESTIONS_PROGRAMMER", {});
-
-        //return await this.request("getQuestionsProgrammer", {});
     }
     async updateHpMobs() {
         this.socket.emit("UPDATE_HP_MOBS", {});
-
-        //return await this.request("updateHpMobs", {});
     }
     async getMobs() {
         this.socket.emit("GET_MOBS", {});
-        //return await this.request("getMobs", {});
     }
 }
