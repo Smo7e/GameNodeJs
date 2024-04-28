@@ -13,10 +13,15 @@ const Menu: React.FC<IMenuProps> = ({ epages }) => {
     const idRef = useRef<HTMLInputElement>(null);
     const [friends, setFriends] = useState<TFriend[]>([{ id: 0, name: "У Вас нету друзей,пхахахахахха!" }]);
     const [invites, setInvites] = useState<any>([]);
+    const [showIdInput, setShowIdInput] = useState(false);
+    const [gamers, setGamers] = useState<any>(null);
 
     const clickHandler = () => {
         const id = idRef.current!.value;
         server.addFriend(id);
+    };
+    const toggleIdInput = () => {
+        setShowIdInput(!showIdInput);
     };
 
     useEffect(() => {
@@ -33,9 +38,13 @@ const Menu: React.FC<IMenuProps> = ({ epages }) => {
         const logoutHandler = () => {
             epages(EPAGES.LOGIN);
         };
+        const getGamersHandler = (data: any) => {
+            setGamers(data);
+        };
         mediator.subscribe(GET_FRIENDS, getFriendsHandler);
         mediator.subscribe(GET_INVITES, getInvitesHandler);
         mediator.subscribe(LOGOUT, logoutHandler);
+
 
         return () => {
             mediator.unsubscribe(GET_FRIENDS, getFriendsHandler);
@@ -54,26 +63,6 @@ const Menu: React.FC<IMenuProps> = ({ epages }) => {
     return (
         <div className="mainMenu" id="test-mainMemu">
             <div style={{ height: 200, width: 200, position: "absolute", bottom: 200, right: 200 }}>
-                {invites[0] != true ? (
-                    invites.map((invite: any, index: number) => (
-                        <div style={{ display: "flex" }} key={index}>
-                            <div className="your-friend" key={index}>
-                                Пользователь с id:{invite.id_who} приглашает вас.
-                            </div>
-                            <button
-                                onClick={() => {
-                                    server.addGamers();
-                                    epages(EPAGES.LOBBY);
-                                }}
-                            >
-                                Принять
-                            </button>
-                            <button onClick={() => console.log(0)}>Отказать</button>
-                        </div>
-                    ))
-                ) : (
-                    <></>
-                )}
             </div>
             <img className="photo-button" src={logo} id="test-logo" />
 
@@ -95,7 +84,46 @@ const Menu: React.FC<IMenuProps> = ({ epages }) => {
 
                 <div className="text-button" id="test-friends">
                     Друзья
+                    {showIdInput && (
+                <div id="test-new-profile">
+                    <input className="add-friend" ref={idRef} type="text" placeholder="Введите ID друга" />
+                    <button className="add-friend-button" onClick={clickHandler}>
+                        Добавить друга
+                    </button>
                 </div>
+                )}
+                </div>
+
+                <div className="text-Invitation" id="test-friends">
+                    Приглашение
+                    <hr className="hr-line-Invitation" id="test-friends"/>
+                </div>
+
+
+                <div onClick={toggleIdInput} className="new-profile-button"></div>
+                <div style={{ left: 5, height: 240, width: 222, position: "absolute", bottom: 60, right: 200, overflowY: 'hidden' }}>
+
+                {invites[0] != true ? (
+                    invites.map((invite: any, index: number) => (
+                        <div style={{ display: "flex" }} key={index}>
+                            <div className="your-friend" key={index}>
+                                Пользователь с id:{invite.id_who} приглашает вас.
+                            </div>
+                            <button className="toaccept"
+                                onClick={() => {
+                                    server.addGamers();
+                                    epages(EPAGES.LOBBY);
+                                }}
+                            >
+                            </button>
+                            <button className="deny" onClick={() => console.log(0)}></button>
+                        </div>
+                    ))
+                ) : (
+                    <></>
+                )}
+            </div>
+
                 <div className="your-friend-menu" id="test-friend-menu">
                     {friends.map((friend, index) => (
                         <div className="your-friend" key={index}>
@@ -105,12 +133,6 @@ const Menu: React.FC<IMenuProps> = ({ epages }) => {
                 </div>
                 <hr className="hr-user-profile2" id="test-hr2" />
 
-                <div id="test-new-profile">
-                    <input ref={idRef} type="text" placeholder="Введите ID друга" />
-                    <button className="add-friend-button" onClick={clickHandler}>
-                        Добавить друга
-                    </button>
-                </div>
             </div>
             <button className="button-account" id="test-change-account" onClick={() => server.logout()}>
                 Сменить аккаунт
