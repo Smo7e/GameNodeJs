@@ -9,12 +9,10 @@ import Friends from "./Friends";
 import Boss from "./Boss";
 import Bullets from "./Bullets";
 import BossFriends from "./BossFriends";
-import TaskSelection from "../../component/Interface/component/TaskSelection/TaskSelection";
 const Game: React.FC = () => {
     const mediator = useContext(MediatorContext);
     let infoFriends: TGamer[] = mediator.gamers;
     let infoMobs: TMobs[] = mediator.mobs;
-    // const [infoFriends, setInfoFriends] = useState<TGamer[] | null>(null);
     useEffect(() => {
         const { GET_GAMERS } = mediator.getEventTypes();
 

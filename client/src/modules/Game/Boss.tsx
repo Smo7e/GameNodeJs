@@ -12,7 +12,6 @@ const Boss: React.FC = memo(() => {
     const mediator = useContext(MediatorContext);
 
     const bossRef = useRef<RapierRigidBody>(null);
-    const bossPositionRef = useRef<Mesh>(null);
     const spriteRef = useRef<MeshStandardMaterial>(null);
     const [death, moveDown, moveRight, moveUp, moveLeft] = useSprites("trusov");
     var currentFrame = 0;
@@ -82,8 +81,15 @@ const Boss: React.FC = memo(() => {
         if (bossCoord.y + eps >= newPosition.y && bossCoord.y - eps <= newPosition.y) {
             move.y = 0;
         }
-        //куда смотрит препод
-        {
+
+        distances = Math.sqrt(Math.pow(bossCoord.x - newPosition.x, 2) + Math.pow(bossCoord.y - newPosition.y, 2));
+        if (distances < 0.06) {
+            canPosition = 1;
+        }
+        bossRef.current.setLinvel(move, true);
+        if (limitationОfSending % 50 === 0) {
+            //куда смотрит препод
+
             if (Math.abs(newPosition.y - bossCoord.y) > Math.abs(newPosition.x - bossCoord.x)) {
                 if (newPosition.y > bossCoord.y) {
                     direction = moveUp;
@@ -97,15 +103,7 @@ const Boss: React.FC = memo(() => {
                     direction = moveLeft;
                 }
             }
-        }
 
-        distances = Math.sqrt(Math.pow(bossCoord.x - newPosition.x, 2) + Math.pow(bossCoord.y - newPosition.y, 2));
-        if (distances < 0.06) {
-            canPosition = 1;
-        }
-        bossRef.current.setLinvel(move, true);
-        bossPositionRef.current?.position.set(bossCoord.x, bossCoord.y, 1);
-        if (limitationОfSending % 50 === 0) {
             server.moveMobs(bossCoord.x, bossCoord.y);
         }
 
@@ -148,14 +146,10 @@ const Boss: React.FC = memo(() => {
             {/* <CheckPositionMatrix /> */}
             <RigidBody gravityScale={10} position={[8, -3, 0]} ref={bossRef} lockRotations mass={50}>
                 <mesh>
-                    <boxGeometry args={[0.8, 0.8, 1]} />
-                    <meshStandardMaterial transparent opacity={0} />
+                    <boxGeometry args={[1, 1, 1]} />
+                    <meshStandardMaterial ref={spriteRef} map={moveDown[0]} transparent />
                 </mesh>
             </RigidBody>
-            <mesh ref={bossPositionRef} position={[8, -3, 0]}>
-                <planeGeometry args={[1, 1]} />
-                <meshStandardMaterial ref={spriteRef} map={moveDown[0]} transparent />
-            </mesh>
         </>
     );
 });

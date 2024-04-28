@@ -64,7 +64,32 @@
     font-size: 2vw;
     padding-top: 0;
 }
-
+.text-Invitation {
+    left: 15%;
+    top: 54.6%;
+    font-size: 2vw;
+    padding-top: 0;
+    color: #fff;
+    font-family: Playfair Display;
+    font-size: 2vw;
+    font-style: normal;
+    line-height: normal;
+    text-align: center;
+    padding-top: 0;
+    position: absolute;
+    cursor: pointer;
+}
+.hr-line-Invitation{
+    margin-left: 0px;
+    margin-right: 0px;
+    height: 0.3vw;
+    background: #f9ebeb;
+    padding-right: 0;
+    position: absolute;
+    bottom: 3.6vh;
+    width: 128.21%;
+    left:-19.2%;
+}
 .profile-panel {
     background: rgba(4, 4, 4, 0.69);
     width: 15vw;
@@ -109,7 +134,7 @@
     background-size: contain;
     height: 3vh;
     width: 3vw;
-    left: 50%;
+    left: 45%;
     bottom: 1vh;
     transition: 1s;
     text-align: center;
@@ -118,8 +143,8 @@
 .new-profile-button:hover {
     cursor: pointer;
     background-image: url("./image/friend2.png");
-    width: 4.5vw;
-    height: 4vh;
+    width: 4.4vw;
+    height: 3.5vh;
 }
 .button-account {
     cursor: pointer;
@@ -704,7 +729,7 @@
     }
 }
 
-.your-friend {
+/* .your-friend {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -712,4 +737,132 @@
     background-color: #f5f5f5;
     font-size: 16px;
     color: #333;
+} */
+.your-friend {
+    
+    position:relative;
+    padding: 8px;
+    border-radius: 4%;
+    margin-top: 5%;
+    background-color: #f5f5f5;
+    font-size: 16px;
+    color: #333;
+    width: 13vw;
+    height: 5vh;
 }
+.deny {
+    width: 20px;
+    height: 20px;
+    position:absolute;
+    left: 86%;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+  }
+  
+  .deny::before, .deny::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 100%;
+    top:140%;
+    background-color: black;
+  }
+  
+  .deny::before {
+    transform: rotate(45deg);
+  }
+  
+  .deny::after {
+    transform: rotate(-45deg);
+  }
+  
+  .toaccept {
+    left: 78%;
+    width: 20px;
+    height: 20px;
+    position:absolute;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+  }
+  
+  .toaccept::before, .toaccept::after {
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 70%;
+    top: 155%;
+    background-color: rgb(0, 255, 0);
+  }
+  
+  .toaccept::before {
+    transform: rotate(30deg);
+  }
+  
+  .toaccept::after {
+    top:187%;
+    left: 17.5%;
+    width: 1px;
+    height: 40%;
+    transform: rotate(-45deg);
+  }
+  .add-friend{
+    left: 12.5%;
+    top:25%;
+    /* position: absolute; */
+  }
+  .add-friend-button{
+    left: 12.5%;
+    /* top:28.8%; */
+    /* position: absolute; */
+  }
+  .You {
+    position: absolute;
+    top: 1%;
+    left: 5%;
+    background-color: #f5f5f5;
+    font-size: 16px;
+    color: #333;
+    width: 13vw;
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    border: 2px solid #333;
+    border-radius: 4px;
+  }
+  
+  .You::before {
+    content: "";    
+    display: inline-block;
+    width: 14%;
+    height: 65%;
+    background-color: #ffffff;
+    margin-right: 10%;
+    border: 3px solid #333;
+    border-radius: 2px;
+  }
+  
+  .You::after {
+    content: "";
+    position: absolute;
+    top: 47%;
+    left: 14%;
+    transform: rotateZ(90deg);
+    width: 18%;
+    height: 6.6%;
+    background-color: #333;
+  }
+  
+  
+  .your-friend-menu{
+    background-color: #f5f5f5;
+    border-radius: 4%;
+    font-size: 16px;
+    width: 13vw;
+    left: 2%;
+    position:relative;
+    margin-top: 6%;
+    
+  }
