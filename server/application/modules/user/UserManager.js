@@ -41,7 +41,6 @@ class UserManager {
             if (data) {
                 this.io.to(socketId).emit("LOGIN", this.answer.good(data));
                 this.io.to(socketId).emit("GET_USER", this.answer.good(data)); ////////////////////////////
-
                 return;
             }
             this.io.to(socketId).emit("LOGIN", this.answer.bad());

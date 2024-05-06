@@ -10,9 +10,9 @@ class DB {
             user: USER,
             password: PASS,
         });
+        this.orm = new ORM(this.db);
         (async () => {
             await this.db.connect();
-            this.orm = new ORM(this.db);
         })();
     }
 
