@@ -12,6 +12,13 @@ const CONFIG = {
         SEND_MESSAGE: "SEND_MESSAGE",
         GET_MESSAGES: "GET_MESSAGES",
     },
+    MEDIATOR: {
+        EVENTS: {
+            TEST: "TEST",
+            // SERVER_ERROR: "SERVER_ERROR",
+        },
+        TRIGGERS: {},
+    },
 };
 
 module.exports = CONFIG;

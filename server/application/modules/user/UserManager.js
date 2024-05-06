@@ -1,11 +1,12 @@
 const User = require("./User");
 
 class UserManager {
-    constructor(answer, db, io) {
+    constructor(answer, db, io, mediator) {
         this.users = {};
 
         this.answer = answer;
         this.db = db;
+        this.mediator = mediator;
         if (!io) {
             return;
         }
@@ -32,6 +33,8 @@ class UserManager {
     }
 
     async login({ login, hash, rnd }, socketId) {
+        const { TEST } = this.mediator.getEventTypes();
+        this.mediator.call(TEST, "оля оля");
         const user = this._getUserBySocketId(socketId);
         if (user) {
             const data = await user.login(login, hash, rnd, socketId);

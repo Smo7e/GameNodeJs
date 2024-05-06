@@ -79,6 +79,7 @@ export default class Server {
             });
             this.socket.on("GET_GAMERS", (data: any) => {
                 if (data.result === "ok") {
+                    console.log(data.data);
                     this.mediator.gamers = data.data;
                     const { GET_GAMERS } = this.mediator.getEventTypes();
                     this.mediator.call(GET_GAMERS, data.data);
@@ -170,30 +171,31 @@ export default class Server {
         this.socket.emit("GET_FRIENDS", {});
     }
 
-    async addGamers() {
-        this.socket.emit("ADD_GAMERS", { token: this.token });
+    async addGamers(lobbyName: any) {
+        this.mediator.lobbyName = lobbyName;
+        this.socket.emit("ADD_GAMERS", { token: this.token, lobbyName });
     }
     async deleteGamers() {
         this.socket.emit("DELETE_GAMERS", { token: this.token });
     }
     async updatePersonId(newPersonId: number) {
-        this.socket.emit("UPDATE_PERSON_ID", { newPersonId, token: this.token });
+        this.socket.emit("UPDATE_PERSON_ID", { newPersonId, token: this.token, lobbyName: this.mediator.lobbyName });
     }
 
     async getGamerById(userId: number) {
         this.socket.emit("GET_GAMER_BY_ID", { userId });
     }
     async getGamers() {
-        this.socket.emit("GET_GAMERS", { token: this.token });
+        this.socket.emit("GET_GAMERS", { token: this.token, lobbyName: this.mediator.lobbyName });
     }
     async move(direction: string, x: number, y: number, status: string) {
-        this.socket.emit("MOVE", { direction, x, y, status, token: this.token });
+        this.socket.emit("MOVE", { direction, x, y, status, token: this.token, lobbyName: this.mediator.lobbyName });
     }
     async moveMobs(x: number, y: number) {
         this.socket.emit("MOVE_MOBS", { x, y });
     }
     addInvitation(userId: number, friendId: number) {
-        this.socket.emit("ADD_INVITES", { token: this.token, userId, friendId });
+        this.socket.emit("ADD_INVITES", { token: this.token, userId, friendId, lobbyName: this.mediator.lobbyName });
     }
     checkInvites(userId: number) {
         this.socket.emit("GET_INVITES", { token: this.token, userId });
@@ -209,5 +211,10 @@ export default class Server {
     }
     async getMobs() {
         this.socket.emit("GET_MOBS", {});
+    }
+    async createLobby() {
+        const lobbyName = this.socket.id;
+        this.socket.emit("CREATE_LOBBY", { token: this.token, lobbyName });
+        this.mediator.lobbyName = lobbyName;
     }
 }

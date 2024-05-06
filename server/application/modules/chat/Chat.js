@@ -1,8 +1,9 @@
 class Chat {
-    constructor(answer, db, io) {
+    constructor(answer, db, io, mediator) {
         this.answer = answer;
         this.db = db;
         this.io = io;
+        this.mediator = mediator;
         if (!io) {
             return;
         }

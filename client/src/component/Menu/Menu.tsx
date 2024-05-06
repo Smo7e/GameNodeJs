@@ -30,6 +30,7 @@ const Menu: React.FC<IMenuProps> = ({ epages }) => {
         const { LOGOUT } = mediator.getEventTypes();
 
         const getInvitesHandler = (invites: any) => {
+            console.log(invites);
             setInvites(invites);
         };
         const getFriendsHandler = (friends: any) => {
@@ -49,8 +50,8 @@ const Menu: React.FC<IMenuProps> = ({ epages }) => {
         };
     });
     const lobbyHandler = async () => {
+        await server.createLobby();
         await server.deleteGamers();
-        await server.addGamers();
         epages(EPAGES.LOBBY);
     };
 
@@ -106,16 +107,18 @@ const Menu: React.FC<IMenuProps> = ({ epages }) => {
                         overflowY: "hidden",
                     }}
                 >
-                    {invites[0] != true ? (
-                        invites.map((invite: any, index: number) => (
+                    {console.log(invites)}
+                    {invites.friendsId ? (
+                        invites.friendsId.map((invite: any, index: number) => (
                             <div style={{ display: "flex" }} key={index}>
                                 <div className="your-friend" key={index}>
-                                    Пользователь с id:{invite.id_who} приглашает вас.
+                                    Пользователь с id:{invite} приглашает вас.
                                 </div>
                                 <button
                                     className="toaccept"
                                     onClick={() => {
-                                        server.addGamers();
+                                        console.log(invites.lobbyName);
+                                        server.addGamers(invites.lobbyName);
                                         epages(EPAGES.LOBBY);
                                     }}
                                 ></button>

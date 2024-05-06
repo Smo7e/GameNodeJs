@@ -1,11 +1,13 @@
 class Lobby {
-    constructor(answer, db, io) {
+    constructor(answer, db, io, mediator) {
         this.answer = answer;
         this.db = db;
         this.io = io;
+        this.mediator = mediator;
         if (!io) {
             return;
         }
+        this.invites = {};
 
         io.on("connection", (socket) => {
             socket.on("GET_ITEMS", () => this.getItems(socket.id));
@@ -23,12 +25,21 @@ class Lobby {
         return;
     }
 
-    async addInvitation({ userId, friendId }) {
+    async addInvitation({ userId, friendId, lobbyName }) {
         await this.db.addInvitation(userId, friendId);
-        this.io.emit("GET_INVITES", this.answer.good(await this.db.checkInvites(userId)));
+
+        if (!this.invites[friendId]) {
+            this.invites[friendId] = {
+                friendsId: [],
+                lobbyName: null,
+            };
+        }
+        this.invites[friendId].friendsId.push(userId);
+        this.invites[friendId].lobbyName = lobbyName;
+        this.io.emit("GET_INVITES", this.answer.good(this.invites[friendId]));
     }
     async checkInvites({ userId }) {
-        this.io.emit("GET_INVITES", this.answer.good(await this.db.checkInvites(userId)));
+        this.io.emit("GET_INVITES", this.answer.good(this.invites[userId]));
     }
 }
 module.exports = Lobby;
