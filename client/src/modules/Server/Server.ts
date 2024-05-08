@@ -201,7 +201,7 @@ export default class Server {
         this.socket.emit("GET_INVITES", { token: this.token, userId });
     }
     async updateHp(gamerName: string) {
-        this.socket.emit("UPDATE_HP", { gamerName });
+        this.socket.emit("UPDATE_HP", { gamerName, lobbyName: this.mediator.lobbyName });
     }
     async getQuestionsProgrammer() {
         this.socket.emit("GET_QUESTIONS_PROGRAMMER", {});

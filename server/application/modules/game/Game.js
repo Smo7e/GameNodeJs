@@ -29,7 +29,7 @@ class Game {
         const { TEST } = this.mediator.getEventTypes();
         this.mediator.subscribe(TEST, (data) => console.log(data));
     }
-    async updateHp({ gamerName }, socket) {
+    async updateHp({ gamerName, lobbyName }, socket) {
         const user = await this.db.getUserByName(gamerName);
         if (user) {
             this.lobbies[lobbyName].players[user.id].hp -= 5;
