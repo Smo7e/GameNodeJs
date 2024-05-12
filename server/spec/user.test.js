@@ -22,23 +22,21 @@ const mediator = new Mediator(MEDIATOR);
 
 const user = new UserManager(answer, db, io, mediator);
 
-describe("Функция login", () => {
-    const socketId = "testSocketLogin";
+describe("Проверка событий пользователя", () => {
+    const socketId = "testSocket";
     test("Проверка авторизации пользователя", async () => {
         await user.login({ login: "vasya", hash: "7c95e34107e38966f4ad80eea4d93f33", rnd: 1001 }, socketId);
 
-        const addedUser = user.users["testSocketLogin"];
+        const addedUser = user.users[socketId];
         const { id, name } = addedUser;
 
         expect({ id, name }).toEqual({
             id: 1,
             name: "Vasya Ivanoff",
         });
-        delete user.users[socketId];
     });
 
     test("Проверка Регистрации пользователя", async () => {
-        const socketId = "testSocketSignUp";
         const randomLogin = "testUser" + Math.floor(Math.random() * 10000);
         const randomNick = "testNick" + Math.floor(Math.random() * 10000);
         const rnd = Math.floor(Math.random() * 1000000);
@@ -49,6 +47,7 @@ describe("Функция login", () => {
         await user.login({ login: randomLogin, hash: md5(hash + rnd), rnd: rnd }, socketId);
 
         const addedUser = user.users[socketId];
+
         const { name } = addedUser;
 
         expect({ name }).toEqual({
@@ -56,9 +55,26 @@ describe("Функция login", () => {
         });
     });
 
-    test("Проверка выхода пользователя", async () => {
-        const socketId = "testSocketSignUp";
+    test("Проверка получения друзей пользователя из БД", async () => {
+        const friends = await db.getFriends(1);
 
+        expect(friends).not.toHaveLength(0);
+    });
+
+    test("Проверка добавления друзей пользователю", async () => {
+        const addedUser = user.users[socketId];
+        const { token, id } = addedUser;
+        expect(token).toBeDefined();
+
+        await user.addFriend({ token: token, friend_id: 2 }, socketId);
+
+        const friends = await db.getFriends(id);
+        const friendInfo = friends.map((friend) => ({ id: friend.id, login: friend.login }));
+
+        expect(friendInfo).toEqual([{ id: 2, login: "petya" }]);
+    });
+
+    test("Проверка выхода пользователя", async () => {
         const addedUser = user.users[socketId];
         const { token } = addedUser;
 
