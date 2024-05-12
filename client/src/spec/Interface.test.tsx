@@ -17,11 +17,11 @@ test("Interface snapshot", () => {
       </ServerContext.Provider> 
     </MediatorContext.Provider> 
   ); 
+
+    expect(asFragment()).toMatchSnapshot(); 
  
+  jest.advanceTimersByTime(1000);   
   expect(asFragment()).toMatchSnapshot(); 
- 
-  jest.advanceTimersByTime(1000); // Пропускаем 1 секунду  
-  expect(asFragment()).toMatchSnapshot(); // Создаем новый снимок 
  
   jest.useRealTimers(); 
 });

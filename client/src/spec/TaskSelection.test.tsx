@@ -17,7 +17,7 @@ describe("TaskSelection Component", () => {
             answer_2: "Ответ 2", 
             answer_3: "Ответ 3", 
             answer_4: "Ответ 4", 
-            correct_answer: 2, 
+            correct_answer: 2,
         }, 
     ]; 
  

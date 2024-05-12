@@ -6,6 +6,8 @@ import { TGamer, TMobs, TScene } from "../../modules/Server/types";
 import "./Interface.css";
 import ParametersGame from "./component/ParametersGame/ParametersGame";
 import TaskSelection from "./component/TaskSelection/TaskSelection";
+import { act } from 'react-dom/test-utils';
+
 
 const Interface: React.FC = () => {
     const server = useContext(ServerContext);
@@ -40,9 +42,10 @@ const Interface: React.FC = () => {
 
         document.addEventListener("mousedown", handleOutsideClick);
         const updateTime = () => {
-            setTimer((prevTimer) => {
-                let seconds = prevTimer.seconds + 1;
-                let minutes = prevTimer.minutes;
+            act(() => {
+                setTimer((prevTimer) => {
+                  let seconds = prevTimer.seconds + 1;
+                  let minutes = prevTimer.minutes;
 
                 if (seconds === 60) {
                     minutes++;
@@ -51,8 +54,8 @@ const Interface: React.FC = () => {
 
                 return { seconds, minutes };
             });
-        };
-
+        });
+    }
         let timeInterval = setInterval(updateTime, 1000);
         return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
