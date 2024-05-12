@@ -23,14 +23,17 @@ class Game {
             socket.on("GET_MOBS", (data) => this.getMobs(data, socket));
             socket.on("GET_QUESTIONS_PROGRAMMER", () => this.getQuestionsProgrammer(socket));
             socket.on("UPDATE_PERSON_ID", (data) => this.updatePersonId(data, socket));
+            socket.on("GET_GAMER_BY_SOCKET_ID", (data) => this.getGamerBySocketId(data, socket));
+
+            socket.on("UPDATE_ARR_BULLET_TRAJECTORY", (data) => this.updateArrBulletTrajectory(data, socket));
         });
         const { TEST } = this.mediator.getEventTypes();
-        this.mediator.subscribe(TEST, (data) => console.log(data));
+        //this.mediator.subscribe(TEST, (data) => console.log(data));
     }
     async updateHp({ gamerName, lobbyName }, socket) {
         const user = await this.db.getUserByName(gamerName);
         if (user) {
-            this.lobbies[lobbyName].players[user.id].hp -= 5;
+            this.lobbies[lobbyName].players[socket.id].hp -= 5;
             this.getGamers({ lobbyName }, socket);
             return;
         }
@@ -57,8 +60,8 @@ class Game {
             const user = await this.db.getUserByToken(token);
 
             if (user) {
-                this.lobbies[lobbyName].players[user.id].x = x;
-                this.lobbies[lobbyName].players[user.id].y = y;
+                this.lobbies[lobbyName].players[socket.id].x = x;
+                this.lobbies[lobbyName].players[socket.id].y = y;
                 this.getGamers({ lobbyName }, socket);
                 return;
             }
@@ -101,21 +104,25 @@ class Game {
         return;
     }
 
-    async addGamers({ token, lobbyName }, socket) {
+    async addGamers({ token, lobbyName, isAdmin = false }, socket) {
         if (token) {
             const user = await this.db.getUserByToken(token);
             if (user) {
-                this.lobbies[lobbyName].players[user.id] = {
+                const post = !isAdmin ? `Friend-${Object.keys(this.lobbies[lobbyName].players).length}` : "Admin";
+                this.lobbies[lobbyName].players[socket.id] = {
                     user_id: user.id,
                     name: user.name,
                     person_id: 0,
                     x: 0,
                     y: 0,
                     hp: 100,
+                    post,
                 };
                 socket.join(lobbyName);
                 this.getGamers({ lobbyName }, socket);
                 this.getQuestionsProgrammer({ lobbyName }, socket);
+                this.getGamerBySocketId({ lobbyName }, socket);
+
                 return;
             }
             this.io.to(socket.id).emit("GET_GAMERS", await this.answer.bad(455));
@@ -124,6 +131,11 @@ class Game {
         this.io.to(socket.id).emit("GET_GAMERS", await this.answer.bad(1001));
         return;
     }
+    getGamerBySocketId({ lobbyName }, socket) {
+        this.io
+            .to(socket.id)
+            .emit("GET_GAMER_BY_SOCKET_ID", this.answer.good(this.lobbies[lobbyName].players[socket.id]));
+    }
     deleteGamers({ lobbyName }) {
         this.io.to(lobbyName).emit("DELETE_GAMERS", this.answer.good());
     }
@@ -131,8 +143,9 @@ class Game {
         if (token) {
             const user = await this.db.getUserByToken(token);
             if (user) {
-                this.lobbies[lobbyName].players[user.id].person_id = newPersonId;
+                this.lobbies[lobbyName].players[socket.id].person_id = newPersonId;
                 this.getGamers({ lobbyName }, socket);
+                this.getGamerBySocketId({ lobbyName }, socket);
                 return;
             }
             this.io.to(socket.id).emit("GET_GAMERS", await this.answer.bad(455));
@@ -146,9 +159,19 @@ class Game {
             name: lobbyName,
             players: {},
             mobs: {},
+            arrBulletTrajectory: [
+                [999, 999, 999, 999],
+                [999, 999, 999, 999],
+                [999, 999, 999, 999],
+            ],
         };
-        await this.addGamers({ token, lobbyName }, socket);
+        await this.addGamers({ token, lobbyName, isAdmin: true }, socket);
         await this.addMobs({ token, mobsId: 0, lobbyName }, socket);
+    }
+
+    updateArrBulletTrajectory({ lobbyName, newArrBulletTrajectory }, socket) {
+        //this.lobbies[lobbyName].arrBulletTrajectory = newArrBulletTrajectory;
+        this.io.to(lobbyName).emit("UPDATE_ARR_BULLET_TRAJECTORY", this.answer.good(newArrBulletTrajectory));
     }
 }
 module.exports = Game;

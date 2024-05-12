@@ -15,7 +15,6 @@ const Player: React.FC = memo(() => {
 
     const personRef = useRef<RapierRigidBody>(null);
     const spriteRef = useRef<MeshStandardMaterial>(null);
-
     const [death, moveDown, moveRight, moveUp, moveLeft] = useSprites(`${mediator.gamer.person_id}`);
     let limitationОfSending = 0;
 

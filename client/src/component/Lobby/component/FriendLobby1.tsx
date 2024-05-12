@@ -19,7 +19,7 @@ const FriendLobby1: React.FC<IFriendLobby1Props> = ({ setPanel, gamers }) => {
                 <div id="test-image-rack1" className="image-rack1">
                     <div onClick={() => setPanel(EPANEL.ADDAFRIEND1)} id="test-friend" className="friend"></div>
                 </div>
-            ) : gamers.length > 1 && gamers && mediator.user.name != gamers[1].name ? (
+            ) : gamers.length > 1 && mediator.gamer.post != "Friend-1" ? (
                 <>
                     {gamers && gamers[1].person_id - 0 === 0 ? (
                         <div className="image-Sportik1">
