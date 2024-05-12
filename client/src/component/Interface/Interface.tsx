@@ -12,32 +12,24 @@ const Interface: React.FC = () => {
     const mediator = useContext(MediatorContext);
     const [infoMobs, setInfoMobs] = useState<TMobs[] | null>(null);
     const timeRef = useRef<HTMLDivElement>(null);
-    const { GET_SCENE } = mediator.getEventTypes();
-    const [infoFriends, setInfoFriends] = useState<TGamer[] | null>(null);
     const [gamers, setGamers] = useState<any>(null);
     const [questionFlag, setQuestionFlag] = useState<boolean>(true);
     const [timer, setTimer] = useState({ seconds: 0, minutes: 0 });
     const parametersGameRef = useRef<HTMLDivElement>(null);
     const [showParametersGame, setShowParametersGame] = useState(false);
 
-
-    
     const handleSettingsClick = () => {
         setShowParametersGame(true);
-      };
+    };
     const handleParametersGameClick = () => {
         setShowParametersGame(false);
-      };  
+    };
     const handleOutsideClick = (event: MouseEvent) => {
-        if (
-          parametersGameRef.current &&
-          !parametersGameRef.current.contains(event.target as Node)
-        ) {
-          setShowParametersGame(false);
+        if (parametersGameRef.current && !parametersGameRef.current.contains(event.target as Node)) {
+            setShowParametersGame(false);
         }
-      };
+    };
     useEffect(() => {
-
         document.addEventListener("mousedown", handleOutsideClick);
         const updateTime = () => {
             setTimer((prevTimer) => {
@@ -55,8 +47,8 @@ const Interface: React.FC = () => {
 
         let timeInterval = setInterval(updateTime, 1000);
         return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-      clearInterval(timeInterval);
+            document.removeEventListener("mousedown", handleOutsideClick);
+            clearInterval(timeInterval);
         };
     }, []);
 
@@ -94,11 +86,11 @@ const Interface: React.FC = () => {
         <div className="Interface-container">
             <div className="back-arrow-interface"></div>
             <div onClick={handleSettingsClick} className="settings-arrow-interface"></div>
-      {showParametersGame && (
-        <div ref={parametersGameRef}>
-          <ParametersGame />
-        </div>
-      )}
+            {showParametersGame && (
+                <div ref={parametersGameRef}>
+                    <ParametersGame />
+                </div>
+            )}
 
             <div className="player-info">
                 {gamers && gamers[0].person_id === 0 ? (

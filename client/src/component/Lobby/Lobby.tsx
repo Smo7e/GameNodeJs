@@ -59,20 +59,19 @@ const Lobby: React.FC<ILobbyProps> = ({ epages }) => {
         };
     }, []);
     if (!gamers || !gamers[0] || !gamers[0].name) return <></>;
-    gamers.forEach((element: any) => {
-        console.log(element.person_id);
-    });
+    ///ПЕРЕДЕЛАТЬ НЕРИАЛЬНЫХ КРИНЖ
+
     return (
         <div id="test-container-Lobby" className="container-Lobby">
             <button onClick={() => epages(EPAGES.MENU)} id="test-arrow-1" className="arrow-1"></button>
             <ShopLobby />
             <FriendLobby1 gamers={gamers} setPanel={setPanel} />
             <FriendLobby2 gamers={gamers} setPanel={setPanel} />
-            {lobby === ELOBBY.SPORTIK && gamers && gamers[0] && mediator.user.name === gamers[0].name ? (
+            {lobby === ELOBBY.SPORTIK && mediator.gamer.post === "Admin" ? (
                 <SportikLobby lobby={setLobby} gamerNumber={0} />
-            ) : lobby === ELOBBY.HUMANITARIAN && gamers && gamers[0] && mediator.user.name === gamers[0].name ? (
+            ) : lobby === ELOBBY.HUMANITARIAN && mediator.gamer.post === "Admin" ? (
                 <HumanitarianLobby lobby={setLobby} gamerNumber={0} />
-            ) : lobby === ELOBBY.TECHGUY && gamers[0] && mediator.user.name === gamers[0].name ? (
+            ) : lobby === ELOBBY.TECHGUY && mediator.gamer.post === "Admin" ? (
                 <TechguyLobby lobby={setLobby} gamerNumber={0} />
             ) : (
                 <>
