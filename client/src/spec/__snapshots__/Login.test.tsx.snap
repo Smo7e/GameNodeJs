@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="Login"
+    id="test-login"
+  >
+    <div
+      class="logoLogin"
+      id="test-logo"
+    />
+    <div
+      class="containerLogin"
+      id="test-container"
+    >
+      <div
+        class="containerLoginHeader"
+        id="test-header"
+      >
+        Войти
+      </div>
+      <div>
+        <input
+          class="loginInput"
+          id="test-login-input"
+          placeholder="Логин"
+        />
+        <input
+          class="loginInput"
+          id="test-password-input"
+          placeholder="Пароль"
+          type="password"
+        />
+      </div>
+      <div
+        class="checkboxLogin-container"
+        id="test-checkbox-container"
+      >
+        <input
+          class="checkboxLogin"
+          id="test-remember-checkbox"
+          type="checkbox"
+        />
+        <div
+          class="checkboxLoginText"
+          id="test-text-checkbox"
+        >
+          Не выходить из учетной записи
+        </div>
+      </div>
+      <button
+        class="loginButton"
+        id="test-login-button"
+      >
+        Продолжить
+      </button>
+      <hr
+        class="hrLogin"
+        id="test-hrLogin"
+      />
+      <div
+        class="otherButtonsLogin"
+        id="test-other-buttons"
+      >
+        <button
+          class="otherButtonLogin"
+          id="test-forgot-password-button"
+        >
+          Не можете войти?
+        </button>
+        <button
+          class="otherButtonLogin"
+          id="test-create-account-button"
+        >
+          Создать учетную запись
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
