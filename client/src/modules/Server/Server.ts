@@ -18,136 +18,95 @@ export default class Server {
 
         this.socket.on("connect", () => {
             this.socket.on("LOGIN", (data: any) => {
-                if (data.result === "ok") {
-                    mediator.user = data.data;
-                    this.token = data.data.token;
-
+                const result = this._validate(data);
+                if (result) {
+                    mediator.user = result;
+                    this.token = result.token;
                     const { LOGIN } = this.mediator.getEventTypes();
-                    this.mediator.call(LOGIN, data.data);
-                } else {
-                    const { SERVER_ERROR } = this.mediator.getEventTypes();
-                    this.mediator.call<TError>(SERVER_ERROR, data.error);
+                    this.mediator.call(LOGIN, result);
                 }
             });
 
             this.socket.on("SIGNUP", (data: any) => {
-                if (data.result === "ok") {
+                const result = this._validate(data);
+                if (result) {
                     const { SIGNUP } = this.mediator.getEventTypes();
                     this.mediator.call<Array<TMessage>>(SIGNUP);
-                } else {
-                    const { SERVER_ERROR } = this.mediator.getEventTypes();
-                    this.mediator.call<TError>(SERVER_ERROR, data.error);
                 }
             });
             this.socket.on("LOGOUT", (data: any) => {
-                if (data.result === "ok") {
+                const result = this._validate(data);
+                if (result) {
                     const { LOGOUT } = this.mediator.getEventTypes();
                     this.mediator.call(LOGOUT);
-                } else {
-                    const { SERVER_ERROR } = this.mediator.getEventTypes();
-                    this.mediator.call<TError>(SERVER_ERROR, data.error);
                 }
             });
 
             this.socket.on("GET_MESSAGES", (data: any) => {
-                const { messages } = data.data;
-                if (messages?.length && Array.isArray(messages)) {
-                    const { GET_MESSAGES } = this.mediator.getEventTypes();
-                    this.mediator.call<Array<TMessage>>(GET_MESSAGES, messages);
-                } else {
-                    const { SERVER_ERROR } = this.mediator.getEventTypes();
-                    this.mediator.call<TError>(SERVER_ERROR, data.error);
+                const result = this._validate(data);
+                if (result) {
+                    const { messages } = result;
+                    if (messages?.length && Array.isArray(messages)) {
+                        const { GET_MESSAGES } = this.mediator.getEventTypes();
+                        this.mediator.call<Array<TMessage>>(GET_MESSAGES, messages);
+                    }
                 }
             });
             this.socket.on("GET_USER", (data: any) => {
-                if (data.result === "ok") {
-                    this.mediator.user = data.data;
-                    this.token = data.data.token;
-                } else {
-                    const { SERVER_ERROR } = this.mediator.getEventTypes();
-                    this.mediator.call<TError>(SERVER_ERROR, data.error);
+                const result = this._validate(data);
+                if (result) {
+                    this.mediator.user = result;
+                    this.token = result.token;
                 }
             });
 
-            this.socket.on("GET_GAMER_BY_ID", (data: any) => {
-                if (data.result === "ok") {
-                    this.mediator.gamer = data.data;
-                } else {
-                    const { SERVER_ERROR } = this.mediator.getEventTypes();
-                    this.mediator.call<TError>(SERVER_ERROR, data.error);
-                }
-            });
             this.socket.on("GET_GAMERS", (data: any) => {
-                if (data.result === "ok") {
-                    console.log(data.data);
-                    this.mediator.gamers = data.data;
+                const result = this._validate(data);
+                if (result) {
+                    this.mediator.gamers = result;
                     const { GET_GAMERS } = this.mediator.getEventTypes();
-                    this.mediator.call(GET_GAMERS, data.data);
-                } else {
-                    const { SERVER_ERROR } = this.mediator.getEventTypes();
-                    this.mediator.call<TError>(SERVER_ERROR, data.error);
+                    this.mediator.call(GET_GAMERS, result);
                 }
             });
             this.socket.on("GET_MOBS", (data: any) => {
-                if (data.result === "ok") {
+                const result = this._validate(data);
+                if (result) {
                     const { GET_MOBS } = this.mediator.getEventTypes();
-                    this.mediator.call(GET_MOBS, data.data);
-                    this.mediator.mobs = data.data;
-                } else {
-                    const { SERVER_ERROR } = this.mediator.getEventTypes();
-                    this.mediator.call<TError>(SERVER_ERROR, data.error);
+                    this.mediator.call(GET_MOBS, result);
+                    this.mediator.mobs = result;
                 }
             });
             this.socket.on("GET_INVITES", (data: any) => {
-                if (data.result === "ok") {
+                const result = this._validate(data);
+                if (result) {
                     const { GET_INVITES } = this.mediator.getEventTypes();
-                    this.mediator.call(GET_INVITES, data.data);
-                } else {
-                    const { SERVER_ERROR } = this.mediator.getEventTypes();
-                    this.mediator.call<TError>(SERVER_ERROR, data.error);
+                    this.mediator.call(GET_INVITES, result);
                 }
             });
             this.socket.on("GET_FRIENDS", (data: any) => {
-                if (data.result === "ok") {
+                const result = this._validate(data);
+                if (result) {
                     const { GET_FRIENDS } = this.mediator.getEventTypes();
-                    this.mediator.call(GET_FRIENDS, data.data);
-                    this.mediator.friends = data.data;
-                } else {
-                    const { SERVER_ERROR } = this.mediator.getEventTypes();
-                    this.mediator.call<TError>(SERVER_ERROR, data.error);
+                    this.mediator.call(GET_FRIENDS, result);
+                    this.mediator.friends = result;
                 }
             });
             this.socket.on("GET_QUESTIONS_PROGRAMMER", (data: any) => {
-                if (data.result === "ok") {
-                    this.mediator.questions = data.data;
-                } else {
-                    const { SERVER_ERROR } = this.mediator.getEventTypes();
-                    this.mediator.call<TError>(SERVER_ERROR, data.error);
+                const result = this._validate(data);
+                if (result) {
+                    this.mediator.questions = result;
                 }
             });
         });
     }
-
-    // async request<T>(method: string, params: any = {}): Promise<T | null> {
-    //     try {
-    //         if (this.mediator.user.token) {
-    //             params.token = this.mediator.user.token;
-    //         }
-    //         const str = Object.keys(params)
-    //             .map((key) => `${key}=${params[key]}`)
-    //             .join("&");
-    //         const res = await fetch(`${this.HOST}/${method}?${str}`);
-    //         const answer = await res.json();
-    //         if (answer.result === "ok") {
-    //             return answer.data;
-    //         }
-
-    //         return null;
-    //     } catch (e) {
-    //         return null;
-    //     }
-    // }
-
+    _validate(data: any) {
+        if (data.result === "ok") {
+            return data.data;
+        }
+        const { SERVER_ERROR } = this.mediator.getEventTypes();
+        this.mediator.call<TError>(SERVER_ERROR, data.error);
+        return null;
+    }
     login(login: string, hash: string, rnd: number): void {
         this.socket.emit("LOGIN", { login, hash, rnd });
     }
@@ -181,18 +140,14 @@ export default class Server {
     async updatePersonId(newPersonId: number) {
         this.socket.emit("UPDATE_PERSON_ID", { newPersonId, token: this.token, lobbyName: this.mediator.lobbyName });
     }
-
-    async getGamerById(userId: number) {
-        this.socket.emit("GET_GAMER_BY_ID", { userId });
-    }
     async getGamers() {
         this.socket.emit("GET_GAMERS", { token: this.token, lobbyName: this.mediator.lobbyName });
     }
-    async move(direction: string, x: number, y: number, status: string) {
-        this.socket.emit("MOVE", { direction, x, y, status, token: this.token, lobbyName: this.mediator.lobbyName });
+    async move(x: number, y: number) {
+        this.socket.emit("MOVE", { x, y, token: this.token, lobbyName: this.mediator.lobbyName });
     }
     async moveMobs(x: number, y: number) {
-        this.socket.emit("MOVE_MOBS", { x, y });
+        this.socket.emit("MOVE_MOBS", { x, y, lobbyName: this.mediator.lobbyName });
     }
     addInvitation(userId: number, friendId: number) {
         this.socket.emit("ADD_INVITES", { token: this.token, userId, friendId, lobbyName: this.mediator.lobbyName });
@@ -207,10 +162,10 @@ export default class Server {
         this.socket.emit("GET_QUESTIONS_PROGRAMMER", {});
     }
     async updateHpMobs() {
-        this.socket.emit("UPDATE_HP_MOBS", {});
+        this.socket.emit("UPDATE_HP_MOBS", { lobbyName: this.mediator.lobbyName });
     }
     async getMobs() {
-        this.socket.emit("GET_MOBS", {});
+        this.socket.emit("GET_MOBS", { lobbyName: this.mediator.lobbyName });
     }
     async createLobby() {
         const lobbyName = this.socket.id;
