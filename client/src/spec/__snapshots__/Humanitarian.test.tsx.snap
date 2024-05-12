@@ -1,5 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Humanitarian Component renders correctly 1`] = `
+<DocumentFragment>
+  <div>
+    <button
+      class="arrow-2-heroes"
+    />
+    <button
+      class="arrow-3-heroes"
+    />
+    <div
+      class="image-humanitarian-heroes"
+    />
+    <div
+      class="panel-heroes"
+    >
+      <div
+        class="text-heroes"
+      >
+        “Гуманитарий” - имеет обычное здоровье в 100 единиц, увеличенный вдвое урон по парам “Русский язык”, “Английский язык”. Предметы типа “Книга улучшают характеристики в 1.5 раза сильнее.
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`HumanitarianPot Component renders correctly 1`] = `
 <DocumentFragment>
   <div>

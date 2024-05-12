@@ -1,11 +1,11 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import SportikPot from "../component/Heroes/component/Sportik"; 
+import Sportik from "../component/Heroes/component/Sportik"; 
 
-describe("SportikPot Component", () => {
+describe("Sportik Component", () => {
   it("renders correctly", () => {
-    const mockHeroes = jest.fn(); 
-    const { asFragment } = render(<SportikPot heroes={mockHeroes} />);
+    const Heroes = jest.fn(); 
+    const { asFragment } = render(<Sportik heroes={Heroes} />);
     expect(asFragment()).toMatchSnapshot();
   });
 });

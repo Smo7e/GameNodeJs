@@ -1,11 +1,11 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import HumanitarianPot from "../component/Heroes/component/Humanitarian"; 
+import Humanitarian from "../component/Heroes/component/Humanitarian"; 
 
-describe("HumanitarianPot Component", () => {
+describe("Humanitarian Component", () => {
   it("renders correctly", () => {
-    const mockHeroes = jest.fn(); 
-    const { asFragment } = render(<HumanitarianPot heroes={mockHeroes} />);
+    const Heroes = jest.fn(); 
+    const { asFragment } = render(<Humanitarian heroes={Heroes} />);
     expect(asFragment()).toMatchSnapshot();
   });
 });
