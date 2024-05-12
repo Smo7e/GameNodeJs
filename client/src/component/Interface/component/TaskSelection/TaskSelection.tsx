@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState, useRef, memo } from "react";
+import * as THREE from 'three';
 import "./TaskSelection.css";
 import { MediatorContext, ServerContext } from "../../../../App";
 interface ITaskSelectionProps {

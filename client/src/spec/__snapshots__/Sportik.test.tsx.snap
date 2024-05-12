@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SportikPot Component renders correctly 1`] = `
+<DocumentFragment>
+  <div>
+    <button
+      class="arrow-2-heroes"
+    />
+    <div
+      class="image-Sportik-heroes"
+    />
+    <div
+      class="panel-heroes"
+    >
+      <div
+        class="text-heroes"
+      >
+        “Спортик” - имеет повышенное здоровье в 150 единиц, увеличенный вдвое урон по паре “Физра” и любое улучшение от предметов увеличивается в 1.25 раза.
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

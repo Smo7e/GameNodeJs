@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Interface snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="Interface-container"
+  >
+    <div
+      class="back-arrow-interface"
+    />
+    <div
+      class="settings-arrow-interface"
+    />
+    <div
+      class="player-info"
+    >
+      <div
+        class="I"
+      />
+      <div
+        class="player-level-interface"
+      >
+        1
+      </div>
+    </div>
+    <div
+      class="map-info"
+    >
+      <div
+        class="miniMap-interface"
+      >
+        Мини карта
+      </div>
+      <div
+        class="game-info-interface"
+      >
+        <div
+          class="coin-interface"
+        >
+          0
+        </div>
+        <div
+          class="coin-icon-interface"
+        />
+        <div
+          class="time"
+        >
+          00 : 00
+        </div>
+      </div>
+    </div>
+    <div
+      class="Chat-container"
+    >
+      <div
+        class="chat-interface"
+      >
+        Чат
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Interface snapshot 2`] = `
+<DocumentFragment>
+  <div
+    class="Interface-container"
+  >
+    <div
+      class="back-arrow-interface"
+    />
+    <div
+      class="settings-arrow-interface"
+    />
+    <div
+      class="player-info"
+    >
+      <div
+        class="I"
+      />
+      <div
+        class="player-level-interface"
+      >
+        1
+      </div>
+    </div>
+    <div
+      class="map-info"
+    >
+      <div
+        class="miniMap-interface"
+      >
+        Мини карта
+      </div>
+      <div
+        class="game-info-interface"
+      >
+        <div
+          class="coin-interface"
+        >
+          0
+        </div>
+        <div
+          class="coin-icon-interface"
+        />
+        <div
+          class="time"
+        >
+          00 : 01
+        </div>
+      </div>
+    </div>
+    <div
+      class="Chat-container"
+    >
+      <div
+        class="chat-interface"
+      >
+        Чат
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
