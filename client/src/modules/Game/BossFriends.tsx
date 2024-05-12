@@ -4,9 +4,7 @@ import { Mesh, MeshStandardMaterial, Texture, Vector3 } from "three";
 import useSprites from "../hooks/Sprites/useSprites";
 import { useFrame } from "@react-three/fiber";
 import { MediatorContext } from "../../App";
-interface BossFriendsProps {
-    infoMobs: any;
-}
+
 const BossFriends: React.FC = () => {
     const mediator = useContext(MediatorContext);
     const bossRef = useRef<RapierRigidBody>(null);

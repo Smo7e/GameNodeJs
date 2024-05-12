@@ -26,8 +26,6 @@ class Lobby {
     }
 
     async addInvitation({ userId, friendId, lobbyName }) {
-        await this.db.addInvitation(userId, friendId);
-
         if (!this.invites[friendId]) {
             this.invites[friendId] = {
                 friendsId: [],
