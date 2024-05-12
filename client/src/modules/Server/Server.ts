@@ -97,6 +97,20 @@ export default class Server {
                     this.mediator.questions = result;
                 }
             });
+            this.socket.on("GET_GAMER_BY_SOCKET_ID", (data: any) => {
+                const result = this._validate(data);
+
+                if (result) {
+                    this.mediator.gamer = result;
+                }
+            });
+            this.socket.on("UPDATE_ARR_BULLET_TRAJECTORY", (data: any) => {
+                const result = this._validate(data);
+                if (result) {
+                    const { UPDATE_ARR_BULLET_TRAJECTORY } = this.mediator.getEventTypes();
+                    this.mediator.call(UPDATE_ARR_BULLET_TRAJECTORY, result);
+                }
+            });
         });
     }
     _validate(data: any) {
@@ -171,5 +185,15 @@ export default class Server {
         const lobbyName = this.socket.id;
         this.socket.emit("CREATE_LOBBY", { token: this.token, lobbyName });
         this.mediator.lobbyName = lobbyName;
+    }
+    async getGamerBySocketId() {
+        this.socket.emit("GET_GAMER_BY_SOCKET_ID", { lobbyName: this.mediator.lobbyName });
+    }
+
+    async updateArrBulletTrajectory(newArrBulletTrajectory: any) {
+        this.socket.emit("UPDATE_ARR_BULLET_TRAJECTORY", {
+            lobbyName: this.mediator.lobbyName,
+            newArrBulletTrajectory,
+        });
     }
 }

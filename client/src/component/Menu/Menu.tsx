@@ -30,7 +30,6 @@ const Menu: React.FC<IMenuProps> = ({ epages }) => {
         const { LOGOUT } = mediator.getEventTypes();
 
         const getInvitesHandler = (invites: any) => {
-            console.log(invites);
             setInvites(invites);
         };
         const getFriendsHandler = (friends: any) => {
@@ -51,7 +50,6 @@ const Menu: React.FC<IMenuProps> = ({ epages }) => {
     });
     const lobbyHandler = async () => {
         await server.createLobby();
-        await server.deleteGamers();
         epages(EPAGES.LOBBY);
     };
 
@@ -107,7 +105,6 @@ const Menu: React.FC<IMenuProps> = ({ epages }) => {
                         overflowY: "hidden",
                     }}
                 >
-                    {console.log(invites)}
                     {invites.friendsId ? (
                         invites.friendsId.map((invite: any, index: number) => (
                             <div style={{ display: "flex" }} key={index}>
