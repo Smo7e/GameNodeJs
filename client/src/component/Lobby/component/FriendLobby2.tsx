@@ -16,11 +16,11 @@ const FriendLobby2: React.FC<IFriendLobby2Props> = ({ setPanel, gamers }) => {
 
     return (
         <>
-            {gamers.length <= 2 && gamers && gamers[0].name === mediator.user.name ? (
+            {gamers.length <= 2 && mediator.gamer.post === "Admin" ? (
                 <div id="test-image-rack2" className="image-rack2">
                     <div onClick={() => setPanel(EPANEL.ADDAFRIEND2)} id="test-friend" className="friend"></div>
                 </div>
-            ) : gamers.length > 2 && gamers && mediator.user.name != gamers[2].name ? (
+            ) : gamers.length > 2 && gamers && mediator.gamer.post != "Friend-2" ? (
                 <>
                     {gamers && gamers[2].person_id - 0 === 0 ? (
                         <div className="image-Sportik2">

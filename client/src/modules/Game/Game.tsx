@@ -19,6 +19,8 @@ const Game: React.FC = () => {
         const getGamersHandler = (data: any) => {
             infoFriends = mediator.gamers;
             infoMobs = mediator.mobs;
+            console.log();
+
             if (!mediator.triger) {
                 let srAr = 0;
                 infoFriends?.forEach((elem) => {
@@ -53,9 +55,8 @@ const Game: React.FC = () => {
                     <Scene />
                     <Player />
                     {infoFriends && infoFriends!.length >= 2 ? <Friends /> : <></>}
-                    {infoFriends && infoFriends[0].name === mediator.user.name ? <Boss /> : <BossFriends />}
-
-                    <Bullets />
+                    {mediator.gamer.post === "Admin" ? <Boss /> : <BossFriends />}
+                    {mediator.gamer.post === "Admin" ? <Bullets /> : <></>}
                 </Physics>
             </Canvas>
         </>

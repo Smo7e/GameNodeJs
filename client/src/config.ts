@@ -25,6 +25,7 @@ export const MEDIATOR = {
         LOGOUT: "LOGOUT",
         GET_MOBS: "GET_MOBS",
         GET_ERROR: "GET_ERROR",
+        UPDATE_ARR_BULLET_TRAJECTORY: "UPDATE_ARR_BULLET_TRAJECTORY",
     },
     TRIGGERS: {},
 };

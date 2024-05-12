@@ -1,5 +1,5 @@
-import { createRef, useContext, useEffect, useState } from "react";
-import { Mesh, TextureLoader } from "three";
+import { useContext, useEffect, useRef } from "react";
+import { TextureLoader } from "three";
 import { useFrame, useLoader } from "@react-three/fiber";
 import fireBall from "./image/Bullets/fireBall.png";
 import { TGamer, TMobs } from "../Server/types";
@@ -8,110 +8,106 @@ import { MediatorContext, ServerContext } from "../../App";
 const Bullets: React.FC = () => {
     const server = useContext(ServerContext);
     const mediator = useContext(MediatorContext);
-
-    const [bulletsRefs, setbulletsRefs] = useState<any>([]);
-    const [arrBullet, setArrBullet] = useState<any>([]);
+    const bulletRef1 = useRef<any>(null);
+    const bulletRef2 = useRef<any>(null);
+    const bulletRef3 = useRef<any>(null);
+    const bulletsRefs: any = [bulletRef1, bulletRef2, bulletRef3];
+    let arrBulletTrajectory: any = [
+        [999, 999, 999, 999],
+        [999, 999, 999, 999],
+        [999, 999, 999, 999],
+    ];
 
     const bulletsSpeed = 0.1;
 
     const addBullet = (infoFriends: TGamer[], infoMobs: TMobs[]): void => {
-        setArrBullet([
-            infoFriends && infoFriends[0]
-                ? [
-                      infoMobs ? infoMobs[0].x - 0 : 200,
-                      infoMobs ? infoMobs[0].y - 0 : 200,
-                      infoFriends ? infoFriends[0].x - 0 : 200,
-                      infoFriends ? infoFriends[0].y - 0 : 200,
-                  ]
-                : null,
-
-            infoFriends && infoFriends[1]
-                ? [
-                      infoMobs ? infoMobs[0].x - 0 : 200,
-                      infoMobs ? infoMobs[0].y - 0 : 200,
-                      infoFriends ? infoFriends[1].x - 0 : 200,
-                      infoFriends ? infoFriends[1].y - 0 : 200,
-                  ]
-                : null,
-
-            infoFriends && infoFriends[2]
-                ? [
-                      infoMobs ? infoMobs[0].x - 0 : 200,
-                      infoMobs ? infoMobs[0].y - 0 : 200,
-                      infoFriends ? infoFriends[2].x - 0 : 200,
-                      infoFriends ? infoFriends[2].y - 0 : 200,
-                  ]
-                : null,
-        ]);
+        const newBulletTrajectory = [
+            [
+                infoMobs[0]?.x ?? 999,
+                infoMobs[0]?.y ?? 999,
+                (infoFriends[0]?.x ?? 999) + Math.random(),
+                (infoFriends[0]?.y ?? 999) + Math.random(),
+            ],
+            [
+                infoMobs[0]?.x ?? 999,
+                infoMobs[0]?.y ?? 999,
+                (infoFriends[1]?.x ?? 999) + Math.random(),
+                (infoFriends[1]?.y ?? 999) + Math.random(),
+            ],
+            [
+                infoMobs[0]?.x ?? 999,
+                infoMobs[0]?.y ?? 999,
+                (infoFriends[2]?.x ?? 999) + Math.random(),
+                (infoFriends[2]?.y ?? 999) + Math.random(),
+            ],
+        ];
+        server.updateArrBulletTrajectory(newBulletTrajectory);
     };
+
     useFrame(() => {
         if (!mediator.triger) return;
         const infoFriends: TGamer[] = mediator.gamers;
         const infoMobs: TMobs[] = mediator.mobs;
 
         if (infoMobs && infoMobs[0].hp <= 0) return;
-
-        if (arrBullet.filter((n: any) => n).length === 0) {
-            setArrBullet(arrBullet.filter((n: any) => n));
-        }
-        /// нериальное говно
-        if (bulletsRefs.filter((n: any) => n).length === 0) {
-            setbulletsRefs((bulletsRefs: any) =>
-                Array(arrBullet.length)
-                    .fill(0)
-                    .map((_, i) => bulletsRefs[i] || createRef())
-            );
-        }
-
-        if (arrBullet.length === 0) {
-            addBullet(infoFriends, infoMobs);
-        }
-
-        arrBullet.map((elem: number, i: number) => {
-            if (!bulletsRefs[i] || !arrBullet[i]) return;
+        let count = 0;
+        arrBulletTrajectory.map((bullet: any, i: number) => {
+            if (!arrBulletTrajectory || bullet[3] >= 999) {
+                count++;
+                if (count == 3) {
+                    addBullet(infoFriends, infoMobs);
+                }
+                return;
+            }
             const bulletCoord = bulletsRefs[i].current!.position;
-            const dx = arrBullet[i][2] - arrBullet[i][0];
-            const dy = arrBullet[i][3] - arrBullet[i][1];
+            const dx = bullet[2] - bullet[0];
+            const dy = bullet[3] - bullet[1];
             const distances = Math.sqrt(dx * dx + dy * dy);
             const ratio = bulletsSpeed / distances;
-            arrBullet[i][0] = arrBullet[i][0] + dx * ratio;
-            arrBullet[i][1] = arrBullet[i][1] + dy * ratio;
-            bulletCoord.set(arrBullet[i][0], arrBullet[i][1], 0);
+            bullet[0] = bullet[0] + dx * ratio;
+            bullet[1] = bullet[1] + dy * ratio;
+            bulletCoord.set(bullet[0], bullet[1], 0);
             if (distances < 0.3) {
                 infoFriends?.forEach((gamer) => {
-                    const dist = Math.pow(arrBullet[i][0] - gamer.x, 2) + Math.pow(arrBullet[i][1] - gamer.y, 2);
+                    const dist = Math.pow(bullet[0] - gamer.x, 2) + Math.pow(bullet[1] - gamer.y, 2);
                     if (dist < 1) {
                         server.updateHp(gamer.name);
                     }
                 });
-                delete arrBullet[i];
-                setbulletsRefs((bulletsRefs: any) =>
-                    Array(arrBullet.length)
-                        .fill(0)
-                        .map((_, i) => bulletsRefs[i] || createRef())
-                );
+                arrBulletTrajectory[i] = [999, 999, 999, 999];
+                bulletCoord.set(999, 999, 0);
             }
         });
     });
 
-    useEffect(() => {
-        setbulletsRefs((bulletsRefs: any) =>
-            Array(arrBullet.length)
-                .fill(0)
-                .map((_, i) => bulletsRefs[i] || createRef())
-        );
-    }, []);
     const a = useLoader(TextureLoader, fireBall);
+    const updateBulletHandler = (arr: any) => {
+        arrBulletTrajectory = arr;
+        console.log(arrBulletTrajectory);
+    };
+
+    useEffect(() => {
+        const { UPDATE_ARR_BULLET_TRAJECTORY } = mediator.getEventTypes();
+        mediator.subscribe(UPDATE_ARR_BULLET_TRAJECTORY, updateBulletHandler);
+        return () => {
+            mediator.unsubscribe(UPDATE_ARR_BULLET_TRAJECTORY, updateBulletHandler);
+        };
+    });
+
     return (
         <>
-            {Array(arrBullet.length)
-                .fill(0)
-                .map((el, i) => (
-                    <mesh ref={bulletsRefs[i]} key={i} position={[200, 200, 0]}>
-                        <planeGeometry args={[0.5, 0.25]} />
-                        <meshStandardMaterial map={a} transparent />
-                    </mesh>
-                ))}
+            <mesh ref={bulletRef1} position={[200, 200, 0]}>
+                <planeGeometry args={[0.5, 0.25]} />
+                <meshStandardMaterial map={a} transparent />
+            </mesh>
+            <mesh ref={bulletRef2} position={[200, 200, 0]}>
+                <planeGeometry args={[0.5, 0.25]} />
+                <meshStandardMaterial map={a} transparent />
+            </mesh>
+            <mesh ref={bulletRef3} position={[200, 200, 0]}>
+                <planeGeometry args={[0.5, 0.25]} />
+                <meshStandardMaterial map={a} transparent />
+            </mesh>
         </>
     );
 };
