@@ -98,7 +98,7 @@ const Player: React.FC = memo(() => {
             cameraPosition = newPosition;
             state.camera.position.copy(newPosition);
             if (limitationОfSending % 50 === 0) {
-                server.move("walk", personRef.current!.translation().x, personRef.current!.translation().y, "alive");
+                server.move(personRef.current!.translation().x, personRef.current!.translation().y);
             }
             limitationОfSending = limitationОfSending + 1;
         }

@@ -56,9 +56,6 @@ class DB {
         return row.rows;
     }
 
-    updateChatHash(chat_hash) {
-        this.orm.update("game", { chat_hash }, { id: 1 });
-    }
     ///Chat///
 
     ///Lobby///
@@ -69,40 +66,6 @@ class DB {
 
     async getFriends(id) {
         return this.orm.get("users", { id }, friends);
-    }
-    async getGamers() {
-        const result = await this.db.query(
-            `SELECT u.name AS name,
-             g.person_id AS person_id,
-             g.status AS status,
-             g.x AS x,
-             g.y AS y,
-             g.direction AS direction,
-             g.hp as hp
-             FROM gamers AS g
-             INNER JOIN users AS u
-             ON u.id=g.user_id`
-        );
-        return result.rows;
-    }
-
-    addGamers(user_id) {
-        this.orm.insert("gamers", { user_id });
-    }
-    deleteGamers() {
-        this.orm.delete("gamers");
-    }
-    updatePersonId(user_id, person_id) {
-        this.orm.update("gamers", { person_id }, { user_id });
-    }
-    getGamerById(user_id) {
-        return this.orm.get("gamers", { user_id });
-    }
-    addInvitation(id_who, id_to_whom) {
-        this.orm.insert("invitations", { id_who, id_to_whom });
-    }
-    async checkInvites(id_to_whom) {
-        return await this.orm.all("invitations", { id_to_whom }, "id_who", true);
     }
     async addFriend(user_id, friend_id) {
         await this.orm.insert("friends", { user_id, friend_id });
@@ -121,28 +84,9 @@ class DB {
     ///Lobby///
 
     ///Game///
-    move(user_id, direction, x, y, status) {
-        this.orm.update("gamers", { direction, x, y, status }, { user_id });
-    }
-    moveMobs(x, y) {
-        this.orm.update("mobs", { x, y }, { id: 1 });
-    }
-    async updateHp(user_id) {
-        let hp = await this.orm.get("gamers", { user_id }, "hp");
-        hp = hp.hp -= 5;
-        this.orm.update("gamers", { hp }, { user_id });
-    }
-    async updateHpMobs() {
-        let hp = await this.orm.get("mobs", { id: 1 }, "hp");
-        hp = hp.hp -= 5;
-        this.orm.update("mobs", { hp }, { id: 1 });
-    }
+
     getQuestionsProgrammer() {
         return this.orm.all("questions_programmer");
-    }
-    async getMobs() {
-        return this.orm.all("mobs");
-        //return await this.queryInDB("SELECT * FROM mobs");
     }
 
     updateTimestamp(update_timestamp) {

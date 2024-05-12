@@ -37,13 +37,10 @@ const Lobby: React.FC<ILobbyProps> = ({ epages }) => {
     const panelRef = useRef<HTMLDivElement>(null);
 
     const gameHadler = async () => {
-        await server.getGamerById(mediator.user.id);
-        server.getQuestionsProgrammer();
         epages(EPAGES.GAME);
     };
 
     useEffect(() => {
-        server.moveMobs(8, -3);
         const handleClickOutside = (event: MouseEvent) => {
             if (panelRef.current && !panelRef.current.contains(event.target as Node)) {
                 setPanel(undefined);
