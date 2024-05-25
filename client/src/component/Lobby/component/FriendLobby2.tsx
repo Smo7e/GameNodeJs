@@ -1,26 +1,28 @@
 import { useContext, useState } from "react";
 import { ELOBBY, EPANEL } from "../Lobby";
-import { MediatorContext } from "../../../App";
+import { StoreContext } from "../../../App";
 import SportikLobby from "./SportikLobby";
 import HumanitarianLobby from "./HumanitarianLobby";
 import TechguyLobby from "./TechguyLobby";
+import { VARIABLE } from "../../../modules/Store/Store";
 interface IFriendLobby2Props {
     setPanel: Function;
     gamers: any;
 }
 const FriendLobby2: React.FC<IFriendLobby2Props> = ({ setPanel, gamers }) => {
-    const mediator = useContext(MediatorContext);
+    const store = useContext(StoreContext);
+
     const [lobbyFriend2, setLobbyFriend2] = useState<ELOBBY>(ELOBBY.SPORTIK);
 
     if (!gamers) return <></>;
 
     return (
         <>
-            {gamers.length <= 2 && mediator.gamer.post === "Admin" ? (
+            {gamers.length <= 2 && store.get(VARIABLE.GAMER).post === "Admin" ? (
                 <div id="test-image-rack2" className="image-rack2">
                     <div onClick={() => setPanel(EPANEL.ADDAFRIEND2)} id="test-friend" className="friend"></div>
                 </div>
-            ) : gamers.length > 2 && gamers && mediator.gamer.post != "Friend-2" ? (
+            ) : gamers.length > 2 && gamers && store.get(VARIABLE.GAMER).post != "Friend-2" ? (
                 <>
                     {gamers && gamers[2].person_id - 0 === 0 ? (
                         <div className="image-Sportik2">

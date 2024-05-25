@@ -28,7 +28,7 @@ class DB {
         return await this.orm.get("users", { token });
     }
 
-    // убрать
+    // убрать;
     getUserByName(name) {
         return this.orm.get("users", { name });
     }
@@ -64,15 +64,12 @@ class DB {
         return row;
     }
 
-    async getFriends(id) {
-        return this.orm.get("users", { id }, friends);
-    }
     async addFriend(user_id, friend_id) {
         await this.orm.insert("friends", { user_id, friend_id });
     }
     async getFriends(user_id) {
         const query = `
-            SELECT u.id, u.login, u.name, u.token
+            SELECT u.id, u.name
             FROM friends f
             INNER JOIN users u ON (f.user_id = $1 AND u.id = f.friend_id) OR (f.friend_id = $1 AND u.id = f.user_id)
             WHERE f.user_id = $1 OR f.friend_id = $1

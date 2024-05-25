@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { HOST, MEDIATOR } from "./config";
-import { Server, Mediator, TError } from "./modules";
+import { Server, Mediator, Store, TError } from "./modules";
 import SignUp from "./component/SignUp/SignUp";
 import Game from "./modules/Game/Game";
 import Menu from "./component/Menu/Menu";
@@ -14,6 +14,7 @@ import "./App.css";
 
 export const ServerContext = React.createContext<Server>(null!);
 export const MediatorContext = React.createContext<Mediator>(null!);
+export const StoreContext = React.createContext<Store>(null!);
 
 export enum EPAGES {
     SIGNUP,
@@ -55,8 +56,9 @@ const MainApp = () => {
 };
 
 const App: React.FC = () => {
+    const store = new Store();
     const mediator = new Mediator(MEDIATOR);
-    const server = new Server(HOST, mediator);
+    const server = new Server(HOST, mediator, store);
 
     const { SERVER_ERROR } = mediator.getEventTypes();
     mediator.subscribe(SERVER_ERROR, (data: TError) => {
@@ -64,11 +66,13 @@ const App: React.FC = () => {
     });
 
     return (
-        <MediatorContext.Provider value={mediator}>
-            <ServerContext.Provider value={server}>
-                <MainApp />
-            </ServerContext.Provider>
-        </MediatorContext.Provider>
+        <StoreContext.Provider value={store}>
+            <MediatorContext.Provider value={mediator}>
+                <ServerContext.Provider value={server}>
+                    <MainApp />
+                </ServerContext.Provider>
+            </MediatorContext.Provider>
+        </StoreContext.Provider>
     );
 };
 

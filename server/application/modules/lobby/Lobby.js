@@ -37,7 +37,11 @@ class Lobby {
         this.io.emit("GET_INVITES", this.answer.good(this.invites[friendId]));
     }
     async checkInvites({ userId }) {
-        this.io.emit("GET_INVITES", this.answer.good(this.invites[userId]));
+        const invites = this.invites[userId];
+        if (invites) {
+            this.io.emit("GET_INVITES", this.answer.good(invites));
+            return;
+        }
     }
 }
 module.exports = Lobby;

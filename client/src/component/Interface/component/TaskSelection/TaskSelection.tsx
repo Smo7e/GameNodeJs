@@ -1,13 +1,14 @@
 import { useContext, useEffect, useState, useRef, memo } from "react";
-import * as THREE from 'three';
 import "./TaskSelection.css";
-import { MediatorContext, ServerContext } from "../../../../App";
-interface ITaskSelectionProps {
-    setQuestionFlag: Function;
-}
-const TaskSelection: React.FC<ITaskSelectionProps> = memo(({ setQuestionFlag }) => {
+import { ServerContext, StoreContext } from "../../../../App";
+import { VARIABLE } from "../../../../modules/Store/Store";
+import { TUserFull } from "../../../../modules/Server/types";
+
+const TaskSelection: React.FC = memo(() => {
     const server = useContext(ServerContext);
-    const mediator = useContext(MediatorContext);
+    const store = useContext(StoreContext);
+
+    const containerRef = useRef<HTMLDivElement>(null);
     const timerRef = useRef<HTMLDivElement>(null);
     const questionRef = useRef<HTMLDivElement>(null);
     const answer1Ref = useRef<HTMLDivElement>(null);
@@ -15,19 +16,26 @@ const TaskSelection: React.FC<ITaskSelectionProps> = memo(({ setQuestionFlag }) 
     const answer3Ref = useRef<HTMLDivElement>(null);
     const answer4Ref = useRef<HTMLDivElement>(null);
 
-    const questions = mediator.questions;
+    const questions = store.get(VARIABLE.QUESTIONS);
     const question = questions[rndNumber(0, questions.length - 1)];
 
+    const user: TUserFull = store.get(VARIABLE.USER);
     let timer = 15;
+    let taskTimer = 5;
+    let canAnswer: boolean = true;
     useEffect(() => {
         const timerId = setInterval(() => {
             if (timerRef.current) {
                 timerRef.current.innerHTML = `${timer}`;
-                timer -= 1;
-                if (timer == 0) {
-                    clearInterval(timerId);
-                    setQuestionFlag(false);
+                if (timer === 0) {
+                    stoppingResponses();
+                    taskTimer -= 1;
+                    if (taskTimer == 0) {
+                        startingResponses();
+                    }
+                    return;
                 }
+                timer -= 1;
             }
         }, 1000);
 
@@ -35,6 +43,18 @@ const TaskSelection: React.FC<ITaskSelectionProps> = memo(({ setQuestionFlag }) 
             clearInterval(timerId);
         };
     });
+    const stoppingResponses = () => {
+        canAnswer = false;
+        timer = 0;
+        containerRef.current!.style.visibility = "hidden";
+    };
+    const startingResponses = () => {
+        canAnswer = true;
+        containerRef.current!.style.visibility = "visible";
+        timer = 15;
+        taskTimer = 5;
+    };
+
     if (!question) return <></>;
 
     function rndNumber(min: number, max: number) {
@@ -48,15 +68,20 @@ const TaskSelection: React.FC<ITaskSelectionProps> = memo(({ setQuestionFlag }) 
         answer4Ref.current.innerHTML = question.answer_4;
     }
     const checkAnswer = (answer: number) => {
-        if (question) {
+        if (question && canAnswer) {
+            stoppingResponses();
             if (answer === question.correct_answer) {
                 server.updateHpMobs();
+                //
+                return;
             }
-            setQuestionFlag(false);
+            //
+            server.updateHp(user.name);
+            return;
         }
     };
     return (
-        <div className="taskselection-Container">
+        <div ref={containerRef} className="taskselection-Container">
             <div className="taskselection-timer" ref={timerRef}></div>
             <div className="taskselection-question" ref={questionRef}>
                 {question.question}

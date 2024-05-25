@@ -1,31 +1,32 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { MediatorContext, ServerContext } from "../../App";
+
+import { MediatorContext, StoreContext } from "../../App";
+import { TMobs } from "../../modules/Server/types";
+import { act } from "react-dom/test-utils";
+
 import Chat from "./component/Chat/Chat";
-// import TaskSelection from "./component/TaskSelection/TaskSelection";
-import { TGamer, TMobs, TScene } from "../../modules/Server/types";
-import "./Interface.css";
 import ParametersGame from "./component/ParametersGame/ParametersGame";
 import TaskSelection from "./component/TaskSelection/TaskSelection";
-import { act } from 'react-dom/test-utils';
 
+import "./Interface.css";
+import { VARIABLE } from "../../modules/Store/Store";
+import CheatMenu from "./component/CheatMenu/CheatMenu";
 
 const Interface: React.FC = () => {
-    const server = useContext(ServerContext);
     const mediator = useContext(MediatorContext);
+    const store = useContext(StoreContext);
+
     const [infoMobs, setInfoMobs] = useState<TMobs[] | null>(null);
     const timeRef = useRef<HTMLDivElement>(null);
     const [gamers, setGamers] = useState<any>(null);
-    const [questionFlag, setQuestionFlag] = useState<boolean>(true);
     const [timer, setTimer] = useState({ seconds: 0, minutes: 0 });
     const parametersGameRef = useRef<HTMLDivElement>(null);
     const [showParametersGame, setShowParametersGame] = useState(false);
-
+    const cheatMenu = true;
     const handleSettingsClick = () => {
         setShowParametersGame(true);
     };
-    const handleParametersGameClick = () => {
-        setShowParametersGame(false);
-    };
+
     const handleOutsideClick = (event: MouseEvent) => {
         if (parametersGameRef.current && !parametersGameRef.current.contains(event.target as Node)) {
             setShowParametersGame(false);
@@ -36,18 +37,18 @@ const Interface: React.FC = () => {
         const updateTime = () => {
             act(() => {
                 setTimer((prevTimer) => {
-                  let seconds = prevTimer.seconds + 1;
-                  let minutes = prevTimer.minutes;
+                    let seconds = prevTimer.seconds + 1;
+                    let minutes = prevTimer.minutes;
 
-                if (seconds === 60) {
-                    minutes++;
-                    seconds = 0;
-                }
+                    if (seconds === 60) {
+                        minutes++;
+                        seconds = 0;
+                    }
 
-                return { seconds, minutes };
+                    return { seconds, minutes };
+                });
             });
-        });
-    }
+        };
         let timeInterval = setInterval(updateTime, 1000);
         return () => {
             document.removeEventListener("mousedown", handleOutsideClick);
@@ -76,14 +77,6 @@ const Interface: React.FC = () => {
     });
 
     // вызов окошка задания
-    if (!questionFlag && mediator.triger) {
-        if (mediator.tim < 13) {
-            mediator.tim += 1;
-        } else {
-            setQuestionFlag(true);
-            mediator.tim = 0;
-        }
-    }
 
     return (
         <div className="Interface-container">
@@ -139,14 +132,18 @@ const Interface: React.FC = () => {
                     </div>
                 </div>
             </div>
-            {mediator.triger && questionFlag ? <TaskSelection setQuestionFlag={setQuestionFlag} /> : <></>}
-            {mediator.triger ? (
-                <div className="BossXP">{infoMobs ? <div>BossXP: {infoMobs[0].hp}</div> : <></>}</div>
+            {store.get(VARIABLE.TRIGGER) ? (
+                <>
+                    <div className="BossXP">{infoMobs ? <div>BossXP: {infoMobs[0].hp}</div> : <></>}</div>
+                    <TaskSelection />
+                </>
             ) : (
                 <></>
             )}
 
             <Chat />
+
+            {cheatMenu ? <CheatMenu /> : <></>}
         </div>
     );
 };

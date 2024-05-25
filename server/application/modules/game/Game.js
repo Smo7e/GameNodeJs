@@ -25,15 +25,25 @@ class Game {
             socket.on("UPDATE_PERSON_ID", (data) => this.updatePersonId(data, socket));
             socket.on("GET_GAMER_BY_SOCKET_ID", (data) => this.getGamerBySocketId(data, socket));
 
+            // immortality IMMORTALITY
+            socket.on("IMMORTALITY", (data) => this.immortality(data, socket));
+
             socket.on("UPDATE_ARR_BULLET_TRAJECTORY", (data) => this.updateArrBulletTrajectory(data, socket));
         });
         const { TEST } = this.mediator.getEventTypes();
         //this.mediator.subscribe(TEST, (data) => console.log(data));
     }
-    async updateHp({ gamerName, lobbyName }, socket) {
-        const user = await this.db.getUserByName(gamerName);
+    immortality({ lobbyName }, socket) {
+        if (this.lobbies[lobbyName].mobs[0].damage) {
+            this.lobbies[lobbyName].mobs[0].damage = 0;
+            return;
+        }
+        this.lobbies[lobbyName].mobs[0].damage = 5;
+    }
+    updateHp({ gamerName, lobbyName }, socket) {
+        const user = this.db.getUserByName(gamerName);
         if (user) {
-            this.lobbies[lobbyName].players[socket.id].hp -= 5;
+            this.lobbies[lobbyName].players[socket.id].hp -= this.lobbies[lobbyName].mobs[0].damage;
             this.getGamers({ lobbyName }, socket);
             return;
         }
@@ -85,22 +95,24 @@ class Game {
         this.io.to(lobbyName).emit("GET_GAMERS", this.answer.good(Object.values(this.lobbies[lobbyName]?.players)));
     }
 
-    async addMobs({ token, mobsId, lobbyName }, socket) {
+    addMobs({ token, mobsId, lobbyName }, socket) {
         if (token && lobbyName) {
-            const user = await this.db.getUserByToken(token);
+            const user = this.db.getUserByToken(token);
             if (user) {
                 this.lobbies[lobbyName].mobs[mobsId] = {
                     id: mobsId,
                     x: 8,
                     y: -3,
-                    hp: 300,
+                    hp: 100,
+                    damage: 5,
                 };
+                this.getMobs({ lobbyName }, socket);
                 return;
             }
-            this.io.to(socket.id).emit("GET_MOBS", await this.answer.bad(455));
+            this.io.to(socket.id).emit("GET_MOBS", this.answer.bad(455));
             return;
         }
-        this.io.to(socket.id).emit("GET_MOBS", await this.answer.bad(1001));
+        this.io.to(socket.id).emit("GET_MOBS", this.answer.bad(1001));
         return;
     }
 
@@ -119,9 +131,9 @@ class Game {
                     post,
                 };
                 socket.join(lobbyName);
-                this.getGamers({ lobbyName }, socket);
-                this.getQuestionsProgrammer({ lobbyName }, socket);
                 this.getGamerBySocketId({ lobbyName }, socket);
+                this.getQuestionsProgrammer({ lobbyName }, socket);
+                this.getGamers({ lobbyName }, socket);
 
                 return;
             }
@@ -154,7 +166,7 @@ class Game {
         this.io.to(socket.id).emit("GET_GAMERS", await this.answer.bad(1001));
         return;
     }
-    async createLobby({ token, lobbyName }, socket) {
+    createLobby({ token, lobbyName }, socket) {
         this.lobbies[lobbyName] = {
             name: lobbyName,
             players: {},
@@ -165,8 +177,8 @@ class Game {
                 [999, 999, 999, 999],
             ],
         };
-        await this.addGamers({ token, lobbyName, isAdmin: true }, socket);
-        await this.addMobs({ token, mobsId: 0, lobbyName }, socket);
+        this.addMobs({ token, mobsId: 0, lobbyName }, socket);
+        this.addGamers({ token, lobbyName, isAdmin: true }, socket);
     }
 
     updateArrBulletTrajectory({ lobbyName, newArrBulletTrajectory }, socket) {

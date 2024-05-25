@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
-import { EPAGES, MediatorContext, ServerContext } from "../../App";
+import { EPAGES, MediatorContext, ServerContext, StoreContext } from "../../App";
 import SportikLobby from "./component/SportikLobby";
 import HumanitarianLobby from "./component/HumanitarianLobby";
 import TechguyLobby from "./component/TechguyLobby";
@@ -11,6 +11,7 @@ import Addafriend2 from "./panel/Addafriend2";
 import "./Lobby.css";
 import FriendLobby1 from "./component/FriendLobby1";
 import FriendLobby2 from "./component/FriendLobby2";
+import { VARIABLE } from "../../modules/Store/Store";
 
 interface ILobbyProps {
     epages: Function;
@@ -28,8 +29,8 @@ export enum EPANEL {
 }
 
 const Lobby: React.FC<ILobbyProps> = ({ epages }) => {
-    const server = useContext(ServerContext);
     const mediator = useContext(MediatorContext);
+    const store = useContext(StoreContext);
 
     const [lobby, setLobby] = useState<ELOBBY>(ELOBBY.SPORTIK);
     const [panel, setPanel] = useState<EPANEL>();
@@ -60,18 +61,17 @@ const Lobby: React.FC<ILobbyProps> = ({ epages }) => {
     }, []);
     if (!gamers || !gamers[0] || !gamers[0].name) return <></>;
     ///ПЕРЕДЕЛАТЬ НЕРИАЛЬНЫХ КРИНЖ
-
     return (
         <div id="test-container-Lobby" className="container-Lobby">
             <button onClick={() => epages(EPAGES.MENU)} id="test-arrow-1" className="arrow-1"></button>
             <ShopLobby />
             <FriendLobby1 gamers={gamers} setPanel={setPanel} />
             <FriendLobby2 gamers={gamers} setPanel={setPanel} />
-            {lobby === ELOBBY.SPORTIK && mediator.gamer.post === "Admin" ? (
+            {lobby === ELOBBY.SPORTIK && store.get(VARIABLE.GAMER).post === "Admin" ? (
                 <SportikLobby lobby={setLobby} gamerNumber={0} />
-            ) : lobby === ELOBBY.HUMANITARIAN && mediator.gamer.post === "Admin" ? (
+            ) : lobby === ELOBBY.HUMANITARIAN && store.get(VARIABLE.GAMER).post === "Admin" ? (
                 <HumanitarianLobby lobby={setLobby} gamerNumber={0} />
-            ) : lobby === ELOBBY.TECHGUY && mediator.gamer.post === "Admin" ? (
+            ) : lobby === ELOBBY.TECHGUY && store.get(VARIABLE.GAMER).post === "Admin" ? (
                 <TechguyLobby lobby={setLobby} gamerNumber={0} />
             ) : (
                 <>
@@ -94,11 +94,11 @@ const Lobby: React.FC<ILobbyProps> = ({ epages }) => {
             )}
             {panel === EPANEL.ADDAFRIEND1 ? (
                 <div ref={panelRef} id="test-Addafriend1">
-                    <Addafriend1 friends={mediator.friends} userId={mediator.user.id} />
+                    <Addafriend1 friends={store.get(VARIABLE.FRIENDS)} userId={store.get(VARIABLE.USER).id} />
                 </div>
             ) : panel === EPANEL.ADDAFRIEND2 ? (
                 <div ref={panelRef} id="test-Addafriend2">
-                    <Addafriend2 friends={mediator.friends} userId={mediator.user.id} />
+                    <Addafriend2 friends={store.get(VARIABLE.USER).id} userId={store.get(VARIABLE.USER).id} />
                 </div>
             ) : (
                 <></>

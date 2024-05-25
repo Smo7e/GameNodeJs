@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { ServerContext, MediatorContext } from "../../App";
-import { TGamer, TMobs, TScene } from "../Server/types";
+import { MediatorContext, StoreContext } from "../../App";
+import { TGamer, TMobs } from "../Server/types";
 import Player from "./Player";
 import Scene from "./Scene";
 import { Physics } from "@react-three/rapier";
@@ -9,27 +9,30 @@ import Friends from "./Friends";
 import Boss from "./Boss";
 import Bullets from "./Bullets";
 import BossFriends from "./BossFriends";
+import { VARIABLE } from "../Store/Store";
 const Game: React.FC = () => {
     const mediator = useContext(MediatorContext);
-    let infoFriends: TGamer[] = mediator.gamers;
-    let infoMobs: TMobs[] = mediator.mobs;
+    const store = useContext(StoreContext);
+    let gamers: TGamer[] = store.get(VARIABLE.GAMERS);
+    let mobs: TMobs[] = store.get(VARIABLE.MOBS);
+
     useEffect(() => {
         const { GET_GAMERS } = mediator.getEventTypes();
 
         const getGamersHandler = (data: any) => {
-            infoFriends = mediator.gamers;
-            infoMobs = mediator.mobs;
-            console.log();
+            gamers = store.get(VARIABLE.GAMERS);
+            mobs = store.get(VARIABLE.MOBS);
+            const trigger: boolean = store.get(VARIABLE.TRIGGER);
 
-            if (!mediator.triger) {
+            if (!trigger) {
                 let srAr = 0;
-                infoFriends?.forEach((elem) => {
+                gamers?.forEach((elem) => {
                     srAr += Math.sqrt(
-                        Math.pow((infoMobs ? infoMobs[0].x : 0) - elem.x - 0, 2) +
-                            Math.pow((infoMobs ? infoMobs[0].y : 0) - elem.y - 0, 2)
+                        Math.pow((mobs ? mobs[0].x : 0) - elem.x - 0, 2) +
+                            Math.pow((mobs ? mobs[0].y : 0) - elem.y - 0, 2)
                     );
                 });
-                if (srAr / (infoFriends ? infoFriends?.length : 9999999) < 5) mediator.triger = true;
+                if (srAr / (gamers ? gamers?.length : 9999999) < 5) store.update(VARIABLE.TRIGGER, true);
             }
         };
 
@@ -54,9 +57,16 @@ const Game: React.FC = () => {
                 <Physics gravity={[0, 0, -10]}>
                     <Scene />
                     <Player />
-                    {infoFriends && infoFriends!.length >= 2 ? <Friends /> : <></>}
-                    {mediator.gamer.post === "Admin" ? <Boss /> : <BossFriends />}
-                    {mediator.gamer.post === "Admin" ? <Bullets /> : <></>}
+                    {gamers && gamers!.length >= 2 ? <Friends /> : <></>}
+
+                    {store.get(VARIABLE.GAMER).post === "Admin" ? (
+                        <>
+                            <Boss />
+                            <Bullets />
+                        </>
+                    ) : (
+                        <BossFriends />
+                    )}
                 </Physics>
             </Canvas>
         </>

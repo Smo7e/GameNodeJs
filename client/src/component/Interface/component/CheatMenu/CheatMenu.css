@@ -1,0 +1,9 @@
+.Cheat-container {
+    height: 100px;
+    width: 200px;
+    background-color: #a3d27a;
+    opacity: 0.8;
+    position: absolute;
+    top: 250px;
+    right: 0;
+}

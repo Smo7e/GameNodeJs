@@ -1,40 +1,51 @@
-import { io } from "socket.io-client";
-import { Mediator } from "..";
-import { TUser, TUserFull, TError, TMessage, TScene } from "./types";
+import { Socket, io } from "socket.io-client";
+import { Mediator, Store } from "..";
+import {
+    TUserFull,
+    TError,
+    TMessage,
+    TAnswer,
+    TMessages,
+    TGamer,
+    TMobs,
+    TInvites,
+    TFriend,
+    TQuestion,
+    TArrBullet,
+} from "./types";
+import { VARIABLE } from "../Store/Store";
 
 export default class Server {
-    private HOST: string;
     private token: string | null = null;
     private mediator: Mediator;
-    socket: any;
+    private store: Store;
+    private socket: Socket;
 
-    constructor(HOST: string, mediator: Mediator) {
-        this.HOST = HOST;
+    constructor(HOST: string, mediator: Mediator, store: Store) {
         this.mediator = mediator;
-
+        this.store = store;
         const socket = io(HOST);
-
         this.socket = socket;
 
         this.socket.on("connect", () => {
-            this.socket.on("LOGIN", (data: any) => {
+            this.socket.on("LOGIN", (data: TAnswer<TUserFull>): void => {
                 const result = this._validate(data);
                 if (result) {
-                    mediator.user = result;
+                    store.update(VARIABLE.USER, result);
                     this.token = result.token;
                     const { LOGIN } = this.mediator.getEventTypes();
                     this.mediator.call(LOGIN, result);
                 }
             });
 
-            this.socket.on("SIGNUP", (data: any) => {
+            this.socket.on("SIGNUP", (data: TAnswer<string>): void => {
                 const result = this._validate(data);
                 if (result) {
                     const { SIGNUP } = this.mediator.getEventTypes();
                     this.mediator.call<Array<TMessage>>(SIGNUP);
                 }
             });
-            this.socket.on("LOGOUT", (data: any) => {
+            this.socket.on("LOGOUT", (data: TAnswer<string>): void => {
                 const result = this._validate(data);
                 if (result) {
                     const { LOGOUT } = this.mediator.getEventTypes();
@@ -42,7 +53,7 @@ export default class Server {
                 }
             });
 
-            this.socket.on("GET_MESSAGES", (data: any) => {
+            this.socket.on("GET_MESSAGES", (data: TAnswer<TMessages>): void => {
                 const result = this._validate(data);
                 if (result) {
                     const { messages } = result;
@@ -52,59 +63,58 @@ export default class Server {
                     }
                 }
             });
-            this.socket.on("GET_USER", (data: any) => {
+            this.socket.on("GET_USER", (data: TAnswer<TUserFull>): void => {
                 const result = this._validate(data);
                 if (result) {
-                    this.mediator.user = result;
+                    store.update(VARIABLE.USER, result);
                     this.token = result.token;
                 }
             });
 
-            this.socket.on("GET_GAMERS", (data: any) => {
+            this.socket.on("GET_GAMERS", (data: TAnswer<TGamer[]>): void => {
                 const result = this._validate(data);
                 if (result) {
-                    this.mediator.gamers = result;
+                    store.update(VARIABLE.GAMERS, result);
                     const { GET_GAMERS } = this.mediator.getEventTypes();
                     this.mediator.call(GET_GAMERS, result);
                 }
             });
-            this.socket.on("GET_MOBS", (data: any) => {
+            this.socket.on("GET_MOBS", (data: TAnswer<TMobs[]>): void => {
                 const result = this._validate(data);
                 if (result) {
                     const { GET_MOBS } = this.mediator.getEventTypes();
+                    store.update(VARIABLE.MOBS, result);
                     this.mediator.call(GET_MOBS, result);
-                    this.mediator.mobs = result;
                 }
             });
-            this.socket.on("GET_INVITES", (data: any) => {
+            this.socket.on("GET_INVITES", (data: TAnswer<TInvites>): void => {
                 const result = this._validate(data);
                 if (result) {
                     const { GET_INVITES } = this.mediator.getEventTypes();
                     this.mediator.call(GET_INVITES, result);
                 }
             });
-            this.socket.on("GET_FRIENDS", (data: any) => {
+            this.socket.on("GET_FRIENDS", (data: TAnswer<TFriend[]>): void => {
                 const result = this._validate(data);
                 if (result) {
                     const { GET_FRIENDS } = this.mediator.getEventTypes();
                     this.mediator.call(GET_FRIENDS, result);
-                    this.mediator.friends = result;
+                    store.update(VARIABLE.FRIENDS, result);
                 }
             });
-            this.socket.on("GET_QUESTIONS_PROGRAMMER", (data: any) => {
+            this.socket.on("GET_QUESTIONS_PROGRAMMER", (data: TAnswer<TQuestion[]>): void => {
                 const result = this._validate(data);
                 if (result) {
-                    this.mediator.questions = result;
+                    store.update(VARIABLE.QUESTIONS, result);
                 }
             });
-            this.socket.on("GET_GAMER_BY_SOCKET_ID", (data: any) => {
+            this.socket.on("GET_GAMER_BY_SOCKET_ID", (data: TAnswer<TGamer>): void => {
                 const result = this._validate(data);
-
                 if (result) {
-                    this.mediator.gamer = result;
+                    store.update(VARIABLE.GAMER, result);
                 }
             });
-            this.socket.on("UPDATE_ARR_BULLET_TRAJECTORY", (data: any) => {
+            this.socket.on("UPDATE_ARR_BULLET_TRAJECTORY", (data: TAnswer<TArrBullet>): void => {
                 const result = this._validate(data);
                 if (result) {
                     const { UPDATE_ARR_BULLET_TRAJECTORY } = this.mediator.getEventTypes();
@@ -113,9 +123,9 @@ export default class Server {
             });
         });
     }
-    _validate(data: any) {
-        if (data.result === "ok") {
-            return data.data;
+    private _validate<T>(data: TAnswer<T>): T | null {
+        if (data?.result === "ok") {
+            return data.data || null;
         }
         const { SERVER_ERROR } = this.mediator.getEventTypes();
         this.mediator.call<TError>(SERVER_ERROR, data.error);
@@ -125,75 +135,88 @@ export default class Server {
         this.socket.emit("LOGIN", { login, hash, rnd });
     }
 
-    async logout() {
+    logout(): void {
         this.socket.emit("LOGOUT", { token: this.token });
     }
 
     signUp(login: string, nickname: string, hash: string, verifyHash: string): void {
         this.socket.emit("SIGNUP", { token: this.token, login, nickname, hash, verifyHash });
     }
-    sendMessage(message: string) {
+    sendMessage(message: string): void {
         this.socket.emit("SEND_MESSAGE", { token: this.token, message });
     }
 
-    addFriend(friend_id: string) {
+    addFriend(friend_id: string): void {
         this.socket.emit("ADD_FRIENDS", { friend_id, token: this.token });
     }
 
-    getFriends() {
+    getFriends(): void {
         this.socket.emit("GET_FRIENDS", {});
     }
 
-    async addGamers(lobbyName: any) {
-        this.mediator.lobbyName = lobbyName;
+    addGamers(lobbyName: string): void {
+        this.store.update(VARIABLE.LOBBYNAME, lobbyName);
+
         this.socket.emit("ADD_GAMERS", { token: this.token, lobbyName });
     }
-    async deleteGamers() {
+    deleteGamers(): void {
         this.socket.emit("DELETE_GAMERS", { token: this.token });
     }
-    async updatePersonId(newPersonId: number) {
-        this.socket.emit("UPDATE_PERSON_ID", { newPersonId, token: this.token, lobbyName: this.mediator.lobbyName });
+    updatePersonId(newPersonId: number): void {
+        this.socket.emit("UPDATE_PERSON_ID", {
+            newPersonId,
+            token: this.token,
+            lobbyName: this.store.get(VARIABLE.LOBBYNAME),
+        });
     }
-    async getGamers() {
-        this.socket.emit("GET_GAMERS", { token: this.token, lobbyName: this.mediator.lobbyName });
+    getGamers(): void {
+        this.socket.emit("GET_GAMERS", { token: this.token, lobbyName: this.store.get(VARIABLE.LOBBYNAME) });
     }
-    async move(x: number, y: number) {
-        this.socket.emit("MOVE", { x, y, token: this.token, lobbyName: this.mediator.lobbyName });
+    move(x: number, y: number): void {
+        this.socket.emit("MOVE", { x, y, token: this.token, lobbyName: this.store.get(VARIABLE.LOBBYNAME) });
     }
-    async moveMobs(x: number, y: number) {
-        this.socket.emit("MOVE_MOBS", { x, y, lobbyName: this.mediator.lobbyName });
+    moveMobs(x: number, y: number): void {
+        this.socket.emit("MOVE_MOBS", { x, y, lobbyName: this.store.get(VARIABLE.LOBBYNAME) });
     }
-    addInvitation(userId: number, friendId: number) {
-        this.socket.emit("ADD_INVITES", { token: this.token, userId, friendId, lobbyName: this.mediator.lobbyName });
+    addInvitation(userId: number, friendId: number): void {
+        this.socket.emit("ADD_INVITES", {
+            token: this.token,
+            userId,
+            friendId,
+            lobbyName: this.store.get(VARIABLE.LOBBYNAME),
+        });
     }
-    checkInvites(userId: number) {
+    checkInvites(userId: number): void {
         this.socket.emit("GET_INVITES", { token: this.token, userId });
     }
-    async updateHp(gamerName: string) {
-        this.socket.emit("UPDATE_HP", { gamerName, lobbyName: this.mediator.lobbyName });
+    updateHp(gamerName: string): void {
+        this.socket.emit("UPDATE_HP", { gamerName, lobbyName: this.store.get(VARIABLE.LOBBYNAME) });
     }
-    async getQuestionsProgrammer() {
+    getQuestionsProgrammer(): void {
         this.socket.emit("GET_QUESTIONS_PROGRAMMER", {});
     }
-    async updateHpMobs() {
-        this.socket.emit("UPDATE_HP_MOBS", { lobbyName: this.mediator.lobbyName });
+    updateHpMobs(): void {
+        this.socket.emit("UPDATE_HP_MOBS", { lobbyName: this.store.get(VARIABLE.LOBBYNAME) });
     }
-    async getMobs() {
-        this.socket.emit("GET_MOBS", { lobbyName: this.mediator.lobbyName });
+    getMobs(): void {
+        this.socket.emit("GET_MOBS", { lobbyName: this.store.get(VARIABLE.LOBBYNAME) });
     }
-    async createLobby() {
+    createLobby(): void {
         const lobbyName = this.socket.id;
         this.socket.emit("CREATE_LOBBY", { token: this.token, lobbyName });
-        this.mediator.lobbyName = lobbyName;
+        this.store.update(VARIABLE.LOBBYNAME, lobbyName);
     }
-    async getGamerBySocketId() {
-        this.socket.emit("GET_GAMER_BY_SOCKET_ID", { lobbyName: this.mediator.lobbyName });
+    getGamerBySocketId(): void {
+        this.socket.emit("GET_GAMER_BY_SOCKET_ID", { lobbyName: this.store.get(VARIABLE.LOBBYNAME) });
     }
 
-    async updateArrBulletTrajectory(newArrBulletTrajectory: any) {
+    updateArrBulletTrajectory(newArrBulletTrajectory: TArrBullet): void {
         this.socket.emit("UPDATE_ARR_BULLET_TRAJECTORY", {
-            lobbyName: this.mediator.lobbyName,
+            lobbyName: this.store.get(VARIABLE.LOBBYNAME),
             newArrBulletTrajectory,
         });
+    }
+    immortality() {
+        this.socket.emit("IMMORTALITY", { lobbyName: this.store.get(VARIABLE.LOBBYNAME) });
     }
 }

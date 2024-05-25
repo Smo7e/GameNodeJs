@@ -9,10 +9,10 @@ export type TUserFull = {
     token: string;
 };
 
-export type TUser = {
-    id: number;
-    name: string;
-};
+// export type TUser = {
+//     id: number;
+//     name: string;
+// };
 
 export type TMessage = {
     message: string;
@@ -21,7 +21,6 @@ export type TMessage = {
 
 export type TMessages = {
     messages: Array<TMessage>;
-    hash: string;
 };
 
 export type TFriend = {
@@ -30,27 +29,41 @@ export type TFriend = {
 };
 
 export type TGamer = {
+    user_id: number;
     name: string;
     person_id: number;
-    status: string;
     x: number;
     y: number;
-    direction: string;
     hp: number;
+    post: string;
 };
 export type TMobs = {
     id: number;
     x: number;
     y: number;
-    status: string;
     hp: number;
+    damage: number;
 };
 
-export type TScene = {
-    gamers: Array<TGamer> | null;
-    items: Array<TMobs> | null;
-    mobs: null;
-    map: null;
-    hashGamers?: string;
-    hashMobs?: string;
+export type TAnswer<T> = {
+    result: "ok" | "error";
+    data?: T;
+    error?: {
+        code: number;
+        text: string;
+    };
 };
+export type TInvites = {
+    friendsId: number[];
+    lobbyName: string;
+};
+export type TQuestion = {
+    id: number;
+    question: string;
+    answer_1: string;
+    answer_2: string;
+    answer_3: string;
+    answer_4: string;
+    correct_answer: number;
+};
+export type TArrBullet = number[][];

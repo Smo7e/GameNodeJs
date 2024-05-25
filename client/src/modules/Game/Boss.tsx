@@ -2,14 +2,15 @@ import { useFrame } from "@react-three/fiber";
 import { RigidBody, RapierRigidBody } from "@react-three/rapier";
 
 import useSprites from "../hooks/Sprites/useSprites";
-import React, { memo, useContext, useEffect, useRef } from "react";
-import { Mesh, MeshStandardMaterial, PlaneGeometry, Texture, Vector3 } from "three";
+import React, { memo, useContext, useRef } from "react";
+import { MeshStandardMaterial, Texture, Vector3 } from "three";
 import usePositionMatrix from "../hooks/positionMatrix/usePositionMatrix";
-import { MediatorContext, ServerContext } from "../../App";
+import { MediatorContext, ServerContext, StoreContext } from "../../App";
+import { VARIABLE } from "../Store/Store";
 
 const Boss: React.FC = memo(() => {
     const server = useContext(ServerContext);
-    const mediator = useContext(MediatorContext);
+    const store = useContext(StoreContext);
 
     const bossRef = useRef<RapierRigidBody>(null);
     const spriteRef = useRef<MeshStandardMaterial>(null);
@@ -18,12 +19,6 @@ const Boss: React.FC = memo(() => {
     var frameSpeed = 0.1;
     var frameLength = 9;
     let limitationОfSending = 0;
-    let hpMobs = 100;
-    server.getMobs().then((result: any): any => {
-        if (result) {
-            hpMobs = result[0].hp;
-        }
-    });
 
     let directionPlayer: Texture = moveDown[0];
     const position = usePositionMatrix();
@@ -33,8 +28,8 @@ const Boss: React.FC = memo(() => {
     let distances = 0;
     useFrame(() => {
         if (!bossRef.current) return;
-        if (!mediator.triger) return;
-        if (hpMobs <= 0) {
+        if (!store.get(VARIABLE.TRIGGER)) return;
+        if (store.get(VARIABLE.MOBS)[0].hp <= 0) {
             if (spriteRef.current) {
                 if (spriteRef.current.map) {
                     spriteRef.current.map.dispose();

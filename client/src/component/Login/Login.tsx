@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import "./Login.css";
-import { EPAGES, MediatorContext, ServerContext } from "../../App";
+import { EPAGES, MediatorContext, ServerContext, StoreContext } from "../../App";
 import md5 from "md5";
 import { TError } from "../../modules";
+import { VARIABLE } from "../../modules/Store/Store";
 
 interface ILoginProps {
     epages: Function;
@@ -10,6 +11,7 @@ interface ILoginProps {
 const Login: React.FC<ILoginProps> = ({ epages }) => {
     const mediator = useContext(MediatorContext);
     const server = useContext(ServerContext);
+    const store = useContext(StoreContext);
 
     const loginRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
@@ -31,7 +33,7 @@ const Login: React.FC<ILoginProps> = ({ epages }) => {
 
         const loginHandler = () => {
             server.getFriends();
-            server.checkInvites(mediator.user.id);
+            server.checkInvites(store.get(VARIABLE.USER).id);
             epages(EPAGES.MENU);
         };
         const serverErrorHandler = (error: TError) => {

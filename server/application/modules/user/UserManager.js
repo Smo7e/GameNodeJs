@@ -55,7 +55,7 @@ class UserManager {
                 const user = this._getUserBySocketId(socketId);
                 const data = await user.signUp(login, nickname, hash);
                 if (data) {
-                    this.io.to(socketId).emit("SIGNUP", this.answer.good(data));
+                    this.io.to(socketId).emit("SIGNUP", this.answer.good());
                     return;
                 }
                 this.io.to(socketId).emit("SIGNUP", this.answer.bad(9999));

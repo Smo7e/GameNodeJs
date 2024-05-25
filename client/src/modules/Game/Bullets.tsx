@@ -3,11 +3,14 @@ import { TextureLoader } from "three";
 import { useFrame, useLoader } from "@react-three/fiber";
 import fireBall from "./image/Bullets/fireBall.png";
 import { TGamer, TMobs } from "../Server/types";
-import { MediatorContext, ServerContext } from "../../App";
+import { MediatorContext, ServerContext, StoreContext } from "../../App";
+import { VARIABLE } from "../Store/Store";
 
 const Bullets: React.FC = () => {
     const server = useContext(ServerContext);
     const mediator = useContext(MediatorContext);
+    const store = useContext(StoreContext);
+
     const bulletRef1 = useRef<any>(null);
     const bulletRef2 = useRef<any>(null);
     const bulletRef3 = useRef<any>(null);
@@ -21,6 +24,7 @@ const Bullets: React.FC = () => {
     const bulletsSpeed = 0.1;
 
     const addBullet = (infoFriends: TGamer[], infoMobs: TMobs[]): void => {
+        if (!infoFriends || !infoMobs) return;
         const newBulletTrajectory = [
             [
                 infoMobs[0]?.x ?? 999,
@@ -45,9 +49,9 @@ const Bullets: React.FC = () => {
     };
 
     useFrame(() => {
-        if (!mediator.triger) return;
-        const infoFriends: TGamer[] = mediator.gamers;
-        const infoMobs: TMobs[] = mediator.mobs;
+        if (!store.get(VARIABLE.TRIGGER)) return;
+        const infoFriends: TGamer[] = store.get(VARIABLE.GAMERS);
+        const infoMobs: TMobs[] = store.get(VARIABLE.MOBS);
 
         if (infoMobs && infoMobs[0].hp <= 0) return;
         let count = 0;
@@ -83,7 +87,6 @@ const Bullets: React.FC = () => {
     const a = useLoader(TextureLoader, fireBall);
     const updateBulletHandler = (arr: any) => {
         arrBulletTrajectory = arr;
-        console.log(arrBulletTrajectory);
     };
 
     useEffect(() => {

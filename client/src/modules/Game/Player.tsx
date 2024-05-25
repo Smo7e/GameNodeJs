@@ -6,16 +6,20 @@ import useSprites from "../hooks/Sprites/useSprites";
 import { RigidBody, RapierRigidBody } from "@react-three/rapier";
 
 import { MeshStandardMaterial, Vector3 } from "three";
-import { MediatorContext, ServerContext } from "../../App";
+import { MediatorContext, ServerContext, StoreContext } from "../../App";
+import { TGamer } from "../Server/types";
+import { VARIABLE } from "../Store/Store";
 //import useControls from "../hooks/controls/useControls";
 
 const Player: React.FC = memo(() => {
     const server = useContext(ServerContext);
     const mediator = useContext(MediatorContext);
+    const store = useContext(StoreContext);
 
     const personRef = useRef<RapierRigidBody>(null);
     const spriteRef = useRef<MeshStandardMaterial>(null);
-    const [death, moveDown, moveRight, moveUp, moveLeft] = useSprites(`${mediator.gamer.person_id}`);
+
+    const [death, moveDown, moveRight, moveUp, moveLeft] = useSprites(`${store.get(VARIABLE.GAMER).person_id}`);
     let limitationОfSending = 0;
 
     // const controls = useControls();
@@ -61,10 +65,12 @@ const Player: React.FC = memo(() => {
         }
     };
     useFrame((state) => {
-        const infoFriends: any = mediator.gamers?.filter((n: any) => n.name == mediator.user.name);
-        if (!personRef.current || !infoFriends) return;
+        const gamers: TGamer[] = store
+            .get(VARIABLE.GAMERS)
+            ?.filter((n: any) => n.name == store.get(VARIABLE.USER).name);
+        if (!personRef.current || !gamers) return;
 
-        if (infoFriends[0].hp <= 0) {
+        if (gamers[0].hp <= 0) {
             updateFrame(null, 0);
             return;
         }

@@ -114,7 +114,6 @@ const Menu: React.FC<IMenuProps> = ({ epages }) => {
                                 <button
                                     className="toaccept"
                                     onClick={() => {
-                                        console.log(invites.lobbyName);
                                         server.addGamers(invites.lobbyName);
                                         epages(EPAGES.LOBBY);
                                     }}
