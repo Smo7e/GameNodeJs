@@ -1,7 +1,7 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { MediatorContext, StoreContext } from "../../App";
-import { TGamer, TMobs } from "../Server/types";
+import { TGamer, TMob } from "../Server/types";
 import Player from "./Player";
 import Scene from "./Scene";
 import { Physics } from "@react-three/rapier";
@@ -14,16 +14,22 @@ const Game: React.FC = () => {
     const mediator = useContext(MediatorContext);
     const store = useContext(StoreContext);
     let gamers: TGamer[] = store.get(VARIABLE.GAMERS);
-    let mobs: TMobs[] = store.get(VARIABLE.MOBS);
+    let mobs: TMob[] = store.get(VARIABLE.MOBS);
+    const trigger: boolean = store.get(VARIABLE.TRIGGER);
 
     useEffect(() => {
         const { GET_GAMERS } = mediator.getEventTypes();
+        const { GET_MOBS } = mediator.getEventTypes();
+        const getMobsHandler = (data: TMob[]) => {
+            mobs = data;
+            updateGame();
+        };
+        const getGamersHandler = (data: TGamer[]) => {
+            gamers = data;
+            updateGame();
+        };
 
-        const getGamersHandler = (data: any) => {
-            gamers = store.get(VARIABLE.GAMERS);
-            mobs = store.get(VARIABLE.MOBS);
-            const trigger: boolean = store.get(VARIABLE.TRIGGER);
-
+        const updateGame = () => {
             if (!trigger) {
                 let srAr = 0;
                 gamers?.forEach((elem) => {
@@ -37,8 +43,11 @@ const Game: React.FC = () => {
         };
 
         mediator.subscribe(GET_GAMERS, getGamersHandler);
+        mediator.subscribe(GET_MOBS, getMobsHandler);
+
         return () => {
             mediator.unsubscribe(GET_GAMERS, getGamersHandler);
+            mediator.unsubscribe(GET_MOBS, getMobsHandler);
         };
     });
 

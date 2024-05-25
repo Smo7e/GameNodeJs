@@ -37,7 +37,7 @@ export type TGamer = {
     hp: number;
     post: string;
 };
-export type TMobs = {
+export type TMob = {
     id: number;
     x: number;
     y: number;

@@ -1,19 +1,18 @@
 import { useFrame } from "@react-three/fiber";
-import React, { useContext, useState, memo, useEffect } from "react";
+import React, { useContext, memo, useEffect } from "react";
 import { useRef } from "react";
 
 import useSprites from "../hooks/Sprites/useSprites";
 import { RigidBody, RapierRigidBody } from "@react-three/rapier";
 
-import { MeshStandardMaterial, Vector3 } from "three";
-import { MediatorContext, ServerContext, StoreContext } from "../../App";
+import { MeshStandardMaterial, Texture, Vector3 } from "three";
+import { ServerContext, StoreContext } from "../../App";
 import { TGamer } from "../Server/types";
 import { VARIABLE } from "../Store/Store";
 //import useControls from "../hooks/controls/useControls";
 
 const Player: React.FC = memo(() => {
     const server = useContext(ServerContext);
-    const mediator = useContext(MediatorContext);
     const store = useContext(StoreContext);
 
     const personRef = useRef<RapierRigidBody>(null);
@@ -22,7 +21,6 @@ const Player: React.FC = memo(() => {
     const [death, moveDown, moveRight, moveUp, moveLeft] = useSprites(`${store.get(VARIABLE.GAMER).person_id}`);
     let limitationОfSending = 0;
 
-    // const controls = useControls();
     let cameraPosition = new Vector3(0, 0, 14);
     let currentFrame = 0;
     let directionPlayer = moveDown[0];
@@ -36,26 +34,32 @@ const Player: React.FC = memo(() => {
         d: false,
     };
 
-    const keydownHangler = (e: any) => {
+    const keydownHangler = (e: KeyboardEvent) => {
         const key = e.code[e.code.length - 1].toLowerCase();
         controls = {
             ...controls,
             [key]: true,
         };
     };
-    const keyUpHangler = (e: any) => {
+    const keyUpHangler = (e: KeyboardEvent) => {
         const key = e.code[e.code.length - 1].toLowerCase();
         controls = {
             ...controls,
             [key]: false,
         };
     };
-    const updateFrame = (direction = moveDown, hp = 1) => {
-        if (hp != 0) {
+    const updateFrame = (direction: Texture[] | null = moveDown, hp = 1) => {
+        if (!direction) {
+            directionPlayer = death[0];
+            if (spriteRef.current && spriteRef.current.map) {
+                spriteRef.current.map = directionPlayer;
+                spriteRef.current.needsUpdate = true;
+            }
+            return;
+        }
+        if (hp !== 0) {
             currentFrame = (currentFrame + frameSpeed) % frameLegth;
             directionPlayer = direction[Math.floor(currentFrame)];
-        } else {
-            directionPlayer = death[0];
         }
 
         if (spriteRef.current && spriteRef.current.map) {
@@ -67,7 +71,7 @@ const Player: React.FC = memo(() => {
     useFrame((state) => {
         const gamers: TGamer[] = store
             .get(VARIABLE.GAMERS)
-            ?.filter((n: any) => n.name == store.get(VARIABLE.USER).name);
+            ?.filter((n: TGamer) => n.name === store.get(VARIABLE.USER).name);
         if (!personRef.current || !gamers) return;
 
         if (gamers[0].hp <= 0) {

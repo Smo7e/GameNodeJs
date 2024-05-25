@@ -1,13 +1,13 @@
 import { useFrame } from "@react-three/fiber";
 import { TGamer } from "../Server/types";
-import { createRef, memo, useContext, useEffect, useState } from "react";
+import { RefObject, createRef, memo, useContext, useEffect, useState } from "react";
 import useSprites from "../hooks/Sprites/useSprites";
-import { Vector3 } from "three";
+import { Mesh, Vector3 } from "three";
 import { MediatorContext } from "../../App";
 
 const Friends: React.FC = memo(() => {
     const mediator = useContext(MediatorContext);
-    const [friendsRefs, setFriendsRefs] = useState<any>([]);
+    const [friendsRefs, setFriendsRefs] = useState<RefObject<Mesh>[]>([]);
     const [gamers, setGamers] = useState<TGamer[]>([]);
     const [death, moveDown, moveRight, moveUp, moveLeft] = useSprites(
         `${gamers && gamers[0] ? gamers[0].person_id : 0}`
@@ -28,7 +28,7 @@ const Friends: React.FC = memo(() => {
 
         mediator.subscribe(GET_GAMERS, getGamersHandler);
 
-        setFriendsRefs((friendsRefs: any) =>
+        setFriendsRefs((friendsRefs: RefObject<Mesh>[]) =>
             Array(gamers ? gamers.length : 0)
                 .fill(0)
                 .map((_, i) => friendsRefs[i] || createRef())
@@ -38,7 +38,7 @@ const Friends: React.FC = memo(() => {
         };
     });
     useFrame(() => {
-        friendsRefs.map((elem: any, i: number) => {
+        friendsRefs.map((elem: RefObject<Mesh>, i: number) => {
             if (!friendsRefs[i] || !gamers) return;
 
             const move = new Vector3();

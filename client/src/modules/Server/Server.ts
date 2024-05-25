@@ -7,7 +7,7 @@ import {
     TAnswer,
     TMessages,
     TGamer,
-    TMobs,
+    TMob,
     TInvites,
     TFriend,
     TQuestion,
@@ -79,7 +79,7 @@ export default class Server {
                     this.mediator.call(GET_GAMERS, result);
                 }
             });
-            this.socket.on("GET_MOBS", (data: TAnswer<TMobs[]>): void => {
+            this.socket.on("GET_MOBS", (data: TAnswer<TMob[]>): void => {
                 const result = this._validate(data);
                 if (result) {
                     const { GET_MOBS } = this.mediator.getEventTypes();

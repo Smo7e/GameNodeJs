@@ -4,6 +4,7 @@ import { Mesh, MeshStandardMaterial, Texture, Vector3 } from "three";
 import useSprites from "../hooks/Sprites/useSprites";
 import { useFrame } from "@react-three/fiber";
 import { MediatorContext } from "../../App";
+import { TMob } from "../Server/types";
 
 const BossFriends: React.FC = () => {
     const mediator = useContext(MediatorContext);
@@ -12,15 +13,15 @@ const BossFriends: React.FC = () => {
     const spriteRef = useRef<MeshStandardMaterial>(null);
     const [death, moveDown, moveRight, moveUp, moveLeft] = useSprites("trusov");
     const [currentFrame, setCurrentFrame] = useState(0);
-    const [infoMobs, setInfoMobs] = useState<any>(null);
+    const [mobs, setMobs] = useState<TMob[] | null>(null);
     var frameSpeed = 0.1;
     var frameLength = 9;
     const bossSpeed = 4;
     const eps = 0.04;
     const [directionPlayer, setDirectionPlayer] = useState<Texture>(moveDown[0]);
     useFrame(() => {
-        if (!bossRef.current || !infoMobs) return;
-        if (infoMobs[0].hp <= 0) {
+        if (!bossRef.current || !mobs) return;
+        if (mobs[0].hp <= 0) {
             if (spriteRef.current) {
                 if (spriteRef.current.map) {
                     spriteRef.current.map.dispose();
@@ -31,32 +32,32 @@ const BossFriends: React.FC = () => {
         }
         const bossCoord = bossRef.current!.translation();
         const move = new Vector3();
-        if (bossCoord.x <= infoMobs[0].x - 0) {
+        if (bossCoord.x <= mobs[0].x - 0) {
             move.x += bossSpeed;
         } else {
             move.x -= bossSpeed;
         }
-        if (bossCoord.y <= infoMobs[0].y - 0) {
+        if (bossCoord.y <= mobs[0].y - 0) {
             move.y += bossSpeed;
         } else {
             move.y -= bossSpeed;
         }
-        if (bossCoord.x + eps >= infoMobs[0].x - 0 && bossCoord.x - eps <= infoMobs[0].x - 0) {
+        if (bossCoord.x + eps >= mobs[0].x - 0 && bossCoord.x - eps <= mobs[0].x - 0) {
             move.x = 0;
         }
-        if (bossCoord.y + eps >= infoMobs[0].y - 0 && bossCoord.y - eps <= infoMobs[0].y - 0) {
+        if (bossCoord.y + eps >= mobs[0].y - 0 && bossCoord.y - eps <= mobs[0].y - 0) {
             move.y = 0;
         }
         let direction = moveDown;
 
-        if (Math.abs(infoMobs[0].y - 0 - bossCoord.y) > Math.abs(infoMobs[0].x - 0 - bossCoord.x)) {
-            if (infoMobs[0].y - 0 > bossCoord.y) {
+        if (Math.abs(mobs[0].y - 0 - bossCoord.y) > Math.abs(mobs[0].x - 0 - bossCoord.x)) {
+            if (mobs[0].y - 0 > bossCoord.y) {
                 direction = moveUp;
             } else {
                 direction = moveDown;
             }
         } else {
-            if (infoMobs[0].x - 0 > bossCoord.x) {
+            if (mobs[0].x - 0 > bossCoord.x) {
                 direction = moveRight;
             } else {
                 direction = moveLeft;
@@ -70,8 +71,8 @@ const BossFriends: React.FC = () => {
     useEffect(() => {
         const { GET_MOBS } = mediator.getEventTypes();
 
-        const getMobsHandler = (data: any) => {
-            setInfoMobs(data);
+        const getMobsHandler = (data: TMob[]) => {
+            setMobs(data);
         };
 
         mediator.subscribe(GET_MOBS, getMobsHandler);

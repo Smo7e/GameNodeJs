@@ -43,7 +43,9 @@ class Game {
     updateHp({ gamerName, lobbyName }, socket) {
         const user = this.db.getUserByName(gamerName);
         if (user) {
-            this.lobbies[lobbyName].players[socket.id].hp -= this.lobbies[lobbyName].mobs[0].damage;
+            const player = this.lobbies[lobbyName].players[socket.id];
+            const damage = this.lobbies[lobbyName].mobs[0].damage;
+            player.hp -= damage;
             this.getGamers({ lobbyName }, socket);
             return;
         }

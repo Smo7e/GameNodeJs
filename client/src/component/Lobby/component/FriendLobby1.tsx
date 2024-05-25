@@ -5,9 +5,10 @@ import SportikLobby from "./SportikLobby";
 import HumanitarianLobby from "./HumanitarianLobby";
 import TechguyLobby from "./TechguyLobby";
 import { VARIABLE } from "../../../modules/Store/Store";
+import { TGamer } from "../../../modules/Server/types";
 interface IFriendLobby1Props {
     setPanel: Function;
-    gamers: any;
+    gamers: TGamer[];
 }
 const FriendLobby1: React.FC<IFriendLobby1Props> = ({ setPanel, gamers }) => {
     const mediator = useContext(MediatorContext);

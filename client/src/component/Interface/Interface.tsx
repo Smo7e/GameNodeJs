@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 
 import { MediatorContext, StoreContext } from "../../App";
-import { TMobs } from "../../modules/Server/types";
+import { TGamer, TMob } from "../../modules/Server/types";
 import { act } from "react-dom/test-utils";
 
 import Chat from "./component/Chat/Chat";
@@ -11,14 +11,15 @@ import TaskSelection from "./component/TaskSelection/TaskSelection";
 import "./Interface.css";
 import { VARIABLE } from "../../modules/Store/Store";
 import CheatMenu from "./component/CheatMenu/CheatMenu";
+import WinOrLose from "./component/WinOrLose/WinOrLose";
 
 const Interface: React.FC = () => {
     const mediator = useContext(MediatorContext);
     const store = useContext(StoreContext);
 
-    const [infoMobs, setInfoMobs] = useState<TMobs[] | null>(null);
+    const [infoMobs, setInfoMobs] = useState<TMob[] | null>(null);
     const timeRef = useRef<HTMLDivElement>(null);
-    const [gamers, setGamers] = useState<any>(null);
+    const [gamers, setGamers] = useState<TGamer[] | null>(null);
     const [timer, setTimer] = useState({ seconds: 0, minutes: 0 });
     const parametersGameRef = useRef<HTMLDivElement>(null);
     const [showParametersGame, setShowParametersGame] = useState(false);
@@ -60,10 +61,10 @@ const Interface: React.FC = () => {
         const { GET_GAMERS } = mediator.getEventTypes();
         const { GET_MOBS } = mediator.getEventTypes();
 
-        const getGamersHandler = (data: any) => {
+        const getGamersHandler = (data: TGamer[]) => {
             setGamers(data);
         };
-        const getMobsHandler = (data: any) => {
+        const getMobsHandler = (data: TMob[]) => {
             setInfoMobs(data);
         };
 
@@ -101,7 +102,7 @@ const Interface: React.FC = () => {
 
                 <div className="I">
                     {gamers ? (
-                        gamers.map((elem: any, index: number) => (
+                        gamers.map((elem: TGamer, index: number) => (
                             <div
                                 key={index}
                                 className="HP"
@@ -142,6 +143,7 @@ const Interface: React.FC = () => {
             )}
 
             <Chat />
+            <WinOrLose />
 
             {cheatMenu ? <CheatMenu /> : <></>}
         </div>

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { EPAGES, MediatorContext, ServerContext } from "../../App";
 import logo from "./image/logo.png";
 import "./Menu.css";
-import { TFriend } from "../../modules/Server/types";
+import { TFriend, TGamer, TInvites } from "../../modules/Server/types";
 interface IMenuProps {
     epages: Function;
 }
@@ -12,9 +12,8 @@ const Menu: React.FC<IMenuProps> = ({ epages }) => {
 
     const idRef = useRef<HTMLInputElement>(null);
     const [friends, setFriends] = useState<TFriend[]>([{ id: 0, name: "У Вас нету друзей,пхахахахахха!" }]);
-    const [invites, setInvites] = useState<any>([]);
+    const [invites, setInvites] = useState<TInvites | null>(null);
     const [showIdInput, setShowIdInput] = useState(false);
-    const [gamers, setGamers] = useState<any>(null);
 
     const clickHandler = () => {
         const id = idRef.current!.value;
@@ -29,10 +28,10 @@ const Menu: React.FC<IMenuProps> = ({ epages }) => {
         const { GET_FRIENDS } = mediator.getEventTypes();
         const { LOGOUT } = mediator.getEventTypes();
 
-        const getInvitesHandler = (invites: any) => {
+        const getInvitesHandler = (invites: TInvites) => {
             setInvites(invites);
         };
-        const getFriendsHandler = (friends: any) => {
+        const getFriendsHandler = (friends: TFriend[]) => {
             setFriends(friends);
         };
         const logoutHandler = () => {
@@ -105,8 +104,8 @@ const Menu: React.FC<IMenuProps> = ({ epages }) => {
                         overflowY: "hidden",
                     }}
                 >
-                    {invites.friendsId ? (
-                        invites.friendsId.map((invite: any, index: number) => (
+                    {invites && invites.friendsId ? (
+                        invites.friendsId.map((invite: number, index: number) => (
                             <div style={{ display: "flex" }} key={index}>
                                 <div className="your-friend" key={index}>
                                     Пользователь с id:{invite} приглашает вас.
@@ -114,11 +113,11 @@ const Menu: React.FC<IMenuProps> = ({ epages }) => {
                                 <button
                                     className="toaccept"
                                     onClick={() => {
-                                        server.addGamers(invites.lobbyName);
+                                        server.addGamers(invites!.lobbyName);
                                         epages(EPAGES.LOBBY);
                                     }}
                                 ></button>
-                                <button className="deny" onClick={() => console.log(0)}></button>
+                                <button className="deny" onClick={() => console.log(0)}></button> ////////
                             </div>
                         ))
                     ) : (
