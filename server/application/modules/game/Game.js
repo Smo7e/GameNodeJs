@@ -41,14 +41,10 @@ class Game {
         this.lobbies[lobbyName].mobs[mobName].damage = 5;
     }
     updateHp({ gamerName, lobbyName, mobName }, socket) {
-        const user = this.db.getUserByName(gamerName);
-        if (user) {
-            const player = this.lobbies[lobbyName].players[socket.id];
-            const damage = this.lobbies[lobbyName].mobs[mobName].damage;
-            player.hp -= damage;
-            this.getGamers({ lobbyName }, socket);
-            return;
-        }
+        const player = this.lobbies[lobbyName].players[socket.id];
+        const damage = this.lobbies[lobbyName].mobs[mobName].damage;
+        player.hp -= damage;
+        this.getGamers({ lobbyName }, socket);
         return;
     }
     updateHpMobs({ lobbyName, mobName }, socket) {
