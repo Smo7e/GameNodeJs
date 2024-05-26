@@ -12,7 +12,7 @@ const ErrorMessage: React.FC = () => {
 
     useEffect(() => {
         const { SERVER_ERROR } = mediator.getEventTypes();
-        const errorHandler = (data: any) => {
+        const errorHandler = (data: TError) => {
             setIsVisible(true);
             setError(data);
         };

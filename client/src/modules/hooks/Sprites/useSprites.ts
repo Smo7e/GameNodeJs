@@ -12,7 +12,7 @@ function useSprites(name: string) {
     const result = (url: string) => {
         const arr2 = [];
         for (let i = 0; i < 5; i++) {
-            let arr: any = [];
+            let arr: THREE.Texture[] = [];
             for (let j = 0; j < 9; j++) {
                 let texture = new THREE.TextureLoader().load(url);
                 texture.wrapS = texture.wrapT = THREE.RepeatWrapping;

@@ -12,6 +12,7 @@ import "./Lobby.css";
 import FriendLobby1 from "./component/FriendLobby1";
 import FriendLobby2 from "./component/FriendLobby2";
 import { VARIABLE } from "../../modules/Store/Store";
+import { TGamer } from "../../modules/Server/types";
 
 interface ILobbyProps {
     epages: Function;
@@ -34,7 +35,7 @@ const Lobby: React.FC<ILobbyProps> = ({ epages }) => {
 
     const [lobby, setLobby] = useState<ELOBBY>(ELOBBY.SPORTIK);
     const [panel, setPanel] = useState<EPANEL>();
-    const [gamers, setGamers] = useState<any>([]);
+    const [gamers, setGamers] = useState<TGamer[]>([]);
     const panelRef = useRef<HTMLDivElement>(null);
 
     const gameHadler = async () => {
@@ -49,7 +50,7 @@ const Lobby: React.FC<ILobbyProps> = ({ epages }) => {
         };
         const { GET_GAMERS } = mediator.getEventTypes();
 
-        const getGamersHandler = (data: any) => {
+        const getGamersHandler = (data: TGamer[]) => {
             setGamers(data);
         };
         mediator.subscribe(GET_GAMERS, getGamersHandler);

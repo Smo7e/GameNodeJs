@@ -1,8 +1,8 @@
-import { useContext, useEffect, useRef } from "react";
-import { TextureLoader } from "three";
+import { RefObject, useContext, useEffect, useRef } from "react";
+import { Mesh, TextureLoader } from "three";
 import { useFrame, useLoader } from "@react-three/fiber";
 import fireBall from "./image/Bullets/fireBall.png";
-import { TGamer, TMobs } from "../Server/types";
+import { TArrBullet, TGamer, TMob } from "../Server/types";
 import { MediatorContext, ServerContext, StoreContext } from "../../App";
 import { VARIABLE } from "../Store/Store";
 
@@ -11,11 +11,11 @@ const Bullets: React.FC = () => {
     const mediator = useContext(MediatorContext);
     const store = useContext(StoreContext);
 
-    const bulletRef1 = useRef<any>(null);
-    const bulletRef2 = useRef<any>(null);
-    const bulletRef3 = useRef<any>(null);
-    const bulletsRefs: any = [bulletRef1, bulletRef2, bulletRef3];
-    let arrBulletTrajectory: any = [
+    const bulletRef1 = useRef<Mesh>(null);
+    const bulletRef2 = useRef<Mesh>(null);
+    const bulletRef3 = useRef<Mesh>(null);
+    const bulletsRefs: RefObject<Mesh>[] = [bulletRef1, bulletRef2, bulletRef3];
+    let arrBulletTrajectory: TArrBullet = [
         [999, 999, 999, 999],
         [999, 999, 999, 999],
         [999, 999, 999, 999],
@@ -23,26 +23,26 @@ const Bullets: React.FC = () => {
 
     const bulletsSpeed = 0.1;
 
-    const addBullet = (infoFriends: TGamer[], infoMobs: TMobs[]): void => {
-        if (!infoFriends || !infoMobs) return;
+    const addBullet = (gamers: TGamer[], mobs: TMob[]): void => {
+        if (!gamers || !mobs) return;
         const newBulletTrajectory = [
             [
-                infoMobs[0]?.x ?? 999,
-                infoMobs[0]?.y ?? 999,
-                (infoFriends[0]?.x ?? 999) + Math.random(),
-                (infoFriends[0]?.y ?? 999) + Math.random(),
+                mobs[0]?.x ?? 999,
+                mobs[0]?.y ?? 999,
+                (gamers[0]?.x ?? 999) + Math.random(),
+                (gamers[0]?.y ?? 999) + Math.random(),
             ],
             [
-                infoMobs[0]?.x ?? 999,
-                infoMobs[0]?.y ?? 999,
-                (infoFriends[1]?.x ?? 999) + Math.random(),
-                (infoFriends[1]?.y ?? 999) + Math.random(),
+                mobs[0]?.x ?? 999,
+                mobs[0]?.y ?? 999,
+                (gamers[1]?.x ?? 999) + Math.random(),
+                (gamers[1]?.y ?? 999) + Math.random(),
             ],
             [
-                infoMobs[0]?.x ?? 999,
-                infoMobs[0]?.y ?? 999,
-                (infoFriends[2]?.x ?? 999) + Math.random(),
-                (infoFriends[2]?.y ?? 999) + Math.random(),
+                mobs[0]?.x ?? 999,
+                mobs[0]?.y ?? 999,
+                (gamers[2]?.x ?? 999) + Math.random(),
+                (gamers[2]?.y ?? 999) + Math.random(),
             ],
         ];
         server.updateArrBulletTrajectory(newBulletTrajectory);
@@ -50,16 +50,21 @@ const Bullets: React.FC = () => {
 
     useFrame(() => {
         if (!store.get(VARIABLE.TRIGGER)) return;
-        const infoFriends: TGamer[] = store.get(VARIABLE.GAMERS);
-        const infoMobs: TMobs[] = store.get(VARIABLE.MOBS);
+        if (store.get(VARIABLE.MOBS)[0].hp <= 0) {
+            bulletsRefs.forEach((elem) => {
+                elem.current!.visible = false;
+            });
+        }
+        const gamers: TGamer[] = store.get(VARIABLE.GAMERS);
+        const mobs: TMob[] = store.get(VARIABLE.MOBS);
 
-        if (infoMobs && infoMobs[0].hp <= 0) return;
+        if (mobs && mobs[0].hp <= 0) return;
         let count = 0;
-        arrBulletTrajectory.map((bullet: any, i: number) => {
+        arrBulletTrajectory.map((bullet: number[], i: number) => {
             if (!arrBulletTrajectory || bullet[3] >= 999) {
                 count++;
-                if (count == 3) {
-                    addBullet(infoFriends, infoMobs);
+                if (count === 3) {
+                    addBullet(gamers, mobs);
                 }
                 return;
             }
@@ -72,7 +77,7 @@ const Bullets: React.FC = () => {
             bullet[1] = bullet[1] + dy * ratio;
             bulletCoord.set(bullet[0], bullet[1], 0);
             if (distances < 0.3) {
-                infoFriends?.forEach((gamer) => {
+                gamers?.forEach((gamer) => {
                     const dist = Math.pow(bullet[0] - gamer.x, 2) + Math.pow(bullet[1] - gamer.y, 2);
                     if (dist < 1) {
                         server.updateHp(gamer.name);
@@ -85,7 +90,7 @@ const Bullets: React.FC = () => {
     });
 
     const a = useLoader(TextureLoader, fireBall);
-    const updateBulletHandler = (arr: any) => {
+    const updateBulletHandler = (arr: TArrBullet) => {
         arrBulletTrajectory = arr;
     };
 

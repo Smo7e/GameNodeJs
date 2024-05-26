@@ -1,4 +1,4 @@
-import { TFriend, TGamer, TMobs, TQuestion, TUserFull } from "../Server/types";
+import { TFriend, TGamer, TMob, TQuestion, TUserFull } from "../Server/types";
 export enum VARIABLE {
     USER = "user",
     GAMER = "gamer",
@@ -16,7 +16,7 @@ interface IVariable {
     gamers: TGamer[];
     friends: TFriend[];
     triger: boolean;
-    mobs: TMobs[];
+    mobs: TMob[];
     tim: number;
     lobbyName: string;
     questions: TQuestion[] | null;
