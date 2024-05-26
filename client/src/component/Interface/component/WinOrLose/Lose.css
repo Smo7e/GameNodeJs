@@ -1,33 +1,33 @@
-.image-win {
+.image-lose {
     position: absolute;
     width: 70%;
     height: 60%;
-    background: url(../../image/1674289275_balthazar-club-p-bogataya-zhizn-estetika-oboi-4\ 1.png);
+    background: url(../../image/armiya-rossii-1.png);
     top: 15%;
     left: 15%;
     z-index: 2;
     display: block;
-  object-fit: cover;
+    object-fit: cover;
 }
 
-.text-win {
+.text-lose {
     position: absolute;
     width: 1034px;
     height: 31px;
     font-family: 'Playfair Display';
     font-style: normal;
-    font-weight: 30;
-    font-size: 150px;
+    font-weight: 40;
+    font-size: 170px;
     line-height: 31px;
-    letter-spacing: 0.26em;
-    color: #00FF29;
+    letter-spacing: -0.05em;
+    color: rgba(255, 5, 5, 1);
     text-shadow: 3px 3px 0 #000, -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000;
-    top: 30%;
-    left: 24%;
+    top: 35%;
+    left: 17.5%;
     z-index: 2;
 }
 
-.text-win-1 {
+.text-lose-1 {
     position: absolute;
     width: 1000px;
     height: 100px;
@@ -45,7 +45,7 @@
     z-index: 2;
 } 
 
-.text-win-2 {
+.text-lose-2 {
     position: absolute;
     width: 1000px;
     height: 100px;
