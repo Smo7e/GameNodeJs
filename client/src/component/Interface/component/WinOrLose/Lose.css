@@ -1,0 +1,64 @@
+.image-lose {
+    position: absolute;
+    width: 70%;
+    height: 60%;
+    background: url(../../image/armiya-rossii-1.png);
+    top: 15%;
+    left: 15%;
+    z-index: 2;
+    display: block;
+    object-fit: cover;
+}
+
+.text-lose {
+    position: absolute;
+    width: 1034px;
+    height: 31px;
+    font-family: 'Playfair Display';
+    font-style: normal;
+    font-weight: 40;
+    font-size: 170px;
+    line-height: 31px;
+    letter-spacing: -0.05em;
+    color: rgba(255, 5, 5, 1);
+    text-shadow: 3px 3px 0 #000, -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000;
+    top: 35%;
+    left: 17.5%;
+    z-index: 2;
+}
+
+.text-lose-1 {
+    position: absolute;
+    width: 1000px;
+    height: 100px;
+    font-family: 'Playfair Display';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 55px;
+    line-height: 100px;
+    text-align: center;
+    letter-spacing: 0.05em;
+    color:rgba(255, 229, 229, 1);
+    text-shadow: 1.8px 1.5px 0 rgb(0, 0, 0), -1.8px -1.8px 0 rgb(0, 0, 0), 1.8px -1.8px 0 rgb(0, 0, 0);
+    top: 45%;
+    left: 17%;
+    z-index: 2;
+} 
+
+.text-lose-2 {
+    position: absolute;
+    width: 1000px;
+    height: 100px;
+    font-family: 'Playfair Display';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 50px;
+    line-height: 10px;
+    text-align: center;
+    letter-spacing: 0.05em;
+    color:rgba(255, 229, 229, 1);
+    text-shadow: 1.8px 1.5px 0 rgb(0, 0, 0), -1.8px -1.8px 0 rgb(0, 0, 0), 1.8px -1.8px 0 rgb(0, 0, 0);
+    top: 63%;
+    left: 16%;
+    z-index: 2;
+} 
