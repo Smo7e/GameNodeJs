@@ -18,7 +18,6 @@ const Chat: React.FC = () => {
     };
     const sendMessagesHandler = () => {
         let message = messageRef.current!.value;
-        if (message.length === 0) return;
         server.sendMessage(message);
     };
     useEffect(() => {

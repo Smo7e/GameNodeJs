@@ -14,12 +14,14 @@ import {
     TArrBullet,
 } from "./types";
 import { VARIABLE } from "../Store/Store";
+import mocks from "./mocks";
 
 export default class Server {
     private token: string | null = null;
     private mediator: Mediator;
     private store: Store;
     private socket: Socket;
+    public useMocks: boolean = true;
 
     constructor(HOST: string, mediator: Mediator, store: Store) {
         this.mediator = mediator;
@@ -132,6 +134,10 @@ export default class Server {
         return null;
     }
     login(login: string, hash: string, rnd: number): void {
+        if (this.useMocks) {
+            this.socket.emit("LOGIN", mocks.login);
+            return;
+        }
         this.socket.emit("LOGIN", { login, hash, rnd });
     }
 
@@ -142,7 +148,13 @@ export default class Server {
     signUp(login: string, nickname: string, hash: string, verifyHash: string): void {
         this.socket.emit("SIGNUP", { token: this.token, login, nickname, hash, verifyHash });
     }
+
     sendMessage(message: string): void {
+        if (this.useMocks) {
+            this.socket.emit("SEND_MESSAGE", Object.assign({ token: this.token }, mocks.sendMessage));
+            return;
+        }
+        if (!message) return;
         this.socket.emit("SEND_MESSAGE", { token: this.token, message });
     }
 
@@ -156,7 +168,6 @@ export default class Server {
 
     addGamers(lobbyName: string): void {
         this.store.update(VARIABLE.LOBBYNAME, lobbyName);
-
         this.socket.emit("ADD_GAMERS", { token: this.token, lobbyName });
     }
     deleteGamers(): void {
@@ -178,6 +189,7 @@ export default class Server {
     moveMobs(x: number, y: number): void {
         this.socket.emit("MOVE_MOBS", { x, y, lobbyName: this.store.get(VARIABLE.LOBBYNAME) });
     }
+
     addInvitation(userId: number, friendId: number): void {
         this.socket.emit("ADD_INVITES", {
             token: this.token,
@@ -186,12 +198,15 @@ export default class Server {
             lobbyName: this.store.get(VARIABLE.LOBBYNAME),
         });
     }
+
     checkInvites(userId: number): void {
         this.socket.emit("GET_INVITES", { token: this.token, userId });
     }
+
     updateHp(gamerName: string): void {
         this.socket.emit("UPDATE_HP", { gamerName, lobbyName: this.store.get(VARIABLE.LOBBYNAME) });
     }
+
     getQuestionsProgrammer(): void {
         this.socket.emit("GET_QUESTIONS_PROGRAMMER", {});
     }
