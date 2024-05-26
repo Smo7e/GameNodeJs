@@ -14,14 +14,14 @@ import {
     TArrBullet,
 } from "./types";
 import { VARIABLE } from "../Store/Store";
-import mocks from './mocks';
+import mocks from "./mocks";
 
 export default class Server {
     private token: string | null = null;
     private mediator: Mediator;
     private store: Store;
     private socket: Socket;
-    public useMocks: boolean = false;
+    public useMocks: boolean = true;
 
     constructor(HOST: string, mediator: Mediator, store: Store) {
         this.mediator = mediator;
@@ -134,91 +134,52 @@ export default class Server {
         return null;
     }
     login(login: string, hash: string, rnd: number): void {
-        if  (this.useMocks){
-            this.loginOnHandler(mocks.login);
+        if (this.useMocks) {
+            this.socket.emit("LOGIN", mocks.login);
             return;
         }
         this.socket.emit("LOGIN", { login, hash, rnd });
     }
-
-    private loginOnHandler(mockData: typeof mocks.login): void {
-        const { LOGIN } = this.mediator.getEventTypes();
-        this.mediator.call(LOGIN, mockData.data);
-      }
 
     logout(): void {
         this.socket.emit("LOGOUT", { token: this.token });
     }
 
     signUp(login: string, nickname: string, hash: string, verifyHash: string): void {
-        if  (this.useMocks){
-            this.signUpOnHandler(mocks.signUp);
-            return;
-        }
         this.socket.emit("SIGNUP", { token: this.token, login, nickname, hash, verifyHash });
     }
-    private signUpOnHandler(mockData: typeof mocks.signUp): void {
-        const { SIGNUP } = this.mediator.getEventTypes();
-        this.mediator.call(SIGNUP, mockData.data);
-      }
+
     sendMessage(message: string): void {
-        if  (this.useMocks){
-            this.sendMessageUpOnHandler(mocks.sendMessage);
+        if (this.useMocks) {
+            this.socket.emit("SEND_MESSAGE", Object.assign({ token: this.token }, mocks.sendMessage));
             return;
         }
+        if (!message) return;
         this.socket.emit("SEND_MESSAGE", { token: this.token, message });
-    } 
-    private sendMessageUpOnHandler(mockData: typeof mocks.sendMessage): void {
-        const { SEND_MESSAGE } = this.mediator.getEventTypes();
-        this.mediator.call(SEND_MESSAGE, mockData.data);
-      }
+    }
+
     addFriend(friend_id: string): void {
-        if  (this.useMocks){
-            this.addFriendUpOnHandler(mocks.addFriend);
-            return;
-        }
         this.socket.emit("ADD_FRIENDS", { friend_id, token: this.token });
     }
-    private addFriendUpOnHandler(mockData: typeof mocks.addFriend): void {
-        const { ADD_FRIENDS } = this.mediator.getEventTypes();
-        this.mediator.call(ADD_FRIENDS, mockData.data);
-      }
 
     getFriends(): void {
         this.socket.emit("GET_FRIENDS", {});
     }
 
     addGamers(lobbyName: string): void {
-        if  (this.useMocks){
-            this.addGamersIdUpOnHandler(mocks.addGamers);
-            return;
-        }
         this.store.update(VARIABLE.LOBBYNAME, lobbyName);
-
         this.socket.emit("ADD_GAMERS", { token: this.token, lobbyName });
     }
-    private addGamersIdUpOnHandler(mockData: typeof mocks.addGamers): void {
-        const { ADD_GAMERS } = this.mediator.getEventTypes();
-        this.mediator.call(ADD_GAMERS, mockData.data);
-      }
     deleteGamers(): void {
         this.socket.emit("DELETE_GAMERS", { token: this.token });
     }
     updatePersonId(newPersonId: number): void {
-        if  (this.useMocks){
-            this.updatePersonIdUpOnHandler(mocks.updatePersonId);
-            return;
-        }
         this.socket.emit("UPDATE_PERSON_ID", {
             newPersonId,
             token: this.token,
             lobbyName: this.store.get(VARIABLE.LOBBYNAME),
         });
     }
-    private updatePersonIdUpOnHandler(mockData: typeof mocks.updatePersonId): void {
-        const {UPDATE_PERSON_ID} = this.mediator.getEventTypes();
-        this.mediator.call(UPDATE_PERSON_ID, mockData.data);
-      }
     getGamers(): void {
         this.socket.emit("GET_GAMERS", { token: this.token, lobbyName: this.store.get(VARIABLE.LOBBYNAME) });
     }
@@ -226,21 +187,10 @@ export default class Server {
         this.socket.emit("MOVE", { x, y, token: this.token, lobbyName: this.store.get(VARIABLE.LOBBYNAME) });
     }
     moveMobs(x: number, y: number): void {
-        if  (this.useMocks){
-            this.moveMobsUpOnHandler(mocks.moveMobs);
-            return;
-        }
         this.socket.emit("MOVE_MOBS", { x, y, lobbyName: this.store.get(VARIABLE.LOBBYNAME) });
     }
-    private moveMobsUpOnHandler(mockData: typeof mocks.moveMobs): void {
-        const {MOVE_MOBS} = this.mediator.getEventTypes();
-        this.mediator.call(MOVE_MOBS, mockData.data);
-      }
+
     addInvitation(userId: number, friendId: number): void {
-        if  (this.useMocks){
-            this.addInvitationUpOnHandler(mocks.addInvitation);
-            return;
-        }
         this.socket.emit("ADD_INVITES", {
             token: this.token,
             userId,
@@ -248,32 +198,15 @@ export default class Server {
             lobbyName: this.store.get(VARIABLE.LOBBYNAME),
         });
     }
-    private addInvitationUpOnHandler(mockData: typeof mocks.addInvitation): void {
-        const {ADD_INVITES} = this.mediator.getEventTypes();
-        this.mediator.call(ADD_INVITES, mockData.data);
-      }
+
     checkInvites(userId: number): void {
-        if  (this.useMocks){
-            this.checkInvitesUpOnHandler(mocks.checkInvites);
-            return;
-        }
         this.socket.emit("GET_INVITES", { token: this.token, userId });
     }
-    private checkInvitesUpOnHandler(mockData: typeof mocks.checkInvites): void {
-        const {GET_INVITES} = this.mediator.getEventTypes();
-        this.mediator.call(GET_INVITES, mockData.data);
-      }
+
     updateHp(gamerName: string): void {
-        if  (this.useMocks){
-            this.updateHpUpOnHandler(mocks.updateHp);
-            return;
-        }
         this.socket.emit("UPDATE_HP", { gamerName, lobbyName: this.store.get(VARIABLE.LOBBYNAME) });
     }
-    private updateHpUpOnHandler(mockData: typeof mocks.updateHp): void {
-        const {UPDATE_HP} = this.mediator.getEventTypes();
-        this.mediator.call(UPDATE_HP, mockData.data);
-      }
+
     getQuestionsProgrammer(): void {
         this.socket.emit("GET_QUESTIONS_PROGRAMMER", {});
     }
