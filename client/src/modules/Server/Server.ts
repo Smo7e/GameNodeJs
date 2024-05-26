@@ -12,6 +12,7 @@ import {
     TFriend,
     TQuestion,
     TArrBullet,
+    TMobs,
 } from "./types";
 import { VARIABLE } from "../Store/Store";
 import mocks from "./mocks";
@@ -81,7 +82,7 @@ export default class Server {
                     this.mediator.call(GET_GAMERS, result);
                 }
             });
-            this.socket.on("GET_MOBS", (data: TAnswer<TMob[]>): void => {
+            this.socket.on("GET_MOBS", (data: TAnswer<TMobs>): void => {
                 const result = this._validate(data);
                 if (result) {
                     const { GET_MOBS } = this.mediator.getEventTypes();
@@ -107,7 +108,13 @@ export default class Server {
             this.socket.on("GET_QUESTIONS_PROGRAMMER", (data: TAnswer<TQuestion[]>): void => {
                 const result = this._validate(data);
                 if (result) {
-                    store.update(VARIABLE.QUESTIONS, result);
+                    store.update(VARIABLE.QUESTIONSPROGRAMMER, result);
+                }
+            });
+            this.socket.on("GET_QUESTIONS_RUSSIAN", (data: TAnswer<TQuestion[]>): void => {
+                const result = this._validate(data);
+                if (result) {
+                    store.update(VARIABLE.QUESTIONSRUSSIAN, result);
                 }
             });
             this.socket.on("GET_GAMER_BY_SOCKET_ID", (data: TAnswer<TGamer>): void => {
@@ -187,7 +194,12 @@ export default class Server {
         this.socket.emit("MOVE", { x, y, token: this.token, lobbyName: this.store.get(VARIABLE.LOBBYNAME) });
     }
     moveMobs(x: number, y: number): void {
-        this.socket.emit("MOVE_MOBS", { x, y, lobbyName: this.store.get(VARIABLE.LOBBYNAME) });
+        this.socket.emit("MOVE_MOBS", {
+            x,
+            y,
+            lobbyName: this.store.get(VARIABLE.LOBBYNAME),
+            mobName: this.store.get(VARIABLE.CURRENTMOB).mobName,
+        });
     }
 
     addInvitation(userId: number, friendId: number): void {
@@ -204,14 +216,18 @@ export default class Server {
     }
 
     updateHp(gamerName: string): void {
-        this.socket.emit("UPDATE_HP", { gamerName, lobbyName: this.store.get(VARIABLE.LOBBYNAME) });
+        this.socket.emit("UPDATE_HP", {
+            gamerName,
+            lobbyName: this.store.get(VARIABLE.LOBBYNAME),
+            mobName: this.store.get(VARIABLE.CURRENTMOB).mobName,
+        });
     }
 
-    getQuestionsProgrammer(): void {
-        this.socket.emit("GET_QUESTIONS_PROGRAMMER", {});
-    }
     updateHpMobs(): void {
-        this.socket.emit("UPDATE_HP_MOBS", { lobbyName: this.store.get(VARIABLE.LOBBYNAME) });
+        this.socket.emit("UPDATE_HP_MOBS", {
+            lobbyName: this.store.get(VARIABLE.LOBBYNAME),
+            mobName: this.store.get(VARIABLE.CURRENTMOB).mobName,
+        });
     }
     getMobs(): void {
         this.socket.emit("GET_MOBS", { lobbyName: this.store.get(VARIABLE.LOBBYNAME) });
@@ -232,6 +248,9 @@ export default class Server {
         });
     }
     immortality() {
-        this.socket.emit("IMMORTALITY", { lobbyName: this.store.get(VARIABLE.LOBBYNAME) });
+        this.socket.emit("IMMORTALITY", {
+            lobbyName: this.store.get(VARIABLE.LOBBYNAME),
+            mobName: this.store.get(VARIABLE.CURRENTMOB).mobName,
+        });
     }
 }

@@ -21,7 +21,7 @@ class Game {
             socket.on("UPDATE_HP", (data) => this.updateHp(data, socket));
             socket.on("UPDATE_HP_MOBS", (data) => this.updateHpMobs(data, socket));
             socket.on("GET_MOBS", (data) => this.getMobs(data, socket));
-            socket.on("GET_QUESTIONS_PROGRAMMER", () => this.getQuestionsProgrammer(socket));
+
             socket.on("UPDATE_PERSON_ID", (data) => this.updatePersonId(data, socket));
             socket.on("GET_GAMER_BY_SOCKET_ID", (data) => this.getGamerBySocketId(data, socket));
 
@@ -33,60 +33,57 @@ class Game {
         const { TEST } = this.mediator.getEventTypes();
         //this.mediator.subscribe(TEST, (data) => console.log(data));
     }
-    immortality({ lobbyName }, socket) {
-        if (this.lobbies[lobbyName].mobs[0].damage) {
-            this.lobbies[lobbyName].mobs[0].damage = 0;
+    immortality({ lobbyName, mobName }, socket) {
+        if (this.lobbies[lobbyName].mobs[mobName].damage) {
+            this.lobbies[lobbyName].mobs[mobName].damage = 0;
             return;
         }
-        this.lobbies[lobbyName].mobs[0].damage = 5;
+        this.lobbies[lobbyName].mobs[mobName].damage = 5;
     }
-    updateHp({ gamerName, lobbyName }, socket) {
+    updateHp({ gamerName, lobbyName, mobName }, socket) {
         const user = this.db.getUserByName(gamerName);
         if (user) {
             const player = this.lobbies[lobbyName].players[socket.id];
-            const damage = this.lobbies[lobbyName].mobs[0].damage;
+            const damage = this.lobbies[lobbyName].mobs[mobName].damage;
             player.hp -= damage;
             this.getGamers({ lobbyName }, socket);
             return;
         }
         return;
     }
-    async updateHpMobs({ lobbyName }, socket) {
+    updateHpMobs({ lobbyName, mobName }, socket) {
         if (lobbyName) {
-            this.lobbies[lobbyName].mobs[0].hp -= 5;
+            this.lobbies[lobbyName].mobs[mobName].hp -= 5;
             this.getMobs({ lobbyName }, socket);
             return;
         }
         this.io.to(lobbyName).emit("GET_MOBS", this.answer.bad(1001));
     }
-    async getMobs({ lobbyName }, socket) {
-        this.io.to(lobbyName).emit("GET_MOBS", this.answer.good(Object.values(this.lobbies[lobbyName]?.mobs)));
+    getMobs({ lobbyName }, socket) {
+        this.io.to(lobbyName).emit("GET_MOBS", this.answer.good(this.lobbies[lobbyName]?.mobs));
     }
     async getQuestionsProgrammer({ lobbyName }, socket) {
         this.io
             .to(lobbyName)
             .emit("GET_QUESTIONS_PROGRAMMER", this.answer.good(await this.db.getQuestionsProgrammer()));
     }
-    async move({ token, x, y, lobbyName }, socket) {
+    async getQuestionsRussian({ lobbyName }, socket) {
+        this.io.to(lobbyName).emit("GET_QUESTIONS_RUSSIAN", this.answer.good(await this.db.getQuestionsRussian()));
+    }
+    move({ token, x, y, lobbyName }, socket) {
         if (token && `${x}` && `${y}` && lobbyName) {
-            const user = await this.db.getUserByToken(token);
-
-            if (user) {
-                this.lobbies[lobbyName].players[socket.id].x = x;
-                this.lobbies[lobbyName].players[socket.id].y = y;
-                this.getGamers({ lobbyName }, socket);
-                return;
-            }
-            this.io.to(lobbyName).emit("GET_GAMERS", this.answer.bad(455));
+            this.lobbies[lobbyName].players[socket.id].x = x;
+            this.lobbies[lobbyName].players[socket.id].y = y;
+            this.getGamers({ lobbyName }, socket);
             return;
         }
         this.io.to(lobbyName).emit("GET_GAMERS", this.answer.bad(1001));
         return;
     }
-    async moveMobs({ x, y, lobbyName }, socket) {
+    async moveMobs({ x, y, lobbyName, mobName }, socket) {
         if (x && y) {
-            this.lobbies[lobbyName].mobs[0].x = x;
-            this.lobbies[lobbyName].mobs[0].y = y;
+            this.lobbies[lobbyName].mobs[mobName].x = x;
+            this.lobbies[lobbyName].mobs[mobName].y = y;
             this.getMobs({ lobbyName }, socket);
             return;
         }
@@ -97,14 +94,14 @@ class Game {
         this.io.to(lobbyName).emit("GET_GAMERS", this.answer.good(Object.values(this.lobbies[lobbyName]?.players)));
     }
 
-    addMobs({ token, mobsId, lobbyName }, socket) {
+    addMobs({ token, x, y, mobName, lobbyName }, socket) {
         if (token && lobbyName) {
             const user = this.db.getUserByToken(token);
             if (user) {
-                this.lobbies[lobbyName].mobs[mobsId] = {
-                    id: mobsId,
-                    x: 8,
-                    y: -3,
+                this.lobbies[lobbyName].mobs[mobName] = {
+                    mobName,
+                    x,
+                    y,
                     hp: 100,
                     damage: 5,
                 };
@@ -135,6 +132,7 @@ class Game {
                 socket.join(lobbyName);
                 this.getGamerBySocketId({ lobbyName }, socket);
                 this.getQuestionsProgrammer({ lobbyName }, socket);
+                this.getQuestionsRussian({ lobbyName }, socket);
                 this.getGamers({ lobbyName }, socket);
 
                 return;
@@ -179,7 +177,9 @@ class Game {
                 [999, 999, 999, 999],
             ],
         };
-        this.addMobs({ token, mobsId: 0, lobbyName }, socket);
+        this.addMobs({ token, x: 8, y: -3, mobName: "trusov", lobbyName }, socket);
+        this.addMobs({ token, x: -22, y: -12, mobName: "rusanova", lobbyName }, socket);
+
         this.addGamers({ token, lobbyName, isAdmin: true }, socket);
     }
 

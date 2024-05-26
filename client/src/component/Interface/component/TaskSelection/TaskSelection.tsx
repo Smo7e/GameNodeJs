@@ -4,7 +4,10 @@ import { ServerContext, StoreContext } from "../../../../App";
 import { VARIABLE } from "../../../../modules/Store/Store";
 import { TUserFull } from "../../../../modules/Server/types";
 
-const TaskSelection: React.FC = memo(() => {
+interface ITaskSelectionProps {
+    mobName: string;
+}
+const TaskSelection: React.FC<ITaskSelectionProps> = memo(({ mobName }) => {
     const server = useContext(ServerContext);
     const store = useContext(StoreContext);
 
@@ -16,15 +19,32 @@ const TaskSelection: React.FC = memo(() => {
     const answer3Ref = useRef<HTMLDivElement>(null);
     const answer4Ref = useRef<HTMLDivElement>(null);
 
-    const questions = store.get(VARIABLE.QUESTIONS);
-    const question = questions[rndNumber(0, questions.length - 1)];
+    let necessaryQuestions: VARIABLE;
+    switch (mobName) {
+        case "trusov":
+            necessaryQuestions = VARIABLE.QUESTIONSPROGRAMMER;
+            break;
+        case "rusanova":
+            necessaryQuestions = VARIABLE.QUESTIONSRUSSIAN;
+            break;
+        default:
+            necessaryQuestions = VARIABLE.QUESTIONSPROGRAMMER;
+            break;
+    }
+    const questions = store.get(necessaryQuestions);
+
+    let question = questions[rndNumber(0, questions.length - 1)];
 
     const user: TUserFull = store.get(VARIABLE.USER);
     let timer = 15;
     let taskTimer = 5;
     let canAnswer: boolean = true;
+    let finish = false;
     useEffect(() => {
         const timerId = setInterval(() => {
+            if (finish) clearInterval(timerId);
+            if (store.get(VARIABLE.CURRENTMOB).hp <= 0) finish = true;
+            if (store.get(VARIABLE.GAMER).hp <= 0) finish = true;
             if (timerRef.current) {
                 timerRef.current.innerHTML = `${timer}`;
                 if (timer === 0) {
@@ -49,10 +69,24 @@ const TaskSelection: React.FC = memo(() => {
         containerRef.current!.style.visibility = "hidden";
     };
     const startingResponses = () => {
+        question = questions[rndNumber(0, questions.length - 1)];
         canAnswer = true;
         containerRef.current!.style.visibility = "visible";
         timer = 15;
         taskTimer = 5;
+        if (
+            questionRef.current &&
+            answer1Ref.current &&
+            answer2Ref.current &&
+            answer3Ref.current &&
+            answer4Ref.current
+        ) {
+            questionRef.current.innerHTML = question.question;
+            answer1Ref.current.innerHTML = question.answer_1;
+            answer2Ref.current.innerHTML = question.answer_2;
+            answer3Ref.current.innerHTML = question.answer_3;
+            answer4Ref.current.innerHTML = question.answer_4;
+        }
     };
 
     if (!question) return <></>;
@@ -60,19 +94,15 @@ const TaskSelection: React.FC = memo(() => {
     function rndNumber(min: number, max: number) {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
-    if (questionRef.current && answer1Ref.current && answer2Ref.current && answer3Ref.current && answer4Ref.current) {
-        questionRef.current.innerHTML = question.question;
-        answer1Ref.current.innerHTML = question.answer_1;
-        answer2Ref.current.innerHTML = question.answer_2;
-        answer3Ref.current.innerHTML = question.answer_3;
-        answer4Ref.current.innerHTML = question.answer_4;
-    }
+
     const checkAnswer = (answer: number) => {
         if (question && canAnswer) {
             stoppingResponses();
             if (answer === question.correct_answer) {
                 server.updateHpMobs();
-                //
+
+                stoppingResponses();
+
                 return;
             }
             //

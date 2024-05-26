@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 
 import { MediatorContext, StoreContext } from "../../App";
-import { TGamer, TMob } from "../../modules/Server/types";
+import { TGamer, TMob, TMobs } from "../../modules/Server/types";
 import { act } from "react-dom/test-utils";
 
 import Chat from "./component/Chat/Chat";
@@ -17,7 +17,7 @@ const Interface: React.FC = () => {
     const mediator = useContext(MediatorContext);
     const store = useContext(StoreContext);
 
-    const [infoMobs, setInfoMobs] = useState<TMob[] | null>(null);
+    const [mobs, setMobs] = useState<TMobs | null>(null);
     const timeRef = useRef<HTMLDivElement>(null);
     const [gamers, setGamers] = useState<TGamer[] | null>(null);
     const [timer, setTimer] = useState({ seconds: 0, minutes: 0 });
@@ -36,18 +36,16 @@ const Interface: React.FC = () => {
     useEffect(() => {
         document.addEventListener("mousedown", handleOutsideClick);
         const updateTime = () => {
-            act(() => {
-                setTimer((prevTimer) => {
-                    let seconds = prevTimer.seconds + 1;
-                    let minutes = prevTimer.minutes;
+            setTimer((prevTimer) => {
+                let seconds = prevTimer.seconds + 1;
+                let minutes = prevTimer.minutes;
 
-                    if (seconds === 60) {
-                        minutes++;
-                        seconds = 0;
-                    }
+                if (seconds === 60) {
+                    minutes++;
+                    seconds = 0;
+                }
 
-                    return { seconds, minutes };
-                });
+                return { seconds, minutes };
             });
         };
         let timeInterval = setInterval(updateTime, 1000);
@@ -64,8 +62,8 @@ const Interface: React.FC = () => {
         const getGamersHandler = (data: TGamer[]) => {
             setGamers(data);
         };
-        const getMobsHandler = (data: TMob[]) => {
-            setInfoMobs(data);
+        const getMobsHandler = (data: TMobs) => {
+            setMobs(data);
         };
 
         mediator.subscribe(GET_GAMERS, getGamersHandler);
@@ -133,10 +131,19 @@ const Interface: React.FC = () => {
                     </div>
                 </div>
             </div>
-            {store.get(VARIABLE.TRIGGER) ? (
+            <></>
+            {store.get(VARIABLE.TRIGGERTRUSOV) ? (
                 <>
-                    <div className="BossXP">{infoMobs ? <div>BossXP: {infoMobs[0].hp}</div> : <></>}</div>
-                    <TaskSelection />
+                    <div className="BossXP">{mobs ? <div>TrusovHP: {mobs["trusov"].hp}</div> : <></>}</div>
+                    <TaskSelection mobName={"trusov"} />
+                </>
+            ) : (
+                <></>
+            )}
+            {store.get(VARIABLE.TRIGGERRUSANOVA) ? (
+                <>
+                    <div className="BossXP">{mobs ? <div>RusanovaHP: {mobs["rusanova"].hp}</div> : <></>}</div>
+                    <TaskSelection mobName={"rusanova"} />
                 </>
             ) : (
                 <></>

@@ -102,6 +102,7 @@ const Player: React.FC = memo(() => {
 
             //
             personRef.current?.setLinvel(move, true);
+            //console.log(personRef.current.translation().x, personRef.current.translation().y);
             const cameraMove = new Vector3(personRef.current!.translation().x, personRef.current!.translation().y, 14);
             const newPosition = cameraPosition.lerp(cameraMove, 0.1);
             cameraPosition = newPosition;

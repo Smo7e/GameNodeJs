@@ -5,31 +5,57 @@ import useSprites from "../hooks/Sprites/useSprites";
 import React, { memo, useContext, useRef } from "react";
 import { MeshStandardMaterial, Texture, Vector3 } from "three";
 import usePositionMatrix from "../hooks/positionMatrix/usePositionMatrix";
-import { MediatorContext, ServerContext, StoreContext } from "../../App";
+import { ServerContext, StoreContext } from "../../App";
 import { VARIABLE } from "../Store/Store";
+import Bullets from "./Bullets";
 
-const Boss: React.FC = memo(() => {
+interface IBossProps {
+    mobName: string;
+}
+const Boss: React.FC<IBossProps> = memo(({ mobName }) => {
     const server = useContext(ServerContext);
     const store = useContext(StoreContext);
 
     const bossRef = useRef<RapierRigidBody>(null);
     const spriteRef = useRef<MeshStandardMaterial>(null);
-    const [death, moveDown, moveRight, moveUp, moveLeft] = useSprites("trusov");
+    const [death, moveDown, moveRight, moveUp, moveLeft] = useSprites(mobName);
     var currentFrame = 0;
     var frameSpeed = 0.1;
     var frameLength = 9;
     let limitationОfSending = 0;
 
     let directionPlayer: Texture = moveDown[0];
-    const position = usePositionMatrix();
+    const position = usePositionMatrix(mobName);
+
     let canPosition = 1;
     let nowPosition = [0, 0];
     let newPosition = new Vector3();
     let distances = 0;
+
+    let trigger: VARIABLE;
+    switch (mobName) {
+        case "trusov":
+            trigger = VARIABLE.TRIGGERTRUSOV;
+            break;
+        case "rusanova":
+            trigger = VARIABLE.TRIGGERRUSANOVA;
+            break;
+        default:
+            trigger = VARIABLE.TRIGGERTRUSOV;
+            break;
+    }
+
+    const startPosition: Vector3 = new Vector3(
+        store.get(VARIABLE.MOBS)[mobName].x,
+        store.get(VARIABLE.MOBS)[mobName].y,
+        0
+    );
     useFrame(() => {
-        if (!bossRef.current) return;
-        if (!store.get(VARIABLE.TRIGGER)) return;
-        if (store.get(VARIABLE.MOBS)[0].hp <= 0) {
+        if (!bossRef.current || !store.get(trigger)) return;
+        store.update(VARIABLE.CURRENTMOB, store.get(VARIABLE.MOBS)[mobName]);
+        if (!store.get(VARIABLE.CURRENTMOB)) return;
+        if (store.get(VARIABLE.MOBS)[mobName].hp <= 0) {
+            store.update(trigger, false);
             if (spriteRef.current) {
                 if (spriteRef.current.map) {
                     spriteRef.current.map.dispose();
@@ -121,11 +147,11 @@ const Boss: React.FC = memo(() => {
                     return elem.map((elem1, index1) =>
                         elem1 || elem ? (
                             <mesh
-                                key={`${index}-${index1}`}
-                                position={[position[index][index1].x, position[index][index1].y, 0]}
+                                key={`${index}-${index1}-${mobName}`}
+                                position={[position[index][index1].x, position[index][index1].y, 1]}
                             >
                                 <planeGeometry args={[1, 1]} />
-                                <meshStandardMaterial color={"red"} />
+                                <meshStandardMaterial color={mobName === "rusanova" ? "red" : "blue"} />
                             </mesh>
                         ) : (
                             <></>
@@ -137,8 +163,9 @@ const Boss: React.FC = memo(() => {
     }
     return (
         <>
-            {/* <CheckPositionMatrix /> */}
-            <RigidBody gravityScale={10} position={[8, -3, 0]} ref={bossRef} lockRotations mass={50}>
+            <CheckPositionMatrix />
+            <Bullets mobName={mobName} trigger={trigger} />
+            <RigidBody gravityScale={10} position={startPosition} ref={bossRef} lockRotations mass={50}>
                 <mesh>
                     <boxGeometry args={[1, 1, 1]} />
                     <meshStandardMaterial ref={spriteRef} map={moveDown[0]} transparent />

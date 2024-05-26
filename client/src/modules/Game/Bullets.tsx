@@ -1,12 +1,16 @@
-import { RefObject, useContext, useEffect, useRef } from "react";
+import { RefObject, memo, useContext, useEffect, useRef } from "react";
 import { Mesh, TextureLoader } from "three";
 import { useFrame, useLoader } from "@react-three/fiber";
 import fireBall from "./image/Bullets/fireBall.png";
-import { TArrBullet, TGamer, TMob } from "../Server/types";
+import { TArrBullet, TGamer, TMob, TMobs } from "../Server/types";
 import { MediatorContext, ServerContext, StoreContext } from "../../App";
 import { VARIABLE } from "../Store/Store";
 
-const Bullets: React.FC = () => {
+interface IBulletProps {
+    mobName: string;
+    trigger: VARIABLE;
+}
+const Bullets: React.FC<IBulletProps> = memo(({ mobName, trigger }) => {
     const server = useContext(ServerContext);
     const mediator = useContext(MediatorContext);
     const store = useContext(StoreContext);
@@ -20,27 +24,26 @@ const Bullets: React.FC = () => {
         [999, 999, 999, 999],
         [999, 999, 999, 999],
     ];
-
     const bulletsSpeed = 0.1;
-
-    const addBullet = (gamers: TGamer[], mobs: TMob[]): void => {
+    const mobsNameCurrent = mobName === "trusov" || mobName === "rusanova" ? mobName : "trusov";
+    const addBullet = (gamers: TGamer[], mobs: TMobs): void => {
         if (!gamers || !mobs) return;
         const newBulletTrajectory = [
             [
-                mobs[0]?.x ?? 999,
-                mobs[0]?.y ?? 999,
+                mobs[mobsNameCurrent]?.x ?? 999,
+                mobs[mobsNameCurrent]?.y ?? 999,
                 (gamers[0]?.x ?? 999) + Math.random(),
                 (gamers[0]?.y ?? 999) + Math.random(),
             ],
             [
-                mobs[0]?.x ?? 999,
-                mobs[0]?.y ?? 999,
+                mobs[mobsNameCurrent]?.x ?? 999,
+                mobs[mobsNameCurrent]?.y ?? 999,
                 (gamers[1]?.x ?? 999) + Math.random(),
                 (gamers[1]?.y ?? 999) + Math.random(),
             ],
             [
-                mobs[0]?.x ?? 999,
-                mobs[0]?.y ?? 999,
+                mobs[mobsNameCurrent]?.x ?? 999,
+                mobs[mobsNameCurrent]?.y ?? 999,
                 (gamers[2]?.x ?? 999) + Math.random(),
                 (gamers[2]?.y ?? 999) + Math.random(),
             ],
@@ -49,16 +52,16 @@ const Bullets: React.FC = () => {
     };
 
     useFrame(() => {
-        if (!store.get(VARIABLE.TRIGGER)) return;
-        if (store.get(VARIABLE.MOBS)[0].hp <= 0) {
+        if (!store.get(trigger)) return;
+        if (store.get(VARIABLE.MOBS)[mobName].hp <= 0) {
             bulletsRefs.forEach((elem) => {
                 elem.current!.visible = false;
             });
         }
         const gamers: TGamer[] = store.get(VARIABLE.GAMERS);
-        const mobs: TMob[] = store.get(VARIABLE.MOBS);
+        const mobs: TMobs = store.get(VARIABLE.MOBS);
 
-        if (mobs && mobs[0].hp <= 0) return;
+        if (mobs && mobs[mobsNameCurrent].hp <= 0) return;
         let count = 0;
         arrBulletTrajectory.map((bullet: number[], i: number) => {
             if (!arrBulletTrajectory || bullet[3] >= 999) {
@@ -118,5 +121,5 @@ const Bullets: React.FC = () => {
             </mesh>
         </>
     );
-};
+});
 export default Bullets;

@@ -38,11 +38,15 @@ export type TGamer = {
     post: string;
 };
 export type TMob = {
-    id: number;
+    mobName: string;
     x: number;
     y: number;
     hp: number;
     damage: number;
+};
+export type TMobs = {
+    trusov: TMob;
+    rusanova: TMob;
 };
 
 export type TAnswer<T> = {

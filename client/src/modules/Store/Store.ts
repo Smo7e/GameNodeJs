@@ -1,25 +1,29 @@
-import { TFriend, TGamer, TMob, TQuestion, TUserFull } from "../Server/types";
+import { TFriend, TGamer, TMob, TMobs, TQuestion, TUserFull } from "../Server/types";
 export enum VARIABLE {
     USER = "user",
     GAMER = "gamer",
     GAMERS = "gamers",
     FRIENDS = "friends",
-    TRIGGER = "triger",
+    TRIGGERTRUSOV = "trigerTrusov",
+    TRIGGERRUSANOVA = "trigerRusanova",
     MOBS = "mobs",
     TASKTIMER = "tim",
     LOBBYNAME = "lobbyName",
-    QUESTIONS = "questions",
+    QUESTIONSPROGRAMMER = "questionsProgrammer",
+    QUESTIONSRUSSIAN = "questionsRussian",
+    CURRENTMOB = "currentMob",
 }
 interface IVariable {
     user: TUserFull | null;
     gamer: TGamer | null;
     gamers: TGamer[];
     friends: TFriend[];
-    triger: boolean;
-    mobs: TMob[];
+    trigerTrusov: boolean;
+    mobs: TMobs;
     tim: number;
     lobbyName: string;
     questions: TQuestion[] | null;
+    currentMob: TMob | null;
 }
 export default class Store {
     private variable: any;
@@ -29,11 +33,16 @@ export default class Store {
             gamer: null,
             gamers: [],
             friends: [],
-            triger: false,
+            trigerTrusov: false,
+            trigerRusanova: false,
+
             mobs: [],
             taskTimer: 0,
             lobbyName: "",
-            questions: null,
+            questionsProgrammer: null,
+            questionsRussian: null,
+
+            currentMob: null,
         };
     }
     get(name: VARIABLE) {
