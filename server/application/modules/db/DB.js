@@ -28,11 +28,6 @@ class DB {
         return await this.orm.get("users", { token });
     }
 
-    // убрать;
-    getUserByName(name) {
-        return this.orm.get("users", { name });
-    }
-
     updateToken(id, token) {
         this.orm.update("users", { token }, { id });
     }
@@ -60,8 +55,8 @@ class DB {
 
     ///Lobby///
     async getItems() {
-        const row = await this.queryInDB("SELECT * FROM items");
-        return row;
+        return this.orm.all("items");
+
     }
 
     async addFriend(user_id, friend_id) {

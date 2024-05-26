@@ -84,4 +84,89 @@ describe("Проверка событий пользователя", () => {
 
         expect(user.users).toEqual({});
     });
+
+    test("Получение пользователя по id", async () => {
+        const getUser = await db.getUserById(1)
+
+        const { id, login, password, name } = getUser;
+
+        expect({ id, login, password, name }).toEqual({
+            id: 1,
+            login: 'vasya',
+            password: '4a2d247d0c05a4f798b0b03839d94cf0',
+            name: 'Vasya Ivanoff',
+          });
+    });
+
+    test("Получение пользователя по login", async () => {
+        const getLogin = await db.getUserByLogin("vasya")
+
+        const { id, login, password, name } = getLogin;
+
+        expect({ id, login, password, name }).toEqual({
+            id: 1,
+            login: 'vasya',
+            password: '4a2d247d0c05a4f798b0b03839d94cf0',
+            name: 'Vasya Ivanoff',
+          });
+ 
+    });
+
+    test("Получение вопросов для программиста", async () => {
+        const getQuestions = await db.getQuestionsProgrammer()
+
+        expect(getQuestions).not.toHaveLength(0);
+    })
+
+    test("Проверка на получение предметов", async () => {
+        const items = await db.getItems()
+
+        expect(items).not.toHaveLength(0);
+    })
+
+    test("Проверка отправки сообщения", async () => {
+        const initialMessages = await db.getMessages();
+
+        db.sendMessage(1, "Привет");
+
+        const updatedMessages = await db.getMessages();
+
+        expect(updatedMessages).toEqual([
+            ...initialMessages, 
+            { message: 'Привет', name: 'Vasya Ivanoff' } 
+        ]);
+
+    });
+
+    test("Получение пользователя по token", async () => {
+        const getToken = await db.getUserByToken("e5b1f3fa1ee368b38248f4dad09b5bc6")
+
+        const { id, login, password, name, token } = getToken;
+
+        expect({ id, login, password, name, token }).toEqual({
+            id: 3,
+            login: 'masha',
+            password: 'ebf191604221bd6bc7af3f959d41b5eb',
+            name: 'Masha',
+            token: 'e5b1f3fa1ee368b38248f4dad09b5bc6'
+          });
+ 
+    });
+
+    test("Проверка обновления токена пользователя", async () => {
+
+        const userBefore = await db.getUserById(2);
+      
+        const userId = userBefore.id;
+        const userToken = userBefore.token;
+        const rnd = Math.floor(Math.random() * 1000000);
+        
+        const newToken = md5(userBefore.password + rnd)
+        expect(userToken).not.toBe(newToken);
+
+        db.updateToken(userId, newToken);
+      
+        const userAfter = await db.getUserByToken(newToken);
+        expect(userAfter.token).toBe(newToken);
+      });
 });
