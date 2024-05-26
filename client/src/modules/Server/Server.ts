@@ -117,6 +117,12 @@ export default class Server {
                     store.update(VARIABLE.QUESTIONSRUSSIAN, result);
                 }
             });
+            this.socket.on("GET_QUESTIONS_MATH", (data: TAnswer<TQuestion[]>): void => {
+                const result = this._validate(data);
+                if (result) {
+                    store.update(VARIABLE.QUESTIONSMATH, result);
+                }
+            });
             this.socket.on("GET_GAMER_BY_SOCKET_ID", (data: TAnswer<TGamer>): void => {
                 const result = this._validate(data);
                 if (result) {

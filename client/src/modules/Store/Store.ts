@@ -6,11 +6,13 @@ export enum VARIABLE {
     FRIENDS = "friends",
     TRIGGERTRUSOV = "trigerTrusov",
     TRIGGERRUSANOVA = "trigerRusanova",
+    TRIGGERGOLOVIZIN = "trigerGolovizin",
     MOBS = "mobs",
     TASKTIMER = "tim",
     LOBBYNAME = "lobbyName",
     QUESTIONSPROGRAMMER = "questionsProgrammer",
     QUESTIONSRUSSIAN = "questionsRussian",
+    QUESTIONSMATH = "questionsMath",
     CURRENTMOB = "currentMob",
 }
 interface IVariable {
@@ -35,13 +37,13 @@ export default class Store {
             friends: [],
             trigerTrusov: false,
             trigerRusanova: false,
-
+            trigerGolovizin: false,
             mobs: [],
             taskTimer: 0,
             lobbyName: "",
             questionsProgrammer: null,
             questionsRussian: null,
-
+            questionsMath: null,
             currentMob: null,
         };
     }

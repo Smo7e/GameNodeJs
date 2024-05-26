@@ -25,7 +25,8 @@ const Bullets: React.FC<IBulletProps> = memo(({ mobName, trigger }) => {
         [999, 999, 999, 999],
     ];
     const bulletsSpeed = 0.1;
-    const mobsNameCurrent = mobName === "trusov" || mobName === "rusanova" ? mobName : "trusov";
+    const mobsNameCurrent =
+        mobName === "trusov" || mobName === "rusanova" ? mobName : mobName === "golovizin" ? mobName : "trusov";
     const addBullet = (gamers: TGamer[], mobs: TMobs): void => {
         if (!gamers || !mobs) return;
         const newBulletTrajectory = [

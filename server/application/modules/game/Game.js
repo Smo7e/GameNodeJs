@@ -70,6 +70,9 @@ class Game {
     async getQuestionsRussian({ lobbyName }, socket) {
         this.io.to(lobbyName).emit("GET_QUESTIONS_RUSSIAN", this.answer.good(await this.db.getQuestionsRussian()));
     }
+    async getQuestionsMath({ lobbyName }, socket) {
+        this.io.to(lobbyName).emit("GET_QUESTIONS_MATH", this.answer.good(await this.db.getQuestionsMath()));
+    }
     move({ token, x, y, lobbyName }, socket) {
         if (token && `${x}` && `${y}` && lobbyName) {
             this.lobbies[lobbyName].players[socket.id].x = x;
@@ -133,6 +136,8 @@ class Game {
                 this.getGamerBySocketId({ lobbyName }, socket);
                 this.getQuestionsProgrammer({ lobbyName }, socket);
                 this.getQuestionsRussian({ lobbyName }, socket);
+                this.getQuestionsMath({ lobbyName }, socket);
+
                 this.getGamers({ lobbyName }, socket);
 
                 return;
@@ -179,6 +184,7 @@ class Game {
         };
         this.addMobs({ token, x: 8, y: -3, mobName: "trusov", lobbyName }, socket);
         this.addMobs({ token, x: -22, y: -12, mobName: "rusanova", lobbyName }, socket);
+        this.addMobs({ token, x: 22, y: 7, mobName: "golovizin", lobbyName }, socket);
 
         this.addGamers({ token, lobbyName, isAdmin: true }, socket);
     }

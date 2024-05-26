@@ -25,6 +25,8 @@ const Login: React.FC<ILoginProps> = ({ epages }) => {
         const rnd = Math.round(Math.random() * 1000000);
         const hash = md5(md5(login + password) + rnd);
         server.login(login, hash, rnd);
+        const { PLAY_MUSIC } = mediator.getEventTypes();
+        mediator.call(PLAY_MUSIC);
     };
 
     useEffect(() => {

@@ -1,7 +1,7 @@
 import { useFrame } from "@react-three/fiber";
 import { RigidBody, RapierRigidBody } from "@react-three/rapier";
 
-import useSprites from "../hooks/Sprites/useSprites";
+import useSprites, { ETEACHERS } from "../hooks/Sprites/useSprites";
 import React, { memo, useContext, useRef } from "react";
 import { MeshStandardMaterial, Texture, Vector3 } from "three";
 import usePositionMatrix from "../hooks/positionMatrix/usePositionMatrix";
@@ -39,6 +39,9 @@ const Boss: React.FC<IBossProps> = memo(({ mobName }) => {
             break;
         case "rusanova":
             trigger = VARIABLE.TRIGGERRUSANOVA;
+            break;
+        case "golovizin":
+            trigger = VARIABLE.TRIGGERGOLOVIZIN;
             break;
         default:
             trigger = VARIABLE.TRIGGERTRUSOV;
@@ -151,7 +154,7 @@ const Boss: React.FC<IBossProps> = memo(({ mobName }) => {
                                 position={[position[index][index1].x, position[index][index1].y, 1]}
                             >
                                 <planeGeometry args={[1, 1]} />
-                                <meshStandardMaterial color={mobName === "rusanova" ? "red" : "blue"} />
+                                <meshStandardMaterial color={"blue"} />
                             </mesh>
                         ) : (
                             <></>
@@ -163,7 +166,7 @@ const Boss: React.FC<IBossProps> = memo(({ mobName }) => {
     }
     return (
         <>
-            <CheckPositionMatrix />
+            {/* <CheckPositionMatrix /> */}
             <Bullets mobName={mobName} trigger={trigger} />
             <RigidBody gravityScale={10} position={startPosition} ref={bossRef} lockRotations mass={50}>
                 <mesh>

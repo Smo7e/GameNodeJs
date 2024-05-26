@@ -148,6 +148,14 @@ const Interface: React.FC = () => {
             ) : (
                 <></>
             )}
+            {store.get(VARIABLE.TRIGGERGOLOVIZIN) ? (
+                <>
+                    <div className="BossXP">{mobs ? <div>GolovizinHP: {mobs["golovizin"].hp}</div> : <></>}</div>
+                    <TaskSelection mobName={"golovizin"} />
+                </>
+            ) : (
+                <></>
+            )}
 
             <Chat />
             <WinOrLose />

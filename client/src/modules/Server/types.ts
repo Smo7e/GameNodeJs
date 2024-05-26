@@ -47,6 +47,9 @@ export type TMob = {
 export type TMobs = {
     trusov: TMob;
     rusanova: TMob;
+    golovizin: TMob;
+    pushkareva?: TMob;
+    majorova?: TMob;
 };
 
 export type TAnswer<T> = {

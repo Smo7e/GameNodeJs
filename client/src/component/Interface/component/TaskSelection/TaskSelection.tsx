@@ -3,6 +3,7 @@ import "./TaskSelection.css";
 import { ServerContext, StoreContext } from "../../../../App";
 import { VARIABLE } from "../../../../modules/Store/Store";
 import { TUserFull } from "../../../../modules/Server/types";
+import MathCalc from "../../../../modules/Math/MathCalc";
 
 interface ITaskSelectionProps {
     mobName: string;
@@ -10,6 +11,7 @@ interface ITaskSelectionProps {
 const TaskSelection: React.FC<ITaskSelectionProps> = memo(({ mobName }) => {
     const server = useContext(ServerContext);
     const store = useContext(StoreContext);
+    const mathCalc = new MathCalc();
 
     const containerRef = useRef<HTMLDivElement>(null);
     const timerRef = useRef<HTMLDivElement>(null);
@@ -27,13 +29,16 @@ const TaskSelection: React.FC<ITaskSelectionProps> = memo(({ mobName }) => {
         case "rusanova":
             necessaryQuestions = VARIABLE.QUESTIONSRUSSIAN;
             break;
+        case "golovizin":
+            necessaryQuestions = VARIABLE.QUESTIONSMATH;
+            break;
         default:
             necessaryQuestions = VARIABLE.QUESTIONSPROGRAMMER;
             break;
     }
     const questions = store.get(necessaryQuestions);
 
-    let question = questions[rndNumber(0, questions.length - 1)];
+    let question = questions[mathCalc.rndNumber(0, questions.length - 1)];
 
     const user: TUserFull = store.get(VARIABLE.USER);
     let timer = 15;
@@ -69,7 +74,7 @@ const TaskSelection: React.FC<ITaskSelectionProps> = memo(({ mobName }) => {
         containerRef.current!.style.visibility = "hidden";
     };
     const startingResponses = () => {
-        question = questions[rndNumber(0, questions.length - 1)];
+        question = questions[mathCalc.rndNumber(0, questions.length - 1)];
         canAnswer = true;
         containerRef.current!.style.visibility = "visible";
         timer = 15;
@@ -90,11 +95,6 @@ const TaskSelection: React.FC<ITaskSelectionProps> = memo(({ mobName }) => {
     };
 
     if (!question) return <></>;
-
-    function rndNumber(min: number, max: number) {
-        return Math.floor(Math.random() * (max - min + 1) + min);
-    }
-
     const checkAnswer = (answer: number) => {
         if (question && canAnswer) {
             stoppingResponses();

@@ -1,7 +1,7 @@
 import { useFrame } from "@react-three/fiber";
 import { TGamer } from "../Server/types";
 import { RefObject, createRef, memo, useContext, useEffect, useState } from "react";
-import useSprites from "../hooks/Sprites/useSprites";
+import useSprites, { ESTUDENT } from "../hooks/Sprites/useSprites";
 import { Mesh, Vector3 } from "three";
 import { MediatorContext } from "../../App";
 
@@ -9,12 +9,17 @@ const Friends: React.FC = memo(() => {
     const mediator = useContext(MediatorContext);
     const [friendsRefs, setFriendsRefs] = useState<RefObject<Mesh>[]>([]);
     const [gamers, setGamers] = useState<TGamer[]>([]);
-    const [death, moveDown, moveRight, moveUp, moveLeft] = useSprites(
-        `${gamers && gamers[0] ? gamers[0].person_id : 0}`
-    );
-    const [death1, moveDown1, moveRight1, moveUp1, moveLeft1] = useSprites(
-        `${gamers && gamers[1] ? gamers[1].person_id : 0}`
-    );
+    const gamer0PersonId = gamers && gamers[0] ? gamers[0].person_id : 0;
+    const gamer1PersonId = gamers && gamers[0] ? gamers[0].person_id : 0;
+
+    const person0Enum =
+        gamer0PersonId === 0 ? ESTUDENT.SPORTIK : gamer0PersonId === 1 ? ESTUDENT.TECHGUY : ESTUDENT.HUMANITARIAN;
+    const person1Enum =
+        gamer0PersonId === 0 ? ESTUDENT.SPORTIK : gamer0PersonId === 1 ? ESTUDENT.TECHGUY : ESTUDENT.HUMANITARIAN;
+
+    const [death, moveDown, moveRight, moveUp, moveLeft] = useSprites(person0Enum);
+    const [death1, moveDown1, moveRight1, moveUp1, moveLeft1] = useSprites(person1Enum);
+
     const [directionFriends, setDirectionFriends] = useState(moveDown[0]);
     const [directionFriends2, setDirectionFriends2] = useState(moveDown[1]);
     const [currentFrame, setCurrentFrame] = useState(0);

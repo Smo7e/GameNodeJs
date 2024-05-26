@@ -1,7 +1,7 @@
 import { RapierRigidBody, RigidBody } from "@react-three/rapier";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Mesh, MeshStandardMaterial, Texture, Vector3 } from "three";
-import useSprites from "../hooks/Sprites/useSprites";
+import useSprites, { ETEACHERS } from "../hooks/Sprites/useSprites";
 import { useFrame } from "@react-three/fiber";
 import { MediatorContext } from "../../App";
 import { TMob, TMobs } from "../Server/types";
@@ -11,7 +11,7 @@ const BossFriends: React.FC = () => {
     const bossRef = useRef<RapierRigidBody>(null);
     const bossPositionRef = useRef<Mesh>(null);
     const spriteRef = useRef<MeshStandardMaterial>(null);
-    const [death, moveDown, moveRight, moveUp, moveLeft] = useSprites("trusov");
+    const [death, moveDown, moveRight, moveUp, moveLeft] = useSprites(ETEACHERS.TRUSOV);
     const [currentFrame, setCurrentFrame] = useState(0);
     const [mobs, setMobs] = useState<TMobs | null>(null);
     var frameSpeed = 0.1;
@@ -21,7 +21,7 @@ const BossFriends: React.FC = () => {
     const [directionPlayer, setDirectionPlayer] = useState<Texture>(moveDown[0]);
     useFrame(() => {
         if (!bossRef.current || !mobs) return;
-        if (mobs["trusov"].hp <= 0) {
+        if (mobs[ETEACHERS.TRUSOV].hp <= 0) {
             if (spriteRef.current) {
                 if (spriteRef.current.map) {
                     spriteRef.current.map.dispose();
@@ -32,32 +32,34 @@ const BossFriends: React.FC = () => {
         }
         const bossCoord = bossRef.current!.translation();
         const move = new Vector3();
-        if (bossCoord.x <= mobs["trusov"].x - 0) {
+        if (bossCoord.x <= mobs[ETEACHERS.TRUSOV].x - 0) {
             move.x += bossSpeed;
         } else {
             move.x -= bossSpeed;
         }
-        if (bossCoord.y <= mobs["trusov"].y - 0) {
+        if (bossCoord.y <= mobs[ETEACHERS.TRUSOV].y - 0) {
             move.y += bossSpeed;
         } else {
             move.y -= bossSpeed;
         }
-        if (bossCoord.x + eps >= mobs["trusov"].x - 0 && bossCoord.x - eps <= mobs["trusov"].x - 0) {
+        if (bossCoord.x + eps >= mobs[ETEACHERS.TRUSOV].x - 0 && bossCoord.x - eps <= mobs[ETEACHERS.TRUSOV].x - 0) {
             move.x = 0;
         }
-        if (bossCoord.y + eps >= mobs["trusov"].y - 0 && bossCoord.y - eps <= mobs["trusov"].y - 0) {
+        if (bossCoord.y + eps >= mobs[ETEACHERS.TRUSOV].y - 0 && bossCoord.y - eps <= mobs[ETEACHERS.TRUSOV].y - 0) {
             move.y = 0;
         }
         let direction = moveDown;
 
-        if (Math.abs(mobs["trusov"].y - 0 - bossCoord.y) > Math.abs(mobs["trusov"].x - 0 - bossCoord.x)) {
-            if (mobs["trusov"].y - 0 > bossCoord.y) {
+        if (
+            Math.abs(mobs[ETEACHERS.TRUSOV].y - 0 - bossCoord.y) > Math.abs(mobs[ETEACHERS.TRUSOV].x - 0 - bossCoord.x)
+        ) {
+            if (mobs[ETEACHERS.TRUSOV].y - 0 > bossCoord.y) {
                 direction = moveUp;
             } else {
                 direction = moveDown;
             }
         } else {
-            if (mobs["trusov"].x - 0 > bossCoord.x) {
+            if (mobs[ETEACHERS.TRUSOV].x - 0 > bossCoord.x) {
                 direction = moveRight;
             } else {
                 direction = moveLeft;

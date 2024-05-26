@@ -2,7 +2,7 @@ import { useFrame } from "@react-three/fiber";
 import React, { useContext, memo, useEffect } from "react";
 import { useRef } from "react";
 
-import useSprites from "../hooks/Sprites/useSprites";
+import useSprites, { ESTUDENT } from "../hooks/Sprites/useSprites";
 import { RigidBody, RapierRigidBody } from "@react-three/rapier";
 
 import { MeshStandardMaterial, Texture, Vector3 } from "three";
@@ -18,7 +18,10 @@ const Player: React.FC = memo(() => {
     const personRef = useRef<RapierRigidBody>(null);
     const spriteRef = useRef<MeshStandardMaterial>(null);
 
-    const [death, moveDown, moveRight, moveUp, moveLeft] = useSprites(`${store.get(VARIABLE.GAMER).person_id}`);
+    const gamerPersonId = store.get(VARIABLE.GAMER).person_id;
+    const personEnum =
+        gamerPersonId === 0 ? ESTUDENT.SPORTIK : gamerPersonId === 1 ? ESTUDENT.TECHGUY : ESTUDENT.HUMANITARIAN;
+    const [death, moveDown, moveRight, moveUp, moveLeft] = useSprites(personEnum);
     let limitationОfSending = 0;
 
     let cameraPosition = new Vector3(0, 0, 14);
@@ -99,10 +102,7 @@ const Player: React.FC = memo(() => {
                 direction = moveRight;
             }
             updateFrame(direction);
-
-            //
             personRef.current?.setLinvel(move, true);
-            //console.log(personRef.current.translation().x, personRef.current.translation().y);
             const cameraMove = new Vector3(personRef.current!.translation().x, personRef.current!.translation().y, 14);
             const newPosition = cameraPosition.lerp(cameraMove, 0.1);
             cameraPosition = newPosition;

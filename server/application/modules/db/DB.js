@@ -83,6 +83,9 @@ class DB {
     getQuestionsRussian() {
         return this.orm.all("questions_russian");
     }
+    getQuestionsMath() {
+        return this.orm.all("questions_math");
+    }
 
     updateTimestamp(update_timestamp) {
         this.orm.update("game", { update_timestamp }, { id: 1 });

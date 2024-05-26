@@ -8,7 +8,20 @@ import spriteMajorova from "../../Game/image/Persons/spriteMajorova.png";
 import spriteRusanova from "../../Game/image/Persons/spriteRusanova.png";
 import spriteTrusov from "../../Game/image/Persons/spriteTrusov.png";
 
-function useSprites(name: string) {
+export enum ETEACHERS {
+    TRUSOV = "trusov",
+    GOLOVIZIN = "golovizin",
+    RUSANOVA = "rusanova",
+    PUSHKAREVA = "pushkareva",
+    MAJOROVA = "majorova",
+}
+export enum ESTUDENT {
+    SPORTIK = "sportik",
+    HUMANITARIAN = "humanitarian",
+    TECHGUY = "techGuy",
+}
+
+function useSprites(name: ETEACHERS | ESTUDENT | string) {
     const result = (url: string) => {
         const arr2 = [];
         for (let i = 0; i < 5; i++) {
@@ -26,21 +39,21 @@ function useSprites(name: string) {
         return arr2;
     };
     switch (name) {
-        case "0":
+        case ESTUDENT.SPORTIK:
             return result(spriteSportik);
-        case "1":
+        case ESTUDENT.TECHGUY:
             return result(spriteThetechguy);
-        case "2":
+        case ESTUDENT.HUMANITARIAN:
             return result(spriteHumanities);
-        case "golovizin":
+        case ETEACHERS.GOLOVIZIN:
             return result(spriteGolovizin);
-        case "pushkareva":
+        case ETEACHERS.PUSHKAREVA:
             return result(spritePushkareva);
-        case "majorova":
+        case ETEACHERS.MAJOROVA:
             return result(spriteMajorova);
-        case "rusanova":
+        case ETEACHERS.RUSANOVA:
             return result(spriteRusanova);
-        case "trusov":
+        case ETEACHERS.TRUSOV:
             return result(spriteTrusov);
         default:
             return result(spriteSportik);
