@@ -12,6 +12,7 @@ import "./Interface.css";
 import { VARIABLE } from "../../modules/Store/Store";
 import CheatMenu from "./component/CheatMenu/CheatMenu";
 import WinOrLose from "./component/WinOrLose/WinOrLose";
+import Music from "../Parameters/Music";
 
 const Interface: React.FC = () => {
     const mediator = useContext(MediatorContext);
@@ -79,6 +80,7 @@ const Interface: React.FC = () => {
 
     return (
         <div className="Interface-container">
+            <Music />
             <div className="back-arrow-interface"></div>
             <div onClick={handleSettingsClick} className="settings-arrow-interface"></div>
             {showParametersGame && (

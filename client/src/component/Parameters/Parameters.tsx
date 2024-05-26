@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { EPAGES } from "../../App";
 
+import React, { useState, useEffect, useContext } from "react";
+import { EPAGES, MediatorContext } from "../../App";
 import "./Parameters.css";
 
 interface IParameters {

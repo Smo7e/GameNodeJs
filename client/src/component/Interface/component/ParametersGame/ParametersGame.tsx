@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { MediatorContext } from "../../../../App";
 
 import "./ParametersGame.css";
 
 const ParametersGame: React.FC= () => {
-    const [volume, setVolume] = useState(() => {
-      const savedVolume = localStorage.getItem("volume");
-      return savedVolume ? Number(savedVolume) : 60;
-    });
-    const [musicVolume, setMusicVolume] = useState(() => {
-      const savedMusicVolume = localStorage.getItem("musicVolume");
-      return savedMusicVolume ? Number(savedMusicVolume) : 77;
-    });
+  const mediator = useContext(MediatorContext);
+  const [volume, setVolume] = useState(() => {
+    const savedVolume = localStorage.getItem("volume");
+    return savedVolume ? Number(savedVolume) : 60;
+  });
+  const [musicVolume, setMusicVolume] = useState(() => {
+    const savedMusicVolume = localStorage.getItem("musicVolume");
+    return savedMusicVolume ? Number(savedMusicVolume) : 77;
+  });
     const [fullscreen, setFullscreen] = useState(false);
     const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       const newVolume = Number(event.target.value);
@@ -20,11 +22,12 @@ const ParametersGame: React.FC= () => {
 
     const handleMusicVolumeChange = (
       event: React.ChangeEvent<HTMLInputElement>
-      ) => {
-        const newMusicVolume = Number(event.target.value);
-        setMusicVolume(newMusicVolume);
-        localStorage.setItem("musicVolume", newMusicVolume.toString());
-      };
+    ) => {
+      const newMusicVolume = Number(event.target.value);
+      setMusicVolume(newMusicVolume);
+      localStorage.setItem("musicVolume", newMusicVolume.toString());
+      mediator.call("SET_MUSIC_VOLUME", { volume: newMusicVolume / 100 });
+    };
 
     const handleFullscreenChange = () => {
       if (document.documentElement.requestFullscreen) {
