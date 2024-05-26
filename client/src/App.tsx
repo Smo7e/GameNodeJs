@@ -10,7 +10,6 @@ import Interface from "./component/Interface/Interface";
 import Lobby from "./component/Lobby/Lobby";
 import ErrorMessage from "./modules/ErrorMessage/ErrorMessage";
 import Parameters from "./component/Parameters/Parameters";
-import Music from "./component/Parameters/Music";
 import "./App.css";
 
 export const ServerContext = React.createContext<Server>(null!);
@@ -52,7 +51,6 @@ const MainApp = () => {
                 <></>
             )}
             <ErrorMessage />
-            <Music />
         </>
     );
 };
