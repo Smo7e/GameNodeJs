@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Message Component renders correctly with message and name props 1`] = `
+<DocumentFragment>
+  <div
+    class="Message-Container"
+  >
+    <div
+      class="message-name"
+    >
+      John Doe: 
+    </div>
+    <div
+      class="message"
+    >
+       Hello world! 
+    </div>
+  </div>
+</DocumentFragment>
+`;

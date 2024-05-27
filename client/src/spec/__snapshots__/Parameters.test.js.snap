@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Parameters snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="container-parameters"
+  >
+    <button
+      class="arrow-parameters"
+    />
+    <div
+      class="rectangle"
+    >
+      <div
+        class="inner-rectangle"
+      >
+        <div
+          class="line"
+        />
+        <div
+          class="text-container"
+        >
+          <div
+            class="text"
+          >
+            Громкость звуков
+          </div>
+          <div
+            class="volume-line"
+          >
+            <input
+              class="volume-slider"
+              max="100"
+              min="0"
+              type="range"
+              value="60"
+            />
+          </div>
+          <div
+            class="numbersZ"
+          >
+            60
+          </div>
+          <div
+            class="text"
+          >
+            Громкость музыки
+          </div>
+          <div>
+            <input
+              class="lineM"
+              max="100"
+              min="0"
+              type="range"
+              value="77"
+            />
+          </div>
+          <div
+            class="numbersM"
+          >
+            77
+          </div>
+          <div
+            class="text"
+          >
+            Полноэкранный режим
+          </div>
+          <div
+            class="second-rectangle"
+          >
+            <div
+              class="left-side active"
+            >
+              Выкл
+            </div>
+            <div
+              class="right-side "
+            >
+              Вкл
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

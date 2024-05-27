@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SignUp snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="container-SignUp"
+    id="test-container-SignUp"
+  >
+    <img
+      class="logo-SignUp"
+      id="test-logo-SignUp"
+      src="logo.png"
+    />
+    <div
+      class="text-SignUp"
+      id="test-text-SignUp"
+    >
+      СОЗДАТЬ УЧЕТНУЮ ЗАПИСЬ
+    </div>
+    <div
+      class="form-SignUp"
+    >
+      <div
+        class="text-register"
+        id="test-text-register"
+      >
+        Регистрация
+      </div>
+      <input
+        class="input-SignUp"
+        id="test-input-login"
+        placeholder="Логин"
+      />
+      <input
+        class="input-SignUp"
+        id="test-input-nick"
+        placeholder="Никнейм"
+      />
+      <input
+        class="input-SignUp"
+        id="test-input-password"
+        placeholder="Пароль"
+      />
+      <input
+        class="input-SignUp"
+        id="test-input-verify"
+        placeholder="Подтвердите пароль"
+      />
+      <button
+        class="reg-button"
+        id="test-reg-button"
+      >
+        Регистрация
+      </button>
+      <br />
+      <br />
+      <br />
+      <hr
+        class="hr-SingUp"
+        id="test-hr-SingUp"
+      />
+      <div
+        class="estakk"
+        id="test-estakk"
+      >
+        Уже есть аккаунт
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
