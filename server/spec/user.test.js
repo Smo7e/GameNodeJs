@@ -1,11 +1,17 @@
 const md5 = require("md5");
 const DB = require("../application/modules/db/DB");
+const Chat = require("../application/modules/chat/Chat");
+const Lobby = require("../application/modules/lobby/Lobby");
 const Mediator = require("../application/modules/mediator/Mediator");
 const UserManager = require("../application/modules/user/UserManager");
 const Answer = require("../application/router/Answer");
 const CONFIG = require("../config");
 const express = require("express");
+const {QUESTIONS,ITEMS} = require("./testConfig")
+const { QUESTIONS_PROGRAMMER, QUESTIONS_RUSSIAN, QUESTIONS_MATH  } = QUESTIONS;
 const app = express();
+
+
 
 const server = require("http").createServer(app);
 
@@ -16,11 +22,15 @@ const io = require("socket.io")(server, {
 });
 const { DATABASE, MEDIATOR } = CONFIG;
 
+
 const db = new DB(DATABASE);
 const answer = new Answer();
 const mediator = new Mediator(MEDIATOR);
 
 const user = new UserManager(answer, db, io, mediator);
+const chat = new Chat(answer, db, io, mediator);
+const lobby = new Lobby(answer, db, io, mediator);
+
 
 describe("Проверка событий пользователя", () => {
     const socketId = "testSocket";
@@ -115,16 +125,31 @@ describe("Проверка событий пользователя", () => {
     test("Получение вопросов для программиста", async () => {
         const getQuestions = await db.getQuestionsProgrammer()
 
-        expect(getQuestions).not.toHaveLength(0);
+        expect(getQuestions).toEqual(QUESTIONS_PROGRAMMER);
+
+    })
+
+    test("Получение вопросов для русского", async () => {
+        const getQuestions = await db.getQuestionsRussian()
+
+        expect(getQuestions).toEqual(QUESTIONS_RUSSIAN);
+    })
+
+    test("Получение вопросов для математики", async () => {
+        const getQuestions = await db.getQuestionsMath()
+
+        expect(getQuestions).toEqual(QUESTIONS_MATH);
     })
 
     test("Проверка на получение предметов", async () => {
         const items = await db.getItems()
-
-        expect(items).not.toHaveLength(0);
+        
+        expect(items).toEqual(ITEMS);
     })
 
-    test("Проверка отправки сообщения", async () => {
+    
+
+    test("Проверка отправки сообщения в БД", async () => {
         const initialMessages = await db.getMessages();
 
         db.sendMessage(1, "Привет");
@@ -168,5 +193,34 @@ describe("Проверка событий пользователя", () => {
       
         const userAfter = await db.getUserByToken(newToken);
         expect(userAfter.token).toBe(newToken);
-      });
+    });
+    // Chat //
+
+    test("Проверка отправки сообщения пользователь", async () => {
+
+        const token = "e5b1f3fa1ee368b38248f4dad09b5bc6";
+        const message = "жома";
+        chat.sendMessage({ token: token, message:message }, socketId)
+
+        const waitTime = new Promise((resolve) => setTimeout(() => resolve(), 3000));
+        const result = await waitTime;
+
+        const messagesProm = await chat.getMessage();
+        const messages = messagesProm.data.messages
+
+        expect (messages[messages.length-1]).toEqual({
+        message: 'жома',
+        name: 'Masha'
+        });
+
+
+
+    });
+
+    // lobby //
+
+    test(" Проверка получения предметав пользователя ", async () => {
+
+    })
+
 });

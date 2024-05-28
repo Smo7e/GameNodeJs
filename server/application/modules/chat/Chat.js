@@ -15,6 +15,7 @@ class Chat {
 
     async sendMessage({ token, message }, socket) {
         if (token && message) {
+
             const user = await this.db.getUserByToken(token);
             if (user) {
                 this.db.sendMessage(user.id, message);
