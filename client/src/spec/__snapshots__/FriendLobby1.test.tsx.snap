@@ -1,3 +1,83 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`FriendLobby1 component FriendLobby1 snapshot gamerNumber 0 1`] = `
+<DocumentFragment>
+  <button
+    class="arrow-2Friend1"
+  />
+  <button
+    class="arrow-3Friend1"
+  />
+  <div
+    class="image-Sportik1"
+  >
+    <button
+      class="button"
+    >
+      &lt;Спортик&gt;
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`FriendLobby1 component FriendLobby1 snapshot gamerNumber 1 1`] = `
+<DocumentFragment>
+  <button
+    class="arrow-2Friend1"
+  />
+  <button
+    class="arrow-3Friend1"
+  />
+  <div
+    class="image-Sportik1"
+  >
+    <button
+      class="button"
+    >
+      &lt;Спортик&gt;
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`FriendLobby1 component FriendLobby1 snapshot gamerNumber 2 1`] = `
+<DocumentFragment>
+  <button
+    class="arrow-2Friend1"
+  />
+  <button
+    class="arrow-3Friend1"
+  />
+  <div
+    class="image-Sportik1"
+  >
+    <button
+      class="button"
+    >
+      &lt;Спортик&gt;
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`FriendLobby1 component renders correctly with Admin post and gamers length <= 2 1`] = `
+<DocumentFragment>
+  <button
+    class="arrow-2Friend1"
+  />
+  <button
+    class="arrow-3Friend1"
+  />
+  <div
+    class="image-Sportik1"
+  >
+    <button
+      class="button"
+    >
+      &lt;Спортик&gt;
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`FriendLobby1 snapshot 1`] = `<DocumentFragment />`;
