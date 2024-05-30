@@ -1,3 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Addafriend1Lobby snapshot 1`] = `<DocumentFragment />`;
+exports[`Addafriend1Lobby snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="addafriend"
+  >
+    <div
+      style="display: flex;"
+    >
+      <div
+        class="plays"
+      >
+        Friend 1
+      </div>
+      <button
+        class="plus"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;

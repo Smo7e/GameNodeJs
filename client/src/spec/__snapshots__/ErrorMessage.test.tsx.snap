@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`ErrorMessage Component hides after 10 seconds 1`] = `<DocumentFragment />`;
-
-exports[`ErrorMessage Component renders correctly with error and is visible 1`] = `<DocumentFragment />`;
-
-exports[`ErrorMessage Component renders correctly with null error 1`] = `<DocumentFragment />`;
