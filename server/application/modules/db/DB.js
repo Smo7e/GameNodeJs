@@ -56,6 +56,7 @@ class DB {
     ///Lobby///
     async getItems() {
         return this.orm.all("items");
+
     }
 
     async addFriend(user_id, friend_id) {
