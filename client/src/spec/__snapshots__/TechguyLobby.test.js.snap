@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TechguyLobby snapshot with gamerNumber 0 1`] = `
+<DocumentFragment>
+  <div>
+    <button
+      class="arrow-2"
+    />
+    <button
+      class="arrow-3"
+    />
+    <div
+      class="image-techguy"
+    >
+      <button
+        class="button"
+      >
+        &lt;Технарь&gt;
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`TechguyLobby snapshot with gamerNumber 1 1`] = `
+<DocumentFragment>
+  <div>
+    <button
+      class="arrow-2Friend1"
+    />
+    <button
+      class="arrow-3Friend1"
+    />
+    <div
+      class="image-techguy1"
+    >
+      <button
+        class="button"
+      >
+        &lt;Технарь&gt;
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`TechguyLobby snapshot with gamerNumber 2 1`] = `
+<DocumentFragment>
+  <div>
+    <button
+      class="arrow-2Friend2"
+    />
+    <button
+      class="arrow-3Friend2"
+    />
+    <div
+      class="image-techguy2"
+    >
+      <button
+        class="button"
+      >
+        &lt;Технарь&gt;
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;

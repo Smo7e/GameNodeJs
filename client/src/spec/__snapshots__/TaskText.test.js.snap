@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TaskText snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="tasktext-Container"
+  >
+    <div
+      class="tasktext-timer"
+    >
+      00 : 00
+    </div>
+    <div
+      class="tasktext-question"
+    >
+      Вопросы?
+    </div>
+    <input
+      class="tasktext-input"
+      placeholder="Ответить"
+    />
+    <div
+      class="tasktext-answer"
+    >
+      Ответ
+    </div>
+  </div>
+</DocumentFragment>
+`;

@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Win snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="image-win"
+  />
+  <div
+    class="text-win"
+  >
+    ПОБЕДА
+  </div>
+  <div
+    class="text-win-1"
+  >
+    Поздравляю, ты закрыл долги
+  </div>
+  <div
+    class="text-win-2"
+  >
+    Добро пожаловать в успешную жизнь
+  </div>
+</DocumentFragment>
+`;
