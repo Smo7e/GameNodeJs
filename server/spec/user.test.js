@@ -181,23 +181,15 @@ describe("Проверка событий пользователя", () => {
     // Chat //
 
     test("Проверка отправки сообщения пользователь", async () => {
-        const token = "e5b1f3fa1ee368b38248f4dad09b5bc6";
+        const token = "763e9137d4f852e5bdc1d6dc9221badb";
         const message = "жома";
-        chat.sendMessage({ token: token, message: message }, socketId);
-
-        const waitTime = new Promise((resolve) => setTimeout(() => resolve(), 3000));
-        const result = await waitTime;
-
+        await chat.sendMessage({ token: token, message: message }, socketId);
         const messagesProm = await chat.getMessage();
         const messages = messagesProm.data.messages;
 
         expect(messages[messages.length - 1]).toEqual({
             message: "жома",
-            name: "Masha",
+            name: "Petya Petroff",
         });
     });
-
-    // lobby //
-
-    test(" Проверка получения предметав пользователя ", async () => {});
 });
