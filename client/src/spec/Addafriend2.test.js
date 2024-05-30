@@ -13,7 +13,7 @@ test("Addafriend2Lobby snapshot", () => {
     const { asFragment } = render(
         <MediatorContext.Provider value={mediator}>
             <ServerContext.Provider value={server}>
-                {/* <Addafriend2Lobby friends={friends} userId={2} /> */}
+                <Addafriend2Lobby friends={friends} userId={2} />
             </ServerContext.Provider>
         </MediatorContext.Provider>
     );
