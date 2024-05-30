@@ -75,7 +75,6 @@ describe("Проверка событий пользователя", () => {
         await user.addFriend({ token: token, friend_id: 2 }, socketId);
 
         const friends = await db.getFriends(id);
-        console.log(friends);
 
         expect(friends).toEqual([{ id: 2, name: "Petya Petroff" }]);
     });
