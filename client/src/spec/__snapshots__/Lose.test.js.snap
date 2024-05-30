@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Lose snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="image-lose"
+  />
+  <div
+    class="text-lose"
+  >
+    ПОРАЖЕНИЕ
+  </div>
+  <div
+    class="text-lose-1"
+  >
+    Поздравляю, ты отчислен
+  </div>
+  <div
+    class="text-lose-2"
+  >
+    Добро пожаловать в армию
+  </div>
+</DocumentFragment>
+`;

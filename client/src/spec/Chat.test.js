@@ -7,6 +7,7 @@ import { HOST, MEDIATOR } from "../config";
 const store = new Store();
 const mediator = new Mediator(MEDIATOR);
 const server = new Server(HOST, mediator, store);
+
 test("Chat snapshot", () => {
     const { asFragment } = render(
         <MediatorContext.Provider value={mediator}>
@@ -18,3 +19,4 @@ test("Chat snapshot", () => {
 
     expect(asFragment()).toMatchSnapshot();
 });
+

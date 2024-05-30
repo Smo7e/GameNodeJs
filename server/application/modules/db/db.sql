@@ -225,7 +225,7 @@ CREATE TABLE users (
 
 INSERT INTO users (login, password, name, token) VALUES
 ('vasya', '4a2d247d0c05a4f798b0b03839d94cf0', 'Vasya Ivanoff', '5c0e79a2a36184de2d7d6d1d189d365e'),
-('petya', '123', 'Petya Petroff', NULL),
+('petya', '123', 'Petya Petroff', '763e9137d4f852e5bdc1d6dc9221badb'),
 ('masha', 'ebf191604221bd6bc7af3f959d41b5eb', 'Masha', 'e5b1f3fa1ee368b38248f4dad09b5bc6'),
 ('1', 'c51ce410c124a10e0db5e4b97fc2af39', '2', NULL),
 ('12', '78bf4f00f81a36b57950e239f1df91c1', '12', NULL),

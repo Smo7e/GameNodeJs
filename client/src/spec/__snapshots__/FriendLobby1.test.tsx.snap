@@ -17,7 +17,7 @@ exports[`FriendLobby1 component FriendLobby1 snapshot gamerNumber 0 1`] = `
       &lt;Спортик&gt;
     </button>
   </div>
-</DocumentFragment>
+<DocumentFragment/>
 `;
 
 exports[`FriendLobby1 component FriendLobby1 snapshot gamerNumber 1 1`] = `
