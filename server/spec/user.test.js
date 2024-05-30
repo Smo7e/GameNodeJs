@@ -75,7 +75,6 @@ describe("Проверка событий пользователя", () => {
         await user.addFriend({ token: token, friend_id: 2 }, socketId);
 
         const friends = await db.getFriends(id);
-        console.log(friends);
 
         expect(friends).toEqual([{ id: 2, name: "Petya Petroff" }]);
     });
@@ -120,13 +119,25 @@ describe("Проверка событий пользователя", () => {
     test("Получение вопросов для программиста", async () => {
         const getQuestions = await db.getQuestionsProgrammer();
 
-        expect(getQuestions).not.toHaveLength(0);
+        expect(getQuestions).toEqual(QUESTIONS_PROGRAMMER);
+    });
+
+    test("Получение вопросов для русского", async () => {
+        const getQuestions = await db.getQuestionsRussian();
+
+        expect(getQuestions).toEqual(QUESTIONS_RUSSIAN);
+    });
+
+    test("Получение вопросов для математики", async () => {
+        const getQuestions = await db.getQuestionsMath();
+
+        expect(getQuestions).toEqual(QUESTIONS_MATH);
     });
 
     test("Проверка на получение предметов", async () => {
         const items = await db.getItems();
 
-        expect(items).not.toHaveLength(0);
+        expect(items).toEqual(ITEMS);
     });
 
     test("Проверка отправки сообщения в БД", async () => {
@@ -166,5 +177,19 @@ describe("Проверка событий пользователя", () => {
 
         const userAfter = await db.getUserByToken(newToken);
         expect(userAfter.token).toBe(newToken);
+    });
+    // Chat //
+
+    test("Проверка отправки сообщения пользователь", async () => {
+        const token = "763e9137d4f852e5bdc1d6dc9221badb";
+        const message = "жома";
+        await chat.sendMessage({ token: token, message: message }, socketId);
+        const messagesProm = await chat.getMessage();
+        const messages = messagesProm.data.messages;
+
+        expect(messages[messages.length - 1]).toEqual({
+            message: "жома",
+            name: "Petya Petroff",
+        });
     });
 });

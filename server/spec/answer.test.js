@@ -9,7 +9,6 @@ describe("Проверка ответов", () => {
 
     test("Проверка ложного ответа", () => {
         const result = answer.bad(9000);
-        console.log(result);
         expect(result).toEqual({
             result: "error",
             error: { code: 9000, text: "Неопределенная ошибка" },
