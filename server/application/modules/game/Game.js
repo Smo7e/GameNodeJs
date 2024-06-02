@@ -29,6 +29,7 @@ class Game {
             socket.on("IMMORTALITY", (data) => this.immortality(data, socket));
             socket.on("ONESHOT", (data) => this.oneShot(data, socket));
             socket.on("ADD_HP_GAMER", (data) => this.addHpGamer(data, socket));
+            socket.on("CALCDISTANCE", (data) => this.calcDisctance(data, socket));
 
             socket.on("UPDATE_ARR_BULLET_TRAJECTORY", (data) => this.updateArrBulletTrajectory(data, socket));
         });
