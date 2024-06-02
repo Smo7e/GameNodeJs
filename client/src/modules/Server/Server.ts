@@ -267,7 +267,10 @@ export default class Server {
         });
     }
     oneShot() {
-        this.socket.emit("ONESHOT", { mobName: "trusov", lobbyName: this.store.get(VARIABLE.LOBBYNAME) });
+        this.socket.emit("ONESHOT", {
+            mobName: this.store.get(VARIABLE.CURRENTMOB).mobName,
+            lobbyName: this.store.get(VARIABLE.LOBBYNAME),
+        });
     }
     calcDistance() {
         this.socket.emit("CALCDISTANCE", { mobName: "trusov", lobbyName: this.store.get(VARIABLE.LOBBYNAME) });
