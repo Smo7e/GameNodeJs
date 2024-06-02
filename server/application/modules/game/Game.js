@@ -30,11 +30,26 @@ class Game {
             socket.on("ONESHOT", (data) => this.oneShot(data, socket));
             socket.on("ADD_HP_GAMER", (data) => this.addHpGamer(data, socket));
             socket.on("CALCDISTANCE", (data) => this.calcDisctance(data, socket));
+            socket.on("KILL_ON_R", (data) => this.killOnR(data, socket));
 
             socket.on("UPDATE_ARR_BULLET_TRAJECTORY", (data) => this.updateArrBulletTrajectory(data, socket));
         });
         const { TEST } = this.mediator.getEventTypes();
         //this.mediator.subscribe(TEST, (data) => console.log(data));
+    }
+    killOnR({ lobbyName }, socket) {
+        const player = this.lobbies[lobbyName].players[socket.id];
+        const mobsArr = Object.keys(this.lobbies[lobbyName].mobs);
+        const x0 = player.x;
+        const y0 = player.y;
+        const r = 5;
+        mobsArr.forEach((mobsName) => {
+            const xM = this.lobbies[lobbyName].mobs[mobsName].x;
+            const yM = this.lobbies[lobbyName].mobs[mobsName].y;
+            if (Math.pow(xM - x0, 2) + Math.pow(yM - y0, 2) <= r * r) {
+                this.lobbies[lobbyName].mobs[mobsName].hp = 0;
+            }
+        });
     }
 
     addHpGamer({ lobbyName }, socket) {

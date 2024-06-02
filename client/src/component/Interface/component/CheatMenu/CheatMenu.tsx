@@ -35,6 +35,7 @@ const CheatMenu: React.FC = memo(() => {
             <button onClick={() => server.oneShot()}>ебнуть босса 1 кликом</button>
             <button onClick={() => server.calcDistance()}>посчитать дистанцию до трусова</button>
             <button onClick={() => server.addHpGamer()}>добавить хп</button>
+            <button onClick={() => server.killOnR()}>Убить по радиусу</button>
         </div>
     );
 });

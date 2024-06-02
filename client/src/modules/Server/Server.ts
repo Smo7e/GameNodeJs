@@ -278,4 +278,9 @@ export default class Server {
     addHpGamer() {
         this.socket.emit("ADD_HP_GAMER", { lobbyName: this.store.get(VARIABLE.LOBBYNAME) });
     }
+    killOnR() {
+        this.socket.emit("KILL_ON_R", {
+            lobbyName: this.store.get(VARIABLE.LOBBYNAME),
+        });
+    }
 }
