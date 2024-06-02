@@ -32,6 +32,9 @@ const CheatMenu: React.FC = memo(() => {
             <button onClick={updateHpHandler}>Нанести урон персонажу</button>
             <button onClick={() => server.updateHpMobs()}>Нанести урон мобу</button>
             <button onClick={() => server.immortality()}>Включить бесмертие</button>
+            <button onClick={() => server.oneShot()}>ебнуть босса 1 кликом</button>
+            <button onClick={() => server.calcDistance()}>посчитать дистанцию до трусова</button>
+            <button onClick={() => server.addHpGamer()}>добавить хп</button>
         </div>
     );
 });

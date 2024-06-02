@@ -74,7 +74,7 @@ class UserManager {
         if (user) {
             if (await user.logout(token)) {
                 delete this.users[socketId];
-                this.io.to(socketId).emit("LOGOUT", this.answer.good("ok"));
+                this.io.to(socketId).emit("LOGOUT", this.answer.good());
                 return;
             }
             this.io.to(socketId).emit("LOGOUT", this.answer.bad());

@@ -27,11 +27,47 @@ class Game {
 
             // immortality IMMORTALITY
             socket.on("IMMORTALITY", (data) => this.immortality(data, socket));
+            socket.on("ONESHOT", (data) => this.oneShot(data, socket));
+            socket.on("ADD_HP_GAMER", (data) => this.addHpGamer(data, socket));
 
             socket.on("UPDATE_ARR_BULLET_TRAJECTORY", (data) => this.updateArrBulletTrajectory(data, socket));
         });
         const { TEST } = this.mediator.getEventTypes();
         //this.mediator.subscribe(TEST, (data) => console.log(data));
+    }
+
+    addHpGamer({ lobbyName }, socket) {
+        if (lobbyName) {
+            this.lobbies[lobbyName].players[socket.id].hp += 5;
+            this.getGamers({ lobbyName }, socket);
+
+            return;
+        }
+        this.io.to(lobbyName).emit("ADD_HP_GAMER", this.answer.bad());
+    }
+    calcDisctance({ mobName, lobbyName }, socket) {
+        if (mobName && lobbyName) {
+            const player = this.lobbies[lobbyName].players[socket.id];
+            const mob = this.lobbies[lobbyName].mobs[mobName];
+            const x1 = player.x;
+            const y1 = player.y;
+            const x2 = mob.x;
+            const y2 = mob.y;
+
+            const distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+            this.io.to(lobbyName).emit("CALCDISTANCE", this.answer.good(distance));
+
+            return;
+        }
+        this.io.to(lobbyName).emit("CALCDISTANCE", this.answer.bad());
+    }
+    oneShot({ mobName, lobbyName }, socket) {
+        if (mobName && lobbyName) {
+            this.lobbies[lobbyName].mobs[mobName].hp = 0;
+            this.io.to(lobbyName).emit("ONESHOT", this.answer.good("zaebisь"));
+            return;
+        }
+        this.io.to(lobbyName).emit("ONESHOT", this.answer.bad());
     }
     immortality({ lobbyName, mobName }, socket) {
         if (this.lobbies[lobbyName].mobs[mobName].damage) {
@@ -69,6 +105,7 @@ class Game {
     async getQuestionsMath({ lobbyName }, socket) {
         this.io.to(lobbyName).emit("GET_QUESTIONS_MATH", this.answer.good(await this.db.getQuestionsMath()));
     }
+
     move({ token, x, y, lobbyName }, socket) {
         if (token && `${x}` && `${y}` && lobbyName) {
             this.lobbies[lobbyName].players[socket.id].x = x;

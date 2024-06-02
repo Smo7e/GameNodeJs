@@ -7,7 +7,6 @@ import {
     TAnswer,
     TMessages,
     TGamer,
-    TMob,
     TInvites,
     TFriend,
     TQuestion,
@@ -39,6 +38,14 @@ export default class Server {
                     const { LOGIN } = this.mediator.getEventTypes();
                     this.mediator.call(LOGIN, result);
                 }
+            });
+            this.socket.on("ONESHOT", (data: TAnswer<string>): void => {
+                const result = this._validate(data);
+                console.log(result);
+            });
+            this.socket.on("CALCDISTANCE", (data: TAnswer<string>): void => {
+                const result = this._validate(data);
+                console.log(result);
             });
 
             this.socket.on("SIGNUP", (data: TAnswer<string>): void => {
@@ -258,5 +265,14 @@ export default class Server {
             lobbyName: this.store.get(VARIABLE.LOBBYNAME),
             mobName: this.store.get(VARIABLE.CURRENTMOB).mobName,
         });
+    }
+    oneShot() {
+        this.socket.emit("ONESHOT", { mobName: "trusov", lobbyName: this.store.get(VARIABLE.LOBBYNAME) });
+    }
+    calcDistance() {
+        this.socket.emit("CALCDISTANCE", { mobName: "trusov", lobbyName: this.store.get(VARIABLE.LOBBYNAME) });
+    }
+    addHpGamer() {
+        this.socket.emit("ADD_HP_GAMER", { lobbyName: this.store.get(VARIABLE.LOBBYNAME) });
     }
 }
