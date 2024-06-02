@@ -10,6 +10,7 @@ class Game {
         }
 
         this.lobbies = {};
+        this.canUpdateArrBulletFlag = true;
 
         io.on("connection", (socket) => {
             socket.on("CREATE_LOBBY", (data) => this.createLobby(data, socket));
@@ -31,11 +32,26 @@ class Game {
             socket.on("ADD_HP_GAMER", (data) => this.addHpGamer(data, socket));
             socket.on("CALCDISTANCE", (data) => this.calcDisctance(data, socket));
             socket.on("KILL_ON_R", (data) => this.killOnR(data, socket));
-
             socket.on("UPDATE_ARR_BULLET_TRAJECTORY", (data) => this.updateArrBulletTrajectory(data, socket));
+            socket.on("CAN_UPDATE_ARR_BULLET", (data) => this.canUpdateArrBullet(data, socket));
+            socket.on("POISON_TEST", (data) => this.poisonTest(data, socket));
+            socket.on("STOP_BOSS", (data) => this.stopBoss(data, socket));
         });
         const { TEST } = this.mediator.getEventTypes();
         //this.mediator.subscribe(TEST, (data) => console.log(data));
+    }
+    stopBoss({ lobbyName, timerInTheStop }, socket) {
+        if (lobbyName) {
+            this.io.to(lobbyName).emit("STOP_BOSS", this.answer.good());
+            setTimeout(() => {
+                this.io.to(lobbyName).emit("STOP_BOSS", this.answer.good());
+            }, timerInTheStop * 1000);
+            return;
+        }
+        this.io.to(lobbyName).emit("STOP_BOSS", this.answer.bad());
+    }
+    canUpdateArrBullet({ lobbyName }, socket) {
+        this.canUpdateArrBulletFlag = !this.canUpdateArrBulletFlag;
     }
     killOnR({ lobbyName }, socket) {
         const player = this.lobbies[lobbyName].players[socket.id];
@@ -239,8 +255,21 @@ class Game {
     }
 
     updateArrBulletTrajectory({ lobbyName, newArrBulletTrajectory }, socket) {
-        //this.lobbies[lobbyName].arrBulletTrajectory = newArrBulletTrajectory;
+        if (!this.canUpdateArrBulletFlag) return;
         this.io.to(lobbyName).emit("UPDATE_ARR_BULLET_TRAJECTORY", this.answer.good(newArrBulletTrajectory));
+    }
+
+    poisonTest({ lobbyName }, socket) {
+        const player = this.lobbies[lobbyName].players[socket.id];
+        let time = 0;
+        const timerId = setInterval(() => {
+            player.hp -= 2;
+            time += 1;
+            this.getGamers({ lobbyName }, socket);
+            if (time === 5) {
+                clearInterval(timerId);
+            }
+        }, 1000);
     }
 }
 module.exports = Game;

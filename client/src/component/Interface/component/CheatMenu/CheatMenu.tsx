@@ -7,6 +7,7 @@ import { TGamer } from "../../../../modules/Server/types";
 const CheatMenu: React.FC = memo(() => {
     const server = useContext(ServerContext);
     const store = useContext(StoreContext);
+    const stopBossRef = useRef<HTMLInputElement>(null);
 
     const gamers: TGamer[] = store.get(VARIABLE.GAMERS);
     let gamerName: string | null = gamers[0].name;
@@ -17,6 +18,11 @@ const CheatMenu: React.FC = memo(() => {
     const updateHpHandler = () => {
         if (gamerName) {
             server.updateHp(gamerName);
+        }
+    };
+    const bossHandler = () => {
+        if (stopBossRef.current?.value) {
+            server.stopBoss(stopBossRef.current?.value);
         }
     };
     return (
@@ -36,6 +42,11 @@ const CheatMenu: React.FC = memo(() => {
             <button onClick={() => server.calcDistance()}>посчитать дистанцию до трусова</button>
             <button onClick={() => server.addHpGamer()}>добавить хп</button>
             <button onClick={() => server.killOnR()}>Убить по радиусу</button>
+            <button onClick={() => server.canArrBulletUpdate()}>Запретить пидору стрИлять</button>
+            <button onClick={() => server.poisonTest()}>ЕБАТЬ МЕНЯ ОТРАВИЛИ</button>
+            <button onClick={bossHandler}>Блять словил капкан</button>
+            <div>На сколкьо поставить блядский капкан</div>
+            <input ref={stopBossRef} defaultValue={5} type="number" />
         </div>
     );
 });

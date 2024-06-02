@@ -80,7 +80,7 @@ const Interface: React.FC = () => {
 
     return (
         <div className="Interface-container">
-            <Music />
+            {/* <Music /> */}
             <div className="back-arrow-interface"></div>
             <div onClick={handleSettingsClick} className="settings-arrow-interface"></div>
             {showParametersGame && (

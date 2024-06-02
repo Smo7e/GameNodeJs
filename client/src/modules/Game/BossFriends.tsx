@@ -48,6 +48,7 @@ const BossFriends: React.FC = () => {
         if (bossCoord.y + eps >= mobs[ETEACHERS.TRUSOV].y - 0 && bossCoord.y - eps <= mobs[ETEACHERS.TRUSOV].y - 0) {
             move.y = 0;
         }
+
         let direction = moveDown;
 
         if (

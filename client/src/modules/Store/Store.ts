@@ -14,6 +14,7 @@ export enum VARIABLE {
     QUESTIONSRUSSIAN = "questionsRussian",
     QUESTIONSMATH = "questionsMath",
     CURRENTMOB = "currentMob",
+    CANMOVEMOB = "canMoveMob",
 }
 interface IVariable {
     user: TUserFull | null;
@@ -45,6 +46,7 @@ export default class Store {
             questionsRussian: null,
             questionsMath: null,
             currentMob: null,
+            canMoveMob: true,
         };
     }
     get(name: VARIABLE) {

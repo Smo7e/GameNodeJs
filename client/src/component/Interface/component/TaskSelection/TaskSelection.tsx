@@ -77,7 +77,7 @@ const TaskSelection: React.FC<ITaskSelectionProps> = memo(({ mobName }) => {
         question = questions[mathCalc.rndNumber(0, questions.length - 1)];
         canAnswer = true;
         containerRef.current!.style.visibility = "visible";
-        timer = 15;
+        timer = -Infinity;
         taskTimer = 5;
         if (
             questionRef.current &&

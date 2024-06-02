@@ -143,6 +143,14 @@ export default class Server {
                     this.mediator.call(UPDATE_ARR_BULLET_TRAJECTORY, result);
                 }
             });
+            this.socket.on("STOP_BOSS", (data: TAnswer<TArrBullet>): void => {
+                const result = this._validate(data);
+                if (result) {
+                    this.store.update(VARIABLE.CANMOVEMOB, !this.store.get(VARIABLE.CANMOVEMOB));
+                    return;
+                }
+                console.log("пошел нахуй");
+            });
         });
     }
     private _validate<T>(data: TAnswer<T>): T | null {
@@ -272,15 +280,28 @@ export default class Server {
             lobbyName: this.store.get(VARIABLE.LOBBYNAME),
         });
     }
-    calcDistance() {
-        this.socket.emit("CALCDISTANCE", { mobName: "trusov", lobbyName: this.store.get(VARIABLE.LOBBYNAME) });
-    }
     addHpGamer() {
         this.socket.emit("ADD_HP_GAMER", { lobbyName: this.store.get(VARIABLE.LOBBYNAME) });
     }
+    calcDistance() {
+        this.socket.emit("CALCDISTANCE", { mobName: "trusov", lobbyName: this.store.get(VARIABLE.LOBBYNAME) });
+    }
+
     killOnR() {
         this.socket.emit("KILL_ON_R", {
             lobbyName: this.store.get(VARIABLE.LOBBYNAME),
+        });
+    }
+    canArrBulletUpdate() {
+        this.socket.emit("CAN_UPDATE_ARR_BULLET", { lobbyName: this.store.get(VARIABLE.LOBBYNAME) });
+    }
+    poisonTest() {
+        this.socket.emit("POISON_TEST", { lobbyName: this.store.get(VARIABLE.LOBBYNAME) });
+    }
+    stopBoss(timerInTheStop: any) {
+        this.socket.emit("STOP_BOSS", {
+            lobbyName: this.store.get(VARIABLE.LOBBYNAME),
+            timerInTheStop: timerInTheStop - 0,
         });
     }
 }

@@ -105,11 +105,16 @@ const Boss: React.FC<IBossProps> = memo(({ mobName }) => {
         if (bossCoord.y + eps >= newPosition.y && bossCoord.y - eps <= newPosition.y) {
             move.y = 0;
         }
+        if (!store.get(VARIABLE.CANMOVEMOB)) {
+            move.x = 0;
+            move.y = 0;
+        }
 
         distances = Math.sqrt(Math.pow(bossCoord.x - newPosition.x, 2) + Math.pow(bossCoord.y - newPosition.y, 2));
         if (distances < 0.06) {
             canPosition = 1;
         }
+
         bossRef.current.setLinvel(move, true);
         //куда смотрит препод
 
