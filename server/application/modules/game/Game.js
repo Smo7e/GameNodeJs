@@ -29,10 +29,29 @@ class Game {
             socket.on("IMMORTALITY", (data) => this.immortality(data, socket));
 
             socket.on("UPDATE_ARR_BULLET_TRAJECTORY", (data) => this.updateArrBulletTrajectory(data, socket));
+
+               //********SEND_HEART**************
+               socket.on("SEND_HEART", (data) => this.sendheart(data, socket));
+               //******************************************************************* */
         });
         const { TEST } = this.mediator.getEventTypes();
         //this.mediator.subscribe(TEST, (data) => console.log(data));
     }
+
+//*********** */ SEND_HEART*************
+sendheart({ lobbyName, message }, socket) {
+    if (this.lobbies[lobbyName]) {
+        Object.keys(this.lobbies[lobbyName].players).forEach((playerSocketId) => {
+            if (playerSocketId !== socket.id) {
+                this.io.to(playerSocketId).emit("SEND_HEART", { message });
+            }
+        });
+    } else {
+        socket.emit("ERROR", { code: 1001, message: "player does not exist" });
+    }
+}
+
+
     immortality({ lobbyName, mobName }, socket) {
         if (this.lobbies[lobbyName].mobs[mobName].damage) {
             this.lobbies[lobbyName].mobs[mobName].damage = 0;

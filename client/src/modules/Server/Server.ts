@@ -41,6 +41,22 @@ export default class Server {
                 }
             });
 
+            // / *************SEND_HEART****************///
+            this.socket.on("SEND_HEART", (data: TAnswer<string>): void => {
+                const result = this._validate(data);
+                if (result) {
+                    this.sendheart(result);
+                    console.log("heart")
+
+                }
+            });
+            ////************************************************************** */
+
+
+
+
+
+
             this.socket.on("SIGNUP", (data: TAnswer<string>): void => {
                 const result = this._validate(data);
                 if (result) {
@@ -146,6 +162,14 @@ export default class Server {
         this.mediator.call<TError>(SERVER_ERROR, data.error);
         return null;
     }
+
+//*******SEND_HEART */
+sendheart(message: string): void {
+    this.socket.emit("SEND_HEART", { token: this.token, message });
+}
+
+//************************************************************* */
+
     login(login: string, hash: string, rnd: number): void {
         if (this.useMocks) {
             this.socket.emit("LOGIN", mocks.login);
